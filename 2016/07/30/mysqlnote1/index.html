@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/07/30/mysqlnote1/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="mysql实用操作在这里介绍一些 mysql 数据库的 实用操作由于处于初级阶段可能会比较潦草 带后期完善">
-<meta property="og:updated_time" content="2016-07-30T13:39:56.336Z">
+<meta property="og:updated_time" content="2016-07-30T13:50:18.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql的使用操作">
 <meta name="twitter:description" content="mysql实用操作在这里介绍一些 mysql 数据库的 实用操作由于处于初级阶段可能会比较潦草 带后期完善">
@@ -91,13 +91,21 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#登录mysql"><span class="toc-number">1.</span> <span class="toc-text">登录mysql</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql-用户处理"><span class="toc-number">1.</span> <span class="toc-text">mysql   用户处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#登录mysql"><span class="toc-number">1.1.</span> <span class="toc-text">登录mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建新的用户demo"><span class="toc-number">1.2.</span> <span class="toc-text">创建新的用户demo</span></a></li></ol></li></ol>
 		
 		</div>
 		
 		<p><strong>mysql实用操作</strong><br><em>在这里介绍一些 mysql 数据库的 实用操作</em><br>由于处于初级阶段可能会比较潦草 带后期完善</p>
 <a id="more"></a>
-<h1 id="登录mysql"><a href="#登录mysql" class="headerlink" title="登录mysql"></a>登录mysql</h1> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;mysql -u 用户名 -p          #例如:   &gt;mysql -u root -p</div><div class="line"></div><div class="line"> #这时会要求输入密码</div><div class="line"></div><div class="line"> Enter password:   密码      #在这里输入用户密码</div><div class="line"></div><div class="line"> #输入正确便会进入mysql.</div></pre></td></tr></table></figure>  
+<h1 id="mysql-用户处理"><a href="#mysql-用户处理" class="headerlink" title="mysql   用户处理"></a>mysql   用户处理</h1><h2 id="登录mysql"><a href="#登录mysql" class="headerlink" title="登录mysql"></a>登录mysql</h2> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;mysql -u 用户名 -p          #例如:   &gt;mysql -u root -p</div><div class="line"></div><div class="line"> #这时会要求输入密码</div><div class="line"></div><div class="line"> Enter password:   密码      #在这里输入用户密码</div><div class="line"></div><div class="line"> #输入正确便会进入mysql.</div></pre></td></tr></table></figure>
+<h2 id="创建新的用户demo"><a href="#创建新的用户demo" class="headerlink" title="创建新的用户demo"></a>创建新的用户demo</h2><p>以用户名为zouuser,密码为zoupass做的demo<br>　　1、新建用户：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;CREATE USER &apos;zouuser&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;zoupass&apos;; # zouuser 用户名  zoupass 密码</div><div class="line">&gt;insert into mysql.user(Host,User,Password)values(&apos;locahost&apos;,&apos;zouuser&apos;,password(&apos;zoupass&apos;));  #这样也行</div></pre></td></tr></table></figure></p>
+<p>　　2、更改密码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　　　[root@localhost ~] #mysqladmin -u root  -p  password  123456 #password 后跟的是要更新的新密码</div><div class="line">```       Enter password:(输入原始密码，回车即可)</div><div class="line"></div><div class="line">　　3、权限管理</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p> show grants for ‘zouuser’@’localhost’;  //查看zou用户权限</p>
+<p>grant all privileges on <em>.</em> to zouuser@localhost identified by ‘zoupass’;   //给所有权限</p>
+<p>revoke all on <em>.</em> from zouuser@localhost;　　　　//去除所有权限<br>```</p>
+</blockquote>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -151,7 +159,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#登录mysql"><span class="toc-number">1.</span> <span class="toc-text">登录mysql</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql-用户处理"><span class="toc-number">1.</span> <span class="toc-text">mysql   用户处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#登录mysql"><span class="toc-number">1.1.</span> <span class="toc-text">登录mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建新的用户demo"><span class="toc-number">1.2.</span> <span class="toc-text">创建新的用户demo</span></a></li></ol></li></ol>
  
   </div>
 
