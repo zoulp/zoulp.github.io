@@ -11,16 +11,16 @@
     
 
     
-    <meta name="description" content="在这里最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
+    <meta name="description" content="简介最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php 对于redis 的操作">
 <meta property="og:url" content="http://zoulp.github.io/2016/08/07/redisbyphp/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
-<meta property="og:description" content="在这里最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
-<meta property="og:updated_time" content="2016-08-07T14:21:39.891Z">
+<meta property="og:description" content="简介最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
+<meta property="og:updated_time" content="2016-08-07T14:25:19.379Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php 对于redis 的操作">
-<meta name="twitter:description" content="在这里最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
+<meta name="twitter:description" content="简介最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
 
     
     <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
@@ -82,7 +82,7 @@
 		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
 		
   <p class="article-time">
-    <time datetime="2016-08-07T14:21:39.891Z" itemprop="datePublished"> 发表于 2016-08-07</time>
+    <time datetime="2016-08-07T14:25:19.379Z" itemprop="datePublished"> 发表于 2016-08-07</time>
     
   </p>
 </header>
@@ -95,7 +95,7 @@
 		
 		</div>
 		
-		<p><strong>在这里</strong><br><em>最近公司在做项目的时候用到redis</em><br><em>在这里对于php操作redis 做了下整理</em><br><a id="more"></a></p>
+		<p><strong>简介</strong><br><em>最近公司在做项目的时候用到redis</em><br><em>在这里对于php操作redis 做了下整理</em><br><a id="more"></a></p>
 <p> redis的操作很多的，以前看到一个比较全的博客，但是现在找不到了。查个东西搜半天，下面整理一下php处理redis的例子，个人觉得常用一些例子。下面的例子都是基于php-redis这个扩展的。</p>
 <h1 id="connect-连接redis"><a href="#connect-连接redis" class="headerlink" title="connect  连接redis"></a><em>connect</em>  连接redis</h1><p>描述：实例连接到一个Redis.<br>参数：host: string，port: int<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>示例：</p>
 <p>代码如下:</p>
@@ -190,7 +190,8 @@
 <p><strong>smembers, sgetmembers</strong><br>描述：<br>返回集合的内容<br>参数：Key: key<br>返回值：An array of elements, the contents of the set.<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>print_r($redis-&gt;smembers(‘test’));  //结果:Array ( [0] =&gt; 111 [1] =&gt; 222 )<br>?&gt;</p>
-<h1 id="Hash-哈希"><a href="#Hash-哈希" class="headerlink" title="Hash 哈希"></a><em>Hash</em> 哈希</h1><p><strong>hset</strong><br>描述：将哈希表key中的域field的值设为value。如果key不存在，一个新的哈希表被创建并进行HSET操作。如果域field已经存在于哈希表中，旧值将被覆盖。<br>参数：key field value<br>返回值：如果field是哈希表中的一个新建域，并且值设置成功，返回1。如果哈希表中域field已经存在且旧值已被新值覆盖，返回0。<br><strong>hsetnx</strong><br>描述：将哈希表key中的域field的值设置为value，当且仅当域field不存在。若域field已经存在，该操作无效。如果key不存在，一个新哈希表被创建并执行HSETNX命令。<br>参数：key field value<br>返回值：设置成功，返回1。如果给定域已经存在且没有操作被执行，返回0。<br><strong>hget</strong><br>描述：返回哈希表key中给定域field的值。<br>参数：key field<br>返回值：给定域的值。当给定域不存在或是给定key不存在时，返回nil。<br><strong>hmset</strong><br>描述：同时将多个field - value(域-值)对设置到哈希表key中。此命令会覆盖哈希表中已存在的域。如果key不存在，一个空哈希表被创建并执行HMSET操作。<br>参数：key field value [field value …]<br>返回值：如果命令执行成功，返回OK。当key不是哈希表(hash)类型时，返回一个错误。<br><strong>hmget</strong><br>描述:返回哈希表key中，一个或多个给定域的值。如果给定的域不存在于哈希表，那么返回一个nil值。因为不存在的key被当作一个空哈希表来处理，所以对一个不存在的key进行HMGET操作将返回一个只带有nil值的表。<br>参数：key field [field …]<br>返回值：一个包含多个给定域的关联值的表，表值的排列顺序和给定域参数的请求顺序一样。<br><strong>hgetall</strong><br>描述:返回哈希表key中，所有的域和值。在返回值里，紧跟每个域名(field name)之后是域的值(value)，所以返回值的长度是哈希表大小的两倍。<br>参数：key<br>返回值:以列表形式返回哈希表的域和域的值。 若key不存在，返回空列表。<br><strong>hdel</strong><br>描述:删除哈希表key中的一个或多个指定域，不存在的域将被忽略。<br>参数：key field [field …]<br>返回值:被成功移除的域的数量，不包括被忽略的域。<br><strong>hlen</strong><br>描述:返回哈希表key中域的数量。<br>参数：key<br>返回值：哈希表中域的数量。当key不存在时，返回0。<br><strong>hexists</strong><br>描述:查看哈希表key中，给定域field是否存在。<br>参数：key field<br>返回值：如果哈希表含有给定域，返回1。如果哈希表不含有给定域，或key不存在，返回0。<br><strong>hincrby</strong><br>描述:为哈希表key中的域field的值加上增量increment。增量也可以为负数，相当于对给定域进行减法操作。<br>参数：key field increment<br>返回值：执行HINCRBY命令之后，哈希表key中域field的值。<br><strong>hkeys</strong><br>描述:返回哈希表key中的所有域。<br>参数：key<br>返回值：一个包含哈希表中所有域的表。当key不存在时，返回一个空表。<br><strong>hvals</strong><br>描述:返回哈希表key中的所有值。<br>参数：key<br>返回值：一个包含哈希表中所有值的表。当key不存在时，返回一个空表。</p>
+<h1 id="Hash-哈希"><a href="#Hash-哈希" class="headerlink" title="Hash 哈希"></a><em>Hash</em> 哈希</h1><p>常用命令：<br>hget,hset,hgetall 等</p>
+<p><strong>hset</strong><br>描述：将哈希表key中的域field的值设为value。如果key不存在，一个新的哈希表被创建并进行HSET操作。如果域field已经存在于哈希表中，旧值将被覆盖。<br>参数：key field value<br>返回值：如果field是哈希表中的一个新建域，并且值设置成功，返回1。如果哈希表中域field已经存在且旧值已被新值覆盖，返回0。<br><strong>hsetnx</strong><br>描述：将哈希表key中的域field的值设置为value，当且仅当域field不存在。若域field已经存在，该操作无效。如果key不存在，一个新哈希表被创建并执行HSETNX命令。<br>参数：key field value<br>返回值：设置成功，返回1。如果给定域已经存在且没有操作被执行，返回0。<br><strong>hget</strong><br>描述：返回哈希表key中给定域field的值。<br>参数：key field<br>返回值：给定域的值。当给定域不存在或是给定key不存在时，返回nil。<br><strong>hmset</strong><br>描述：同时将多个field - value(域-值)对设置到哈希表key中。此命令会覆盖哈希表中已存在的域。如果key不存在，一个空哈希表被创建并执行HMSET操作。<br>参数：key field value [field value …]<br>返回值：如果命令执行成功，返回OK。当key不是哈希表(hash)类型时，返回一个错误。<br><strong>hmget</strong><br>描述:返回哈希表key中，一个或多个给定域的值。如果给定的域不存在于哈希表，那么返回一个nil值。因为不存在的key被当作一个空哈希表来处理，所以对一个不存在的key进行HMGET操作将返回一个只带有nil值的表。<br>参数：key field [field …]<br>返回值：一个包含多个给定域的关联值的表，表值的排列顺序和给定域参数的请求顺序一样。<br><strong>hgetall</strong><br>描述:返回哈希表key中，所有的域和值。在返回值里，紧跟每个域名(field name)之后是域的值(value)，所以返回值的长度是哈希表大小的两倍。<br>参数：key<br>返回值:以列表形式返回哈希表的域和域的值。 若key不存在，返回空列表。<br><strong>hdel</strong><br>描述:删除哈希表key中的一个或多个指定域，不存在的域将被忽略。<br>参数：key field [field …]<br>返回值:被成功移除的域的数量，不包括被忽略的域。<br><strong>hlen</strong><br>描述:返回哈希表key中域的数量。<br>参数：key<br>返回值：哈希表中域的数量。当key不存在时，返回0。<br><strong>hexists</strong><br>描述:查看哈希表key中，给定域field是否存在。<br>参数：key field<br>返回值：如果哈希表含有给定域，返回1。如果哈希表不含有给定域，或key不存在，返回0。<br><strong>hincrby</strong><br>描述:为哈希表key中的域field的值加上增量increment。增量也可以为负数，相当于对给定域进行减法操作。<br>参数：key field increment<br>返回值：执行HINCRBY命令之后，哈希表key中域field的值。<br><strong>hkeys</strong><br>描述:返回哈希表key中的所有域。<br>参数：key<br>返回值：一个包含哈希表中所有域的表。当key不存在时，返回一个空表。<br><strong>hvals</strong><br>描述:返回哈希表key中的所有值。<br>参数：key<br>返回值：一个包含哈希表中所有值的表。当key不存在时，返回一个空表。</p>
 <p>hest ,hsetnx ,hget ,hmset ,hmget ,hgetall ,hdel ,hlen ,hexists ,hincrby ,hkeys ,hvals<br>以上12个方法的代码例子：关于哈希</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘192.168.1.108’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;hset(‘test’, ‘key1’, ‘hello’);<br>echo $redis-&gt;hget(‘test’, ‘key1’);     //结果：hello  </p>
@@ -203,7 +204,8 @@
 <p>var_dump($redis-&gt;hExists(‘test’, ‘a’));  //结果：bool(true)   </p>
 <p>$redis-&gt;delete(‘test’);<br>echo $redis-&gt;hIncrBy(‘test’, ‘a’, 3);    //结果：3<br>echo $redis-&gt;hIncrBy(‘test’, ‘a’, 1);    //结果：4  </p>
 <p>$redis-&gt;delete(‘test’);<br>var_dump($redis-&gt;hmset(‘test’, array(‘name’ =&gt;’tank’, ‘sex’=&gt;”man”))); //结果：bool(true)<br>print_r($redis-&gt;hmget(‘test’, array(‘name’, ‘sex’)));  //结果：Array ( [name] =&gt; tank [sex] =&gt; man )<br>?&gt;  </p>
-<h1 id="Sort-Set有序集合"><a href="#Sort-Set有序集合" class="headerlink" title="Sort Set有序集合"></a><em>Sort Set</em>有序集合</h1><p><strong>zadd</strong><br>描述：<br>增加一个或多个元素，如果该元素已经存在，更新它的socre值<br>虽然有序集合有序，但它也是集合，不能重复元素，添加重复元素只会<br>更新原有元素的score值<br>参数：<br>key<br>score : double<br>value: string<br>返回值：1 or 0<br><strong>zrange</strong><br>描述：取得特定范围内的排序元素,0代表第一个元素,1代表第二个以此类推。-1代表最后一个,-2代表倒数第二个…<br>参数：<br>key<br>start: long<br>end: long<br>withscores: bool = false<br>返回值：数组<br><strong>zdelete, zrem</strong><br>描述：从有序集合中删除指定的成员。<br>参数：<br>key<br>member<br>返回值：1 or 0<br><strong>zrevrange</strong><br>描述：返回key对应的有序集合中指定区间的所有元素。这些元素按照score从高到低的顺序进行排列。对于具有相同的score的元素而言，将会按照递减的字典顺序进行排列。该命令与ZRANGE类似，只是该命令中元素的排列顺序与前者不同。<br>参数：<br>key<br>start: long<br>end: long<br>withscores: bool = false<br>返回值：数组<br><strong>zrangebyscore, zrevrangebyscore</strong><br>描述：返回key对应的有序集合中score介于min和max之间的所有元素（包哈score等于min或者max的元素）。元素按照score从低到高的顺序排列。如果元素具有相同的score，那么会按照字典顺序排列。<br>可选的选项LIMIT可以用来获取一定范围内的匹配元素。如果偏移值较大，有序集合需要在获得将要返回的元素之前进行遍历，因此会增加O(N)的时间复杂度。可选的选项WITHSCORES可以使得在返回元素的同时返回元素的score，该选项自从Redis 2.0版本后可用。<br>参数：<br>key<br>start: string<br>end: string<br>options: array<br>返回值：数组<br><strong>zcount</strong><br>描述：返回key对应的有序集合中介于min和max间的元素的个数。<br>参数：<br>key<br>start: string<br>end: string<br>返回值：数组长度<br><strong>zremrangebyscore, zreleterangebyscore</strong><br>描述：移除key对应的有序集合中scroe位于min和max（包含端点）之间的所哟元素。从2.1.6版本后开始，区间端点min和max可以被排除在外，这和ZRANGEBYSCORE的语法一样。<br>参数：<br>key<br>start: double or “+inf” or “-inf” string<br>end: double or “+inf” or “-inf” string<br>返回值：删除元素个数<br><strong>zremrangebyrank, zdeleterangebyrank</strong><br>描述：移除key对应的有序集合中rank值介于start和stop之间的所有元素。start和stop均是从0开始的，并且两者均可以是负值。当索引值为负值时，表明偏移值从有序集合中score值最高的元素开始。例如：-1表示具有最高score的元素，而-2表示具有次高score的元素，以此类推。<br>参数：<br>key<br>start: LONG<br>end: LONG<br>返回值：删除元素个数<br><strong>zsize, zcard</strong><br>描述：返回存储在key对应的有序集合中的元素的个数。<br>参数：key<br>返回值：元素个数<br><strong>zscore</strong><br>描述：返回key对应的有序集合中member的score值。如果member在有序集合中不存在，那么将会返回null。<br>参数：key member<br><strong>zrank, zrevrank</strong><br>描述：返回key对应的有序集合中member元素的索引值，元素按照score从低到高进行排列。rank值（或index）是从0开始的，这意味着具有最低score值的元素的rank值为0。使用ZREVRANK可以获得从高到低排列的元素的rank（或index）。<br>参数：key member<br>返回值：数字<br><strong>zincrby</strong><br>将key对应的有序集合中member元素的scroe加上increment。如果指定的member不存在，那么将会添加该元素，并且其score的初始值为increment。如果key不存在，那么将会创建一个新的有序列表，其中包含member这一唯一的元素。如果key对应的值不是有序列表，那么将会发生错误。指定的score的值应该是能够转换为数字值的字符串，并且接收双精度浮点数。同时，你也可用提供一个负值，这样将减少score的值。<br>参数：key value member<br>返回值：字符型数据<br><strong>zunion</strong><br>描述：keys对应的numkeys个有序集合计算合集，并将结果存储在destination中<br>参数：keyOutput arrayZSetKeys arrayWeights aggregateFunction<br>返回值：并集数组<br><strong>zinter</strong><br>描述：keys对应的numkeys个有序集合计算交集，并将结果存储在destination中<br>参数：keyOutput arrayZSetKeys arrayWeights aggregateFunction<br>返回值：交集数组</p>
+<h1 id="Sort-Set有序集合"><a href="#Sort-Set有序集合" class="headerlink" title="Sort Set有序集合"></a><em>Sort Set</em>有序集合</h1><p>  常用命令：<br>    zadd,zrange,zrem,zcard等 </p>
+<p><strong>zadd</strong><br>描述：<br>增加一个或多个元素，如果该元素已经存在，更新它的socre值<br>虽然有序集合有序，但它也是集合，不能重复元素，添加重复元素只会<br>更新原有元素的score值<br>参数：<br>key<br>score : double<br>value: string<br>返回值：1 or 0<br><strong>zrange</strong><br>描述：取得特定范围内的排序元素,0代表第一个元素,1代表第二个以此类推。-1代表最后一个,-2代表倒数第二个…<br>参数：<br>key<br>start: long<br>end: long<br>withscores: bool = false<br>返回值：数组<br><strong>zdelete, zrem</strong><br>描述：从有序集合中删除指定的成员。<br>参数：<br>key<br>member<br>返回值：1 or 0<br><strong>zrevrange</strong><br>描述：返回key对应的有序集合中指定区间的所有元素。这些元素按照score从高到低的顺序进行排列。对于具有相同的score的元素而言，将会按照递减的字典顺序进行排列。该命令与ZRANGE类似，只是该命令中元素的排列顺序与前者不同。<br>参数：<br>key<br>start: long<br>end: long<br>withscores: bool = false<br>返回值：数组<br><strong>zrangebyscore, zrevrangebyscore</strong><br>描述：返回key对应的有序集合中score介于min和max之间的所有元素（包哈score等于min或者max的元素）。元素按照score从低到高的顺序排列。如果元素具有相同的score，那么会按照字典顺序排列。<br>可选的选项LIMIT可以用来获取一定范围内的匹配元素。如果偏移值较大，有序集合需要在获得将要返回的元素之前进行遍历，因此会增加O(N)的时间复杂度。可选的选项WITHSCORES可以使得在返回元素的同时返回元素的score，该选项自从Redis 2.0版本后可用。<br>参数：<br>key<br>start: string<br>end: string<br>options: array<br>返回值：数组<br><strong>zcount</strong><br>描述：返回key对应的有序集合中介于min和max间的元素的个数。<br>参数：<br>key<br>start: string<br>end: string<br>返回值：数组长度<br><strong>zremrangebyscore, zreleterangebyscore</strong><br>描述：移除key对应的有序集合中scroe位于min和max（包含端点）之间的所哟元素。从2.1.6版本后开始，区间端点min和max可以被排除在外，这和ZRANGEBYSCORE的语法一样。<br>参数：<br>key<br>start: double or “+inf” or “-inf” string<br>end: double or “+inf” or “-inf” string<br>返回值：删除元素个数<br><strong>zremrangebyrank, zdeleterangebyrank</strong><br>描述：移除key对应的有序集合中rank值介于start和stop之间的所有元素。start和stop均是从0开始的，并且两者均可以是负值。当索引值为负值时，表明偏移值从有序集合中score值最高的元素开始。例如：-1表示具有最高score的元素，而-2表示具有次高score的元素，以此类推。<br>参数：<br>key<br>start: LONG<br>end: LONG<br>返回值：删除元素个数<br><strong>zsize, zcard</strong><br>描述：返回存储在key对应的有序集合中的元素的个数。<br>参数：key<br>返回值：元素个数<br><strong>zscore</strong><br>描述：返回key对应的有序集合中member的score值。如果member在有序集合中不存在，那么将会返回null。<br>参数：key member<br><strong>zrank, zrevrank</strong><br>描述：返回key对应的有序集合中member元素的索引值，元素按照score从低到高进行排列。rank值（或index）是从0开始的，这意味着具有最低score值的元素的rank值为0。使用ZREVRANK可以获得从高到低排列的元素的rank（或index）。<br>参数：key member<br>返回值：数字<br><strong>zincrby</strong><br>将key对应的有序集合中member元素的scroe加上increment。如果指定的member不存在，那么将会添加该元素，并且其score的初始值为increment。如果key不存在，那么将会创建一个新的有序列表，其中包含member这一唯一的元素。如果key对应的值不是有序列表，那么将会发生错误。指定的score的值应该是能够转换为数字值的字符串，并且接收双精度浮点数。同时，你也可用提供一个负值，这样将减少score的值。<br>参数：key value member<br>返回值：字符型数据<br><strong>zunion</strong><br>描述：keys对应的numkeys个有序集合计算合集，并将结果存储在destination中<br>参数：keyOutput arrayZSetKeys arrayWeights aggregateFunction<br>返回值：并集数组<br><strong>zinter</strong><br>描述：keys对应的numkeys个有序集合计算交集，并将结果存储在destination中<br>参数：keyOutput arrayZSetKeys arrayWeights aggregateFunction<br>返回值：交集数组</p>
 <p><em>关于集合的代码例子：</em></p>
 <p>代码如下:</p>
 <p>&lt;?php </p>
@@ -332,19 +334,19 @@
 			
 		
 			
-				<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/php/" title="php">php<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/other/" title="other">other<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>1</sup></a></li>
 			
 		
 		</ul>
