@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/07/30/mysqlnote1/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="mysql实用操作在这里介绍一些 mysql 数据库的 实用操作由于处于初级阶段可能会比较潦草 带后期完善">
-<meta property="og:updated_time" content="2016-07-30T14:01:03.252Z">
+<meta property="og:updated_time" content="2016-08-07T12:49:36.775Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql的使用操作">
 <meta name="twitter:description" content="mysql实用操作在这里介绍一些 mysql 数据库的 实用操作由于处于初级阶段可能会比较潦草 带后期完善">
@@ -91,7 +91,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql-用户处理"><span class="toc-number">1.</span> <span class="toc-text">mysql   用户处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#登录mysql"><span class="toc-number">1.1.</span> <span class="toc-text">登录mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建新的用户demo"><span class="toc-number">1.2.</span> <span class="toc-text">创建新的用户demo</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库操作"><span class="toc-number">2.</span> <span class="toc-text">数据库操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表操作"><span class="toc-number">3.</span> <span class="toc-text">表操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-建表"><span class="toc-number">3.1.</span> <span class="toc-text">1.建表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、删除表："><span class="toc-number">3.2.</span> <span class="toc-text">2、删除表：</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql-用户处理"><span class="toc-number">1.</span> <span class="toc-text">mysql   用户处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#登录mysql"><span class="toc-number">1.1.</span> <span class="toc-text">登录mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建新的用户demo"><span class="toc-number">1.2.</span> <span class="toc-text">创建新的用户demo</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库操作"><span class="toc-number">2.</span> <span class="toc-text">数据库操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表操作"><span class="toc-number">3.</span> <span class="toc-text">表操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#建表"><span class="toc-number">3.1.</span> <span class="toc-text">建表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除表："><span class="toc-number">3.2.</span> <span class="toc-text">删除表：</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -102,8 +102,8 @@
 <p>　　2、更改密码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~] #mysqladmin -u root  -p  password  123456 #password 后跟的是要更新的新密码</div><div class="line">Enter password:(输入原始密码，回车即可)</div></pre></td></tr></table></figure></p>
 <p>　　3、权限管理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;  show grants for &apos;zouuser&apos;@&apos;localhost&apos;;  //查看zou用户权限</div><div class="line"></div><div class="line">&gt;grant all privileges on *.* to zouuser@localhost identified by &apos;zoupass&apos;;   //给所有权限</div><div class="line"></div><div class="line">&gt;revoke all on *.* from zouuser@localhost;　　　　//去除所有权限</div></pre></td></tr></table></figure></p>
 <h1 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">　　1、新建数据库：</div><div class="line"></div><div class="line">　　　　&gt;CREATE DATABASE db_demo_zou;</div><div class="line"></div><div class="line">　　2、删除数据库：</div><div class="line"></div><div class="line">&gt;DROP database db_demo_zou;</div></pre></td></tr></table></figure>
-<h1 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h1><h2 id="1-建表"><a href="#1-建表" class="headerlink" title="1.建表"></a>1.建表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">CREATE  TABLE IF NOT EXISTS `db_demo_zou`.`table_demo` (</div><div class="line">`id` INT(11) NOT NULL AUTO_INCREMENT ,</div><div class="line">`number` INT(11) NOT NULL DEFAULT 0 COMMENT &apos;编号--整型&apos; ,</div><div class="line">`name` VARCHAR(10) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;姓名--varchar&apos; ,</div><div class="line">`money` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT &apos;钱--浮点型&apos; ,</div><div class="line">`phone` CHAR(11) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;手机号--char&apos; ,</div><div class="line">PRIMARY KEY (`id`) )</div><div class="line">ENGINE = InnoDB</div><div class="line">COMMENT = &apos;个人信息表&apos;;</div></pre></td></tr></table></figure>
-<h2 id="2、删除表："><a href="#2、删除表：" class="headerlink" title="2、删除表："></a>2、删除表：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;DROP table table_demo;</div></pre></td></tr></table></figure>  
+<h1 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h1><h2 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">CREATE  TABLE IF NOT EXISTS `db_demo_zou`.`table_demo` (</div><div class="line">`id` INT(11) NOT NULL AUTO_INCREMENT ,</div><div class="line">`number` INT(11) NOT NULL DEFAULT 0 COMMENT &apos;编号--整型&apos; ,</div><div class="line">`name` VARCHAR(10) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;姓名--varchar&apos; ,</div><div class="line">`money` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT &apos;钱--浮点型&apos; ,</div><div class="line">`phone` CHAR(11) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;手机号--char&apos; ,</div><div class="line">PRIMARY KEY (`id`) )</div><div class="line">ENGINE = InnoDB</div><div class="line">COMMENT = &apos;个人信息表&apos;;</div></pre></td></tr></table></figure>
+<h2 id="删除表："><a href="#删除表：" class="headerlink" title="删除表："></a>删除表：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;DROP table table_demo;</div></pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -165,7 +165,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql-用户处理"><span class="toc-number">1.</span> <span class="toc-text">mysql   用户处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#登录mysql"><span class="toc-number">1.1.</span> <span class="toc-text">登录mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建新的用户demo"><span class="toc-number">1.2.</span> <span class="toc-text">创建新的用户demo</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库操作"><span class="toc-number">2.</span> <span class="toc-text">数据库操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表操作"><span class="toc-number">3.</span> <span class="toc-text">表操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-建表"><span class="toc-number">3.1.</span> <span class="toc-text">1.建表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、删除表："><span class="toc-number">3.2.</span> <span class="toc-text">2、删除表：</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql-用户处理"><span class="toc-number">1.</span> <span class="toc-text">mysql   用户处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#登录mysql"><span class="toc-number">1.1.</span> <span class="toc-text">登录mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建新的用户demo"><span class="toc-number">1.2.</span> <span class="toc-text">创建新的用户demo</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库操作"><span class="toc-number">2.</span> <span class="toc-text">数据库操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表操作"><span class="toc-number">3.</span> <span class="toc-text">表操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#建表"><span class="toc-number">3.1.</span> <span class="toc-text">建表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除表："><span class="toc-number">3.2.</span> <span class="toc-text">删除表：</span></a></li></ol></li></ol>
  
   </div>
 
@@ -207,15 +207,15 @@
 		<ul class="clearfix">
 		
 			
+				<li><a href="/tags/web/" title="web">web<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/other/" title="other">other<sup>1</sup></a></li>
 			
 		
 			
@@ -227,11 +227,11 @@
 			
 		
 			
-				<li><a href="/tags/web/" title="web">web<sup>1</sup></a></li>
+				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+				<li><a href="/tags/other/" title="other">other<sup>1</sup></a></li>
 			
 		
 		</ul>
