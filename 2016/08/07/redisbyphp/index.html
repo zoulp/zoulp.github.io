@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/08/07/redisbyphp/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="在这里最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
-<meta property="og:updated_time" content="2016-08-07T12:51:45.711Z">
+<meta property="og:updated_time" content="2016-08-07T12:53:11.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php 对于redis 的操作">
 <meta name="twitter:description" content="在这里最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
@@ -82,7 +82,7 @@
 		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
 		
   <p class="article-time">
-    <time datetime="2016-08-07T12:51:45.711Z" itemprop="datePublished"> 发表于 2016-08-07</time>
+    <time datetime="2016-08-07T12:53:11.315Z" itemprop="datePublished"> 发表于 2016-08-07</time>
     
   </p>
 </header>
@@ -91,100 +91,99 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1，connect"><span class="toc-number">1.</span> <span class="toc-text">1，connect</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2，set"><span class="toc-number">2.</span> <span class="toc-text">2，set</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3，get"><span class="toc-number">3.</span> <span class="toc-text">3，get</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4，delete"><span class="toc-number">4.</span> <span class="toc-text">4，delete</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5，setnx"><span class="toc-number">5.</span> <span class="toc-text">5，setnx</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6，exists"><span class="toc-number">6.</span> <span class="toc-text">6，exists</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7，incr"><span class="toc-number">7.</span> <span class="toc-text">7，incr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8，decr"><span class="toc-number">8.</span> <span class="toc-text">8，decr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9，getMultiple"><span class="toc-number">9.</span> <span class="toc-text">9，getMultiple</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10，lpush"><span class="toc-number">10.</span> <span class="toc-text">10，lpush</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11，rpush"><span class="toc-number">11.</span> <span class="toc-text">11，rpush</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12，lpop"><span class="toc-number">12.</span> <span class="toc-text">12，lpop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13，lsize-llen"><span class="toc-number">13.</span> <span class="toc-text">13，lsize,llen</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14，lget"><span class="toc-number">14.</span> <span class="toc-text">14，lget</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15，lset"><span class="toc-number">15.</span> <span class="toc-text">15，lset</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16，lgetrange"><span class="toc-number">16.</span> <span class="toc-text">16，lgetrange</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#17-lremove"><span class="toc-number">17.</span> <span class="toc-text">17,lremove</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#18，sadd"><span class="toc-number">18.</span> <span class="toc-text">18，sadd</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#19，sremove"><span class="toc-number">19.</span> <span class="toc-text">19，sremove</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#20-smove"><span class="toc-number">20.</span> <span class="toc-text">20,smove</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#21，scontains"><span class="toc-number">21.</span> <span class="toc-text">21，scontains</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#22-ssize"><span class="toc-number">22.</span> <span class="toc-text">22,ssize</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#23，spop"><span class="toc-number">23.</span> <span class="toc-text">23，spop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#24-sinter"><span class="toc-number">24.</span> <span class="toc-text">24,sinter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#25-sinterstore"><span class="toc-number">25.</span> <span class="toc-text">25,sinterstore</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#26-sunion"><span class="toc-number">26.</span> <span class="toc-text">26,sunion</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#27-sunionstore"><span class="toc-number">27.</span> <span class="toc-text">27,sunionstore</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#28-sdiff"><span class="toc-number">28.</span> <span class="toc-text">28,sdiff</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#29-sdiffstore"><span class="toc-number">29.</span> <span class="toc-text">29,sdiffstore</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#30-smembers-sgetmembers"><span class="toc-number">30.</span> <span class="toc-text">30,smembers, sgetmembers</span></a></li></ol>
 		
 		</div>
 		
 		<p><strong>在这里</strong><br><em>最近公司在做项目的时候用到redis</em><br><em>在这里对于php操作redis 做了下整理</em><br><a id="more"></a></p>
 <p> redis的操作很多的，以前看到一个比较全的博客，但是现在找不到了。查个东西搜半天，下面整理一下php处理redis的例子，个人觉得常用一些例子。下面的例子都是基于php-redis这个扩展的。</p>
-<p>#1，connect<br>描述：实例连接到一个Redis.<br>参数：host: string，port: int<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>示例：</p>
+<h1 id="1，connect"><a href="#1，connect" class="headerlink" title="1，connect"></a>1，connect</h1><p>描述：实例连接到一个Redis.<br>参数：host: string，port: int<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>示例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$result = $redis-&gt;connect(‘127.0.0.1’, 6379);<br>var_dump($result); //结果：bool(true)<br>?&gt;  </p>
-<p>#2，set<br>描述：设置key和value的值<br>参数：Key Value<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>示例：</p>
+<h1 id="2，set"><a href="#2，set" class="headerlink" title="2，set"></a>2，set</h1><p>描述：设置key和value的值<br>参数：Key Value<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>示例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$result = $redis-&gt;set(‘test’,”11111111111”);<br>var_dump($result);    //结果：bool(true)<br>?&gt;  </p>
-<p>#3，get<br>描述：获取有关指定键的值<br>参数：key<br>返回值：string或BOOL 如果键不存在，则返回 FALSE。否则，返回指定键对应的value值。<br>范例：<br>代码如下:</p>
+<h1 id="3，get"><a href="#3，get" class="headerlink" title="3，get"></a>3，get</h1><p>描述：获取有关指定键的值<br>参数：key<br>返回值：string或BOOL 如果键不存在，则返回 FALSE。否则，返回指定键对应的value值。<br>范例：<br>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$result = $redis-&gt;get(‘test’);<br>var_dump($result);   //结果：string(11) “11111111111”<br>?&gt;  </p>
-<p>#4，delete</p>
-<p>描述：删除指定的键<br>参数：一个键，或不确定数目的参数，每一个关键的数组：key1 key2 key3 … keyN<br>返回值：删除的项数<br>范例：</p>
+<h1 id="4，delete"><a href="#4，delete" class="headerlink" title="4，delete"></a>4，delete</h1><p>描述：删除指定的键<br>参数：一个键，或不确定数目的参数，每一个关键的数组：key1 key2 key3 … keyN<br>返回值：删除的项数<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test’,”1111111111111”);<br>echo $redis-&gt;get(‘test’);   //结果：1111111111111<br>$redis-&gt;delete(‘test’);<br>var_dump($redis-&gt;get(‘test’));  //结果：bool(false)<br>?&gt;  </p>
-<p>#5，setnx<br>描述：如果在数据库中不存在该键，设置关键值参数<br>参数：key value<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>范例：</p>
+<h1 id="5，setnx"><a href="#5，setnx" class="headerlink" title="5，setnx"></a>5，setnx</h1><p>描述：如果在数据库中不存在该键，设置关键值参数<br>参数：key value<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test’,”1111111111111”);<br>$redis-&gt;setnx(‘test’,”22222222”);<br>echo $redis-&gt;get(‘test’);  //结果：1111111111111<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;setnx(‘test’,”22222222”);<br>echo $redis-&gt;get(‘test’);  //结果：22222222<br>?&gt;  </p>
-<p>#6，exists<br>描述：验证指定的键是否存在<br>参数key<br>返回值：Bool 成功返回：TRUE;失败返回：FALSE<br>范例：</p>
+<h1 id="6，exists"><a href="#6，exists" class="headerlink" title="6，exists"></a>6，exists</h1><p>描述：验证指定的键是否存在<br>参数key<br>返回值：Bool 成功返回：TRUE;失败返回：FALSE<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test’,”1111111111111”);<br>var_dump($redis-&gt;exists(‘test’));  //结果：bool(true)<br>?&gt;  </p>
-<p>#7，incr<br>描述：数字递增存储键值键.<br>参数：key value：将被添加到键的值<br>返回值：INT the new value<br>实例：</p>
+<h1 id="7，incr"><a href="#7，incr" class="headerlink" title="7，incr"></a>7，incr</h1><p>描述：数字递增存储键值键.<br>参数：key value：将被添加到键的值<br>返回值：INT the new value<br>实例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test’,”123”);<br>var_dump($redis-&gt;incr(“test”));  //结果：int(124)<br>var_dump($redis-&gt;incr(“test”));  //结果：int(125)<br>?&gt;</p>
-<p>#8，decr<br>描述：数字递减存储键值。<br>参数：key value：将被添加到键的值<br>返回值：INT the new value<br>实例：</p>
+<h1 id="8，decr"><a href="#8，decr" class="headerlink" title="8，decr"></a>8，decr</h1><p>描述：数字递减存储键值。<br>参数：key value：将被添加到键的值<br>返回值：INT the new value<br>实例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test’,”123”);<br>var_dump($redis-&gt;decr(“test”));  //结果：int(122)<br>var_dump($redis-&gt;decr(“test”));  //结果：int(121)<br>?&gt;</p>
-<p>#9，getMultiple<br>描述：取得所有指定键的值。如果一个或多个键不存在，该数组中该键的值为假<br>参数：其中包含键值的列表数组<br>返回值：返回包含所有键的值的数组<br>实例：</p>
+<h1 id="9，getMultiple"><a href="#9，getMultiple" class="headerlink" title="9，getMultiple"></a>9，getMultiple</h1><p>描述：取得所有指定键的值。如果一个或多个键不存在，该数组中该键的值为假<br>参数：其中包含键值的列表数组<br>返回值：返回包含所有键的值的数组<br>实例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test1’,”1”);<br>$redis-&gt;set(‘test2’,”2”);<br>$result = $redis-&gt;getMultiple(array(‘test1’,’test2’));<br>print_r($result);   //结果：Array ( [0] =&gt; 1 [1] =&gt; 2 )<br>?&gt;</p>
-<p>#10，lpush<br>描述：由列表头部添加字符串值。如果不存在该键则创建该列表。如果该键存在，而且不是一个列表，返回FALSE。<br>参数：key,value<br>返回值：成功返回数组长度，失败false<br>实例：</p>
+<h1 id="10，lpush"><a href="#10，lpush" class="headerlink" title="10，lpush"></a>10，lpush</h1><p>描述：由列表头部添加字符串值。如果不存在该键则创建该列表。如果该键存在，而且不是一个列表，返回FALSE。<br>参数：key,value<br>返回值：成功返回数组长度，失败false<br>实例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>var_dump($redis-&gt;lpush(“test”,”111”));   //结果：int(1)<br>var_dump($redis-&gt;lpush(“test”,”222”));   //结果：int(2)<br>?&gt;</p>
-<p>#11，rpush<br>描述：由列表尾部添加字符串值。如果不存在该键则创建该列表。如果该键存在，而且不是一个列表，返回FALSE。<br>参数：key,value<br>返回值：成功返回数组长度，失败false<br>范例：</p>
+<h1 id="11，rpush"><a href="#11，rpush" class="headerlink" title="11，rpush"></a>11，rpush</h1><p>描述：由列表尾部添加字符串值。如果不存在该键则创建该列表。如果该键存在，而且不是一个列表，返回FALSE。<br>参数：key,value<br>返回值：成功返回数组长度，失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>var_dump($redis-&gt;lpush(“test”,”111”));   //结果：int(1)<br>var_dump($redis-&gt;lpush(“test”,”222”));   //结果：int(2)<br>var_dump($redis-&gt;rpush(“test”,”333”));   //结果：int(3)<br>var_dump($redis-&gt;rpush(“test”,”444”));   //结果：int(4)<br>?&gt;</p>
-<p>#12，lpop<br>描述：返回和移除列表的第一个元素<br>参数：key<br>返回值：成功返回第一个元素的值 ，失败返回false<br>范例：</p>
+<h1 id="12，lpop"><a href="#12，lpop" class="headerlink" title="12，lpop"></a>12，lpop</h1><p>描述：返回和移除列表的第一个元素<br>参数：key<br>返回值：成功返回第一个元素的值 ，失败返回false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(“test”,”111”);<br>$redis-&gt;lpush(“test”,”222”);<br>$redis-&gt;rpush(“test”,”333”);<br>$redis-&gt;rpush(“test”,”444”);<br>var_dump($redis-&gt;lpop(“test”));  //结果：string(3) “222”<br>?&gt;</p>
-<p>#13，lsize,llen<br>描述：返回的列表的长度。如果列表不存在或为空，该命令返回0。如果该键不是列表，该命令返回FALSE。<br>参数：Key<br>返回值：成功返回数组长度，失败false<br>范例：</p>
+<h1 id="13，lsize-llen"><a href="#13，lsize-llen" class="headerlink" title="13，lsize,llen"></a>13，lsize,llen</h1><p>描述：返回的列表的长度。如果列表不存在或为空，该命令返回0。如果该键不是列表，该命令返回FALSE。<br>参数：Key<br>返回值：成功返回数组长度，失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(“test”,”111”);<br>$redis-&gt;lpush(“test”,”222”);<br>$redis-&gt;rpush(“test”,”333”);<br>$redis-&gt;rpush(“test”,”444”);<br>var_dump($redis-&gt;lsize(“test”));  //结果：int(4)<br>?&gt;</p>
-<p>#14，lget<br>描述：返回指定键存储在列表中指定的元素。 0第一个元素，1第二个… -1最后一个元素，-2的倒数第二…错误的索引或键不指向列表则返回FALSE。<br>参数：key index<br>返回值：成功返回指定元素的值，失败false<br>范例：</p>
+<h1 id="14，lget"><a href="#14，lget" class="headerlink" title="14，lget"></a>14，lget</h1><p>描述：返回指定键存储在列表中指定的元素。 0第一个元素，1第二个… -1最后一个元素，-2的倒数第二…错误的索引或键不指向列表则返回FALSE。<br>参数：key index<br>返回值：成功返回指定元素的值，失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(“test”,”111”);<br>$redis-&gt;lpush(“test”,”222”);<br>$redis-&gt;rpush(“test”,”333”);<br>$redis-&gt;rpush(“test”,”444”);<br>var_dump($redis-&gt;lget(“test”,3));  //结果：string(3) “444”<br>?&gt;</p>
-<p>#15，lset<br>描述：为列表指定的索引赋新的值,若不存在该索引返回false.<br>参数：key index value<br>返回值：成功返回true,失败false<br>范例：</p>
+<h1 id="15，lset"><a href="#15，lset" class="headerlink" title="15，lset"></a>15，lset</h1><p>描述：为列表指定的索引赋新的值,若不存在该索引返回false.<br>参数：key index value<br>返回值：成功返回true,失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(“test”,”111”);<br>$redis-&gt;lpush(“test”,”222”);<br>var_dump($redis-&gt;lget(“test”,1));  //结果：string(3) “111”<br>var_dump($redis-&gt;lset(“test”,1,”333”));  //结果：bool(true)<br>var_dump($redis-&gt;lget(“test”,1));  //结果：string(3) “333”<br>?&gt;</p>
-<p>#16，lgetrange<br>描述：<br>返回在该区域中的指定键列表中开始到结束存储的指定元素，lGetRange(key, start, end)。0第一个元素，1第二个元素… -1最后一个元素，-2的倒数第二…<br>参数：key start end<br>返回值：成功返回查找的值，失败false<br>范例：</p>
+<h1 id="16，lgetrange"><a href="#16，lgetrange" class="headerlink" title="16，lgetrange"></a>16，lgetrange</h1><p>描述：<br>返回在该区域中的指定键列表中开始到结束存储的指定元素，lGetRange(key, start, end)。0第一个元素，1第二个元素… -1最后一个元素，-2的倒数第二…<br>参数：key start end<br>返回值：成功返回查找的值，失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(“test”,”111”);<br>$redis-&gt;lpush(“test”,”222”);<br>print_r($redis-&gt;lgetrange(“test”,0,-1));  //结果：Array ( [0] =&gt; 222 [1] =&gt; 111 )<br>?&gt;</p>
-<p>#17,lremove<br>描述：从列表中从头部开始移除count个匹配的值。如果count为零，所有匹配的元素都被删除。如果count是负数，内容从尾部开始删除。<br>参数：key count value<br>返回值：成功返回删除的个数，失败false<br>范例：</p>
+<h1 id="17-lremove"><a href="#17-lremove" class="headerlink" title="17,lremove"></a>17,lremove</h1><p>描述：从列表中从头部开始移除count个匹配的值。如果count为零，所有匹配的元素都被删除。如果count是负数，内容从尾部开始删除。<br>参数：key count value<br>返回值：成功返回删除的个数，失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(‘test’,’a’);<br>$redis-&gt;lpush(‘test’,’b’);<br>$redis-&gt;lpush(‘test’,’c’);<br>$redis-&gt;rpush(‘test’,’a’);<br>print_r($redis-&gt;lgetrange(‘test’, 0, -1)); //结果：Array ( [0] =&gt; c [1] =&gt; b [2] =&gt; a [3] =&gt; a )<br>var_dump($redis-&gt;lremove(‘test’,’a’,2));   //结果：int(2)<br>print_r($redis-&gt;lgetrange(‘test’, 0, -1)); //结果：Array ( [0] =&gt; c [1] =&gt; b )<br>?&gt;</p>
-<p>#18，sadd<br>描述：为一个Key添加一个值。如果这个值已经在这个Key中，则返回FALSE。<br>参数：key value<br>返回值：成功返回true,失败false<br>范例：</p>
+<h1 id="18，sadd"><a href="#18，sadd" class="headerlink" title="18，sadd"></a>18，sadd</h1><p>描述：为一个Key添加一个值。如果这个值已经在这个Key中，则返回FALSE。<br>参数：key value<br>返回值：成功返回true,失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>var_dump($redis-&gt;sadd(‘test’,’111’));   //结果：bool(true)<br>var_dump($redis-&gt;sadd(‘test’,’333’));   //结果：bool(true)<br>print_r($redis-&gt;sort(‘test’)); //结果：Array ( [0] =&gt; 111 [1] =&gt; 333 )<br>?&gt;</p>
-<p>#19，sremove<br>描述：删除Key中指定的value值<br>参数：key member<br>返回值：true or false<br>范例：</p>
+<h1 id="19，sremove"><a href="#19，sremove" class="headerlink" title="19，sremove"></a>19，sremove</h1><p>描述：删除Key中指定的value值<br>参数：key member<br>返回值：true or false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(‘test’,’111’);<br>$redis-&gt;sadd(‘test’,’333’);<br>$redis-&gt;sremove(‘test’,’111’);<br>print_r($redis-&gt;sort(‘test’));    //结果：Array ( [0] =&gt; 333 )<br>?&gt;</p>
-<p>#20,smove<br>描述：将Key1中的value移动到Key2中<br>参数：srcKey dstKey member<br>返回值：true or false<br>范例</p>
+<h1 id="20-smove"><a href="#20-smove" class="headerlink" title="20,smove"></a>20,smove</h1><p>描述：将Key1中的value移动到Key2中<br>参数：srcKey dstKey member<br>返回值：true or false<br>范例</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;delete(‘test1’);<br>$redis-&gt;sadd(‘test’,’111’);<br>$redis-&gt;sadd(‘test’,’333’);<br>$redis-&gt;sadd(‘test1’,’222’);<br>$redis-&gt;sadd(‘test1’,’444’);<br>$redis-&gt;smove(‘test’,”test1”,’111’);<br>print_r($redis-&gt;sort(‘test1’));    //结果：Array ( [0] =&gt; 111 [1] =&gt; 222 [2] =&gt; 444 )<br>?&gt;</p>
-<p>#21，scontains<br>描述：检查集合中是否存在指定的值。<br>参数：key value<br>返回值：true or false<br>范例：</p>
+<h1 id="21，scontains"><a href="#21，scontains" class="headerlink" title="21，scontains"></a>21，scontains</h1><p>描述：检查集合中是否存在指定的值。<br>参数：key value<br>返回值：true or false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(‘test’,’111’);<br>$redis-&gt;sadd(‘test’,’112’);<br>$redis-&gt;sadd(‘test’,’113’);<br>var_dump($redis-&gt;scontains(‘test’, ‘111’)); //结果：bool(true)<br>?&gt;</p>
-<p>#22,ssize<br>描述：返回集合中存储值的数量<br>参数：key<br>返回值：成功返回数组个数，失败0<br>范例：</p>
+<h1 id="22-ssize"><a href="#22-ssize" class="headerlink" title="22,ssize"></a>22,ssize</h1><p>描述：返回集合中存储值的数量<br>参数：key<br>返回值：成功返回数组个数，失败0<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(‘test’,’111’);<br>$redis-&gt;sadd(‘test’,’112’);<br>echo $redis-&gt;ssize(‘test’);   //结果：2<br>?&gt;</p>
-<p>#23，spop<br>描述：随机移除并返回key中的一个值<br>参数：key<br>返回值：成功返回删除的值，失败false<br>范例：</p>
+<h1 id="23，spop"><a href="#23，spop" class="headerlink" title="23，spop"></a>23，spop</h1><p>描述：随机移除并返回key中的一个值<br>参数：key<br>返回值：成功返回删除的值，失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>var_dump($redis-&gt;spop(“test”));  //结果：string(3) “333”<br>?&gt;</p>
-<p>#24,sinter<br>描述：返回一个所有指定键的交集。如果只指定一个键，那么这个命令生成这个集合的成员。如果不存在某个键，则返回FALSE。<br>参数：key1, key2, keyN<br>返回值：成功返回数组交集，失败false<br>范例：</p>
+<h1 id="24-sinter"><a href="#24-sinter" class="headerlink" title="24,sinter"></a>24,sinter</h1><p>描述：返回一个所有指定键的交集。如果只指定一个键，那么这个命令生成这个集合的成员。如果不存在某个键，则返回FALSE。<br>参数：key1, key2, keyN<br>返回值：成功返回数组交集，失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>var_dump($redis-&gt;sinter(“test”,”test1”));  //结果：array(1) { [0]=&gt; string(3) “111” }<br>?&gt;</p>
-<p>#25,sinterstore<br>描述：执行sInter命令并把结果储存到新建的变量中。<br>参数：<br>Key: dstkey, the key to store the diff into.<br>Keys: key1, key2… keyN. key1..keyN are intersected as in sInter.<br>返回值：成功返回，交集的个数，失败false<br>范例:</p>
+<h1 id="25-sinterstore"><a href="#25-sinterstore" class="headerlink" title="25,sinterstore"></a>25,sinterstore</h1><p>描述：执行sInter命令并把结果储存到新建的变量中。<br>参数：<br>Key: dstkey, the key to store the diff into.<br>Keys: key1, key2… keyN. key1..keyN are intersected as in sInter.<br>返回值：成功返回，交集的个数，失败false<br>范例:</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>var_dump($redis-&gt;sinterstore(‘new’,”test”,”test1”));  //结果：int(1)<br>var_dump($redis-&gt;smembers(‘new’));  //结果:array(1) { [0]=&gt; string(3) “111” }<br>?&gt;</p>
-<p>#26,sunion<br>描述：<br>返回一个所有指定键的并集<br>参数：<br>Keys: key1, key2, … , keyN<br>返回值：成功返回合并后的集，失败false<br>范例：</p>
+<h1 id="26-sunion"><a href="#26-sunion" class="headerlink" title="26,sunion"></a>26,sunion</h1><p>描述：<br>返回一个所有指定键的并集<br>参数：<br>Keys: key1, key2, … , keyN<br>返回值：成功返回合并后的集，失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>print_r($redis-&gt;sunion(“test”,”test1”));  //结果：Array ( [0] =&gt; 111 [1] =&gt; 222 [2] =&gt; 333 [3] =&gt; 444 )<br>?&gt;</p>
-<p>#27,sunionstore<br>描述：执行sunion命令并把结果储存到新建的变量中。<br>参数：<br>Key: dstkey, the key to store the diff into.<br>Keys: key1, key2… keyN. key1..keyN are intersected as in sInter.<br>返回值：成功返回，交集的个数，失败false<br>范例:</p>
+<h1 id="27-sunionstore"><a href="#27-sunionstore" class="headerlink" title="27,sunionstore"></a>27,sunionstore</h1><p>描述：执行sunion命令并把结果储存到新建的变量中。<br>参数：<br>Key: dstkey, the key to store the diff into.<br>Keys: key1, key2… keyN. key1..keyN are intersected as in sInter.<br>返回值：成功返回，交集的个数，失败false<br>范例:</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>var_dump($redis-&gt;sinterstore(‘new’,”test”,”test1”));  //结果：int(4)<br>print_r($redis-&gt;smembers(‘new’));  //结果:Array ( [0] =&gt; 111 [1] =&gt; 222 [2] =&gt; 333 [3] =&gt; 444 )<br>?&gt;</p>
-<p>#28,sdiff<br>描述：返回第一个集合中存在并在其他所有集合中不存在的结果<br>参数：Keys: key1, key2, … , keyN: Any number of keys corresponding to sets in redis.<br>返回值：成功返回数组，失败false<br>范例：</p>
+<h1 id="28-sdiff"><a href="#28-sdiff" class="headerlink" title="28,sdiff"></a>28,sdiff</h1><p>描述：返回第一个集合中存在并在其他所有集合中不存在的结果<br>参数：Keys: key1, key2, … , keyN: Any number of keys corresponding to sets in redis.<br>返回值：成功返回数组，失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>print_r($redis-&gt;sdiff(“test”,”test1”));  //结果：Array ( [0] =&gt; 222 [1] =&gt; 333 )<br>?&gt;</p>
-<p>#29,sdiffstore<br>描述：执行sdiff命令并把结果储存到新建的变量中。<br>参数：<br>Key: dstkey, the key to store the diff into.<br>Keys: key1, key2, … , keyN: Any number of keys corresponding to sets in redis<br>返回值：成功返回数字，失败false<br>范例：</p>
+<h1 id="29-sdiffstore"><a href="#29-sdiffstore" class="headerlink" title="29,sdiffstore"></a>29,sdiffstore</h1><p>描述：执行sdiff命令并把结果储存到新建的变量中。<br>参数：<br>Key: dstkey, the key to store the diff into.<br>Keys: key1, key2, … , keyN: Any number of keys corresponding to sets in redis<br>返回值：成功返回数字，失败false<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>var_dump($redis-&gt;sdiffstore(‘new’,”test”,”test1”));  //结果：int(2)<br>print_r($redis-&gt;smembers(‘new’));  //结果:Array ( [0] =&gt; 222 [1] =&gt; 333 )<br>?&gt;</p>
-<p>#30,smembers, sgetmembers<br>描述：<br>返回集合的内容<br>参数：Key: key<br>返回值：An array of elements, the contents of the set.<br>范例：</p>
+<h1 id="30-smembers-sgetmembers"><a href="#30-smembers-sgetmembers" class="headerlink" title="30,smembers, sgetmembers"></a>30,smembers, sgetmembers</h1><p>描述：<br>返回集合的内容<br>参数：Key: key<br>返回值：An array of elements, the contents of the set.<br>范例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>print_r($redis-&gt;smembers(‘test’));  //结果:Array ( [0] =&gt; 111 [1] =&gt; 222 )<br>?&gt;</p>
   
@@ -241,7 +240,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1，connect"><span class="toc-number">1.</span> <span class="toc-text">1，connect</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2，set"><span class="toc-number">2.</span> <span class="toc-text">2，set</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3，get"><span class="toc-number">3.</span> <span class="toc-text">3，get</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4，delete"><span class="toc-number">4.</span> <span class="toc-text">4，delete</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5，setnx"><span class="toc-number">5.</span> <span class="toc-text">5，setnx</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6，exists"><span class="toc-number">6.</span> <span class="toc-text">6，exists</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7，incr"><span class="toc-number">7.</span> <span class="toc-text">7，incr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8，decr"><span class="toc-number">8.</span> <span class="toc-text">8，decr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9，getMultiple"><span class="toc-number">9.</span> <span class="toc-text">9，getMultiple</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10，lpush"><span class="toc-number">10.</span> <span class="toc-text">10，lpush</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11，rpush"><span class="toc-number">11.</span> <span class="toc-text">11，rpush</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12，lpop"><span class="toc-number">12.</span> <span class="toc-text">12，lpop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13，lsize-llen"><span class="toc-number">13.</span> <span class="toc-text">13，lsize,llen</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14，lget"><span class="toc-number">14.</span> <span class="toc-text">14，lget</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15，lset"><span class="toc-number">15.</span> <span class="toc-text">15，lset</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16，lgetrange"><span class="toc-number">16.</span> <span class="toc-text">16，lgetrange</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#17-lremove"><span class="toc-number">17.</span> <span class="toc-text">17,lremove</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#18，sadd"><span class="toc-number">18.</span> <span class="toc-text">18，sadd</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#19，sremove"><span class="toc-number">19.</span> <span class="toc-text">19，sremove</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#20-smove"><span class="toc-number">20.</span> <span class="toc-text">20,smove</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#21，scontains"><span class="toc-number">21.</span> <span class="toc-text">21，scontains</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#22-ssize"><span class="toc-number">22.</span> <span class="toc-text">22,ssize</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#23，spop"><span class="toc-number">23.</span> <span class="toc-text">23，spop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#24-sinter"><span class="toc-number">24.</span> <span class="toc-text">24,sinter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#25-sinterstore"><span class="toc-number">25.</span> <span class="toc-text">25,sinterstore</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#26-sunion"><span class="toc-number">26.</span> <span class="toc-text">26,sunion</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#27-sunionstore"><span class="toc-number">27.</span> <span class="toc-text">27,sunionstore</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#28-sdiff"><span class="toc-number">28.</span> <span class="toc-text">28,sdiff</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#29-sdiffstore"><span class="toc-number">29.</span> <span class="toc-text">29,sdiffstore</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#30-smembers-sgetmembers"><span class="toc-number">30.</span> <span class="toc-text">30,smembers, sgetmembers</span></a></li></ol>
  
   </div>
 
