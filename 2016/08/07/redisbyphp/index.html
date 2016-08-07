@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/08/07/redisbyphp/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
-<meta property="og:updated_time" content="2016-08-07T14:34:05.395Z">
+<meta property="og:updated_time" content="2016-08-07T14:53:53.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php 对于redis 的操作">
 <meta name="twitter:description" content="最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
@@ -82,7 +82,7 @@
 		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
 		
   <p class="article-time">
-    <time datetime="2016-08-07T14:34:05.395Z" itemprop="datePublished"> 发表于 2016-08-07</time>
+    <time datetime="2016-08-07T14:53:53.811Z" itemprop="datePublished"> 发表于 2016-08-07</time>
     
   </p>
 </header>
@@ -104,7 +104,7 @@
 <h1 id="String-字符串"><a href="#String-字符串" class="headerlink" title="String 字符串"></a><em>String</em> 字符串</h1><p>常用命令：<br>除了get、set、incr、decr mget等操作外，Redis还提供了下面一些操作：<br><strong> set </strong><br>描述：设置key和value的值<br>参数：Key Value<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>示例：</p>
 <p>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$result = $redis-&gt;set(‘test’,”11111111111”);<br>var_dump($result);    //结果：bool(true)<br>?&gt;  </p>
-<p><em>*get</em></p>
+<p><strong>get</strong></p>
 <p>描述：获取有关指定键的值<br>参数：key<br>返回值：string或BOOL 如果键不存在，则返回 FALSE。否则，返回指定键对应的value值。<br>范例：<br>代码如下:</p>
 <p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$result = $redis-&gt;get(‘test’);<br>var_dump($result);   //结果：string(11) “11111111111”<br>?&gt;  </p>
 <p><strong>delete</strong></p>
@@ -335,19 +335,19 @@
 			
 		
 			
-				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/other/" title="other">other<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/php/" title="php">php<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/other/" title="other">other<sup>1</sup></a></li>
 			
 		
 		</ul>
