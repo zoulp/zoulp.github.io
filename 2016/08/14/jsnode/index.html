@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>终端的简单操作 | Lpeng Zou</title>
+    <title>js.jquery节点和事件的操作 | Lpeng Zou</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Lpeng Zou">
     
 
     
-    <meta name="description" content="在这里编辑了一些简单的终端操作">
+    <meta name="description" content="节点操作终于有时间 整理下 js.jquery 节点和事件的操作了本人很懒,所以需要用懒人的办法解决事情,因此就有了这篇文章.在这里对 找节点,操作节点做了下整理.你可以很快的 找到它操作它">
 <meta property="og:type" content="article">
-<meta property="og:title" content="终端的简单操作">
-<meta property="og:url" content="http://zoulp.github.io/2016/08/11/usemac/index.html">
+<meta property="og:title" content="js.jquery节点和事件的操作">
+<meta property="og:url" content="http://zoulp.github.io/2016/08/14/jsnode/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
-<meta property="og:description" content="在这里编辑了一些简单的终端操作">
-<meta property="og:updated_time" content="2016-08-11T05:58:42.388Z">
+<meta property="og:description" content="节点操作终于有时间 整理下 js.jquery 节点和事件的操作了本人很懒,所以需要用懒人的办法解决事情,因此就有了这篇文章.在这里对 找节点,操作节点做了下整理.你可以很快的 找到它操作它">
+<meta property="og:updated_time" content="2016-08-14T09:09:30.962Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="终端的简单操作">
-<meta name="twitter:description" content="在这里编辑了一些简单的终端操作">
+<meta name="twitter:title" content="js.jquery节点和事件的操作">
+<meta name="twitter:description" content="节点操作终于有时间 整理下 js.jquery 节点和事件的操作了本人很懒,所以需要用懒人的办法解决事情,因此就有了这篇文章.在这里对 找节点,操作节点做了下整理.你可以很快的 找到它操作它">
 
     
     <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
@@ -75,14 +75,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/08/11/usemac/" title="终端的简单操作" itemprop="url">终端的简单操作</a>
+      <a href="/2016/08/14/jsnode/" title="js.jquery节点和事件的操作" itemprop="url">js.jquery节点和事件的操作</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
 		
   <p class="article-time">
-    <time datetime="2016-08-11T06:53:31.000Z" itemprop="datePublished"> 发表于 2016-08-11</time>
+    <time datetime="2016-08-14T09:01:42.000Z" itemprop="datePublished"> 发表于 2016-08-14</time>
     
   </p>
 </header>
@@ -91,33 +91,26 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目录操作"><span class="toc-number">1.</span> <span class="toc-text">目录操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件操作"><span class="toc-number">2.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#选择操作"><span class="toc-number">3.</span> <span class="toc-text">选择操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全操作"><span class="toc-number">4.</span> <span class="toc-text">安全操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编程操作"><span class="toc-number">5.</span> <span class="toc-text">编程操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#时间操作"><span class="toc-number">6.</span> <span class="toc-text">时间操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络与通信操作"><span class="toc-number">7.</span> <span class="toc-text">网络与通信操作</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#js-找节点"><span class="toc-number">1.</span> <span class="toc-text">js   找节点</span></a></li></ol>
 		
 		</div>
 		
-		<p><strong>在这里</strong><br><em>编辑了一些简单的终端操作</em></p>
+		<p><strong>节点操作</strong><br><em>终于有时间 整理下 js.jquery 节点和事件的操作了</em><br>本人很懒,所以需要用懒人的办法解决事情,因此就有了这篇文章.<br>在这里对 找节点,操作节点做了下整理.<br>你可以很快的 找到它操作它</p>
 <a id="more"></a>
-<h1 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h1><p>命令名<br>功能描述<br>使用举例<br>mkdir<br>创建一个目录<br>mkdir dirname<br>rmdir<br>删除一个目录<br>rmdir dirname<br>mvdir<br>移动或重命名一个目录<br>mvdir dir1 dir2<br>cd<br>改变当前目录<br>cd dirname<br>pwd<br>显示当前目录的路径名<br>pwd<br>ls<br>显示当前目录的内容<br>ls -la<br>dircmp<br>比较两个目录的内容<br>dircmp dir1 dir2 </p>
-<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><p>命令名<br>功能描述<br>使用举例<br>cat<br>显示或连接文件<br>cat filename<br>pg<br>分页格式化显示文件内容<br>pg filename<br>more<br>分屏显示文件内容<br>more filename<br>od<br>显示非文本文件的内容<br>od -c filename<br>cp<br>复制文件或目录<br>cp file1 file2<br>rm<br>删除文件或目录<br>rm filename<br>mv<br>改变文件名或所在目录<br>mv file1 file2<br>ln<br>联接文件<br>ln -s file1 file2<br>find<br>使用匹配表达式查找文件<br>find . -name “*.c” -print<br>file<br>显示文件类型<br>file filename </p>
-<h1 id="选择操作"><a href="#选择操作" class="headerlink" title="选择操作"></a>选择操作</h1><p>命令名<br>功能描述<br>使用举例<br>head<br>显示文件的最初几行<br>head -20 filename<br>tail<br>显示文件的最后几行<br>tail -15 filename<br>cut<br>显示文件每行中的某些域<br>cut -f1,7 -d: /etc/passwd<br>colrm<br>从标准输入中删除若干列<br>colrm 8 20 file2<br>paste<br>横向连接文件<br>paste file1 file2<br>diff<br>比较并显示两个文件的差异<br>diff file1 file2<br>sed<br>非交互方式流编辑器<br>sed “s/red/green/g” filename<br>grep<br>在文件中按模式查找<br>grep “^[a-zA-Z]” filename<br>awk<br>在文件中查找并处理模式<br>awk ‘{print $1 $1}’ filename<br>sort<br>排序或归并文件<br>sort -d -f -u file1<br>uniq<br>去掉文件中的重复行<br>uniq file1 file2<br>comm<br>显示两有序文件的公共和非公共行<br>comm file1 file2<br>wc<br>统计文件的字符数、词数和行数<br>wc filename<br>nl<br>给文件加上行号<br>nl file1 &gt;file2 </p>
-<h1 id="安全操作"><a href="#安全操作" class="headerlink" title="安全操作"></a>安全操作</h1><p>命令名<br>功能描述<br>使用举例<br>passwd<br>修改用户密码<br>passwd<br>chmod<br>改变文件或目录的权限<br>chmod ug+x filename<br>umask<br>定义创建文件的权限掩码<br>umask 027<br>chown<br>改变文件或目录的属主<br>chown newowner filename<br>chgrp<br>改变文件或目录的所属组<br>chgrp staff filename<br>xlock<br>给终端上锁<br>xlock -remote </p>
-<h1 id="编程操作"><a href="#编程操作" class="headerlink" title="编程操作"></a>编程操作</h1><p>命令名<br>功能描述<br>使用举例<br>make<br>维护可执行程序的最新版本<br>make<br>touch<br>更新文件的访问和修改时间<br>touch -m 05202400 filename<br>dbx<br>命令行界面调试工具<br>dbx a.out<br>xde<br>图形用户界面调试工具<br>xde a.out<br>进程操作<br>命令名<br>功能描述<br>使用举例<br>ps<br>显示进程当前状态<br>ps u<br>kill<br>终止进程<br>kill -9 30142<br>nice<br>改变待执行命令的优先级<br>nice cc -c *.c<br>renice<br>改变已运行进程的优先级<br>renice +20 32768 </p>
-<h1 id="时间操作"><a href="#时间操作" class="headerlink" title="时间操作"></a>时间操作</h1><p>命令名<br>功能描述<br>使用举例<br>date<br>显示系统的当前日期和时间<br>date<br>cal<br>显示日历<br>cal 8 1996<br>time<br>统计程序的执行时间<br>time a.out </p>
-<h1 id="网络与通信操作"><a href="#网络与通信操作" class="headerlink" title="网络与通信操作"></a>网络与通信操作</h1><p>命令名<br>功能描述<br>使用举例<br>telnet<br>远程登录<br>telnet hpc.sp.net.edu.cn<br>rlogin<br>远程登录<br>rlogin hostname -l username<br>rsh<br>在远程主机执行指定命令<br>rsh f01n03 date<br>ftp<br>在本地主机与远程主机之间传输文件<br>ftp ftp.sp.net.edu.cn<br>rcp<br>在本地主机与远程主机 之间复制文件<br>rcp file1 host1:file2<br>ping<br>给一个网络主机发送 回应请求<br>ping hpc.sp.net.edu.cn<br>mail<br>阅读和发送电子邮件<br>mail<br>write<br>给另一用户发送报文<br>write username pts/1<br>mesg<br>允许或拒绝接收报文<br>mesg n<br>Korn Shell 命令<br>命令名<br>功能描述<br>使用举例<br>history<br>列出最近执行过的 几条命令及编号<br>history<br>r<br>重复执行最近执行过的 某条命令<br>r -2<br>alias<br>给某个命令定义别名<br>alias del=rm -i<br>unalias<br>取消对某个别名的定义<br>unalias del<br>其它命令<br>命令名<br>功能描述<br>使用举例<br>uname<br>显示操作系统的有关信息<br>uname -a<br>clear<br>清除屏幕或窗口内容<br>clear<br>env<br>显示当前所有设置过的环境变量<br>env<br>who<br>列出当前登录的所有用户<br>who<br>whoami<br>显示当前正进行操作的用户名<br>whoami<br>tty<br>显示终端或伪终端的名称<br>tty<br>stty<br>显示或重置控制键定义<br>stty -a<br>du<br>查询磁盘使用情况<br>du -k subdir<br>df<br>显示文件系统的总空间和可用空间<br>df /tmp<br>w<br>显示当前系统活动的总信息</p>
-  
+<h1 id="js-找节点"><a href="#js-找节点" class="headerlink" title="js   找节点"></a>js   找节点</h1>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/other/">other</a>
+  <a class="article-category-link" href="/categories/web/">web</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/other/">other</a>
+  <span></span> <a href="/tags/web/">web</a>
   </div>
 
 </div>
@@ -126,7 +119,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://zoulp.github.io/2016/08/11/usemac/" data-title="终端的简单操作 | Lpeng Zou" data-tsina="null" class="share clearfix">
+	  <div data-url="http://zoulp.github.io/2016/08/14/jsnode/" data-title="js.jquery节点和事件的操作 | Lpeng Zou" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -139,19 +132,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/08/14/jsnode/" title="js.jquery节点和事件的操作">
-  <strong>上一篇：</strong><br/>
-  <span>
-  js.jquery节点和事件的操作</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/08/07/redisbyphp/"  title="php 对于redis 的操作">
+<a href="/2016/08/11/usemac/"  title="终端的简单操作">
  <strong>下一篇：</strong><br/> 
- <span>php 对于redis 的操作
+ <span>终端的简单操作
 </span>
 </a>
 </div>
@@ -166,7 +151,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目录操作"><span class="toc-number">1.</span> <span class="toc-text">目录操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件操作"><span class="toc-number">2.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#选择操作"><span class="toc-number">3.</span> <span class="toc-text">选择操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全操作"><span class="toc-number">4.</span> <span class="toc-text">安全操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编程操作"><span class="toc-number">5.</span> <span class="toc-text">编程操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#时间操作"><span class="toc-number">6.</span> <span class="toc-text">时间操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络与通信操作"><span class="toc-number">7.</span> <span class="toc-text">网络与通信操作</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#js-找节点"><span class="toc-number">1.</span> <span class="toc-text">js   找节点</span></a></li></ol>
  
   </div>
 
