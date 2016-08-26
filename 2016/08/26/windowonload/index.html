@@ -4,25 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>input的一个demo  (select) | Lpeng Zou</title>
+    <title>jquery加载页面的方法(页面加载完成就执行) | Lpeng Zou</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Lpeng Zou">
     
 
     
-    <meta name="description" content="这是一个 select 的input的样式">
+    <meta name="description" content="jquery加载页面的方法(页面加载完成就执行),建议大家看下windows.onload与$(document).ready之间的区别。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="input的一个demo  (select)">
-<meta property="og:url" content="http://zoulp.github.io/2016/07/28/inputStyle/index.html">
+<meta property="og:title" content="jquery加载页面的方法(页面加载完成就执行)">
+<meta property="og:url" content="http://zoulp.github.io/2016/08/26/windowonload/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
-<meta property="og:description" content="这是一个 select 的input的样式">
-<meta property="og:image" content="http://7xwuj8.com1.z0.glb.clouddn.com/zoselectstyle.png">
-<meta property="og:updated_time" content="2016-07-30T10:50:53.500Z">
+<meta property="og:description" content="jquery加载页面的方法(页面加载完成就执行),建议大家看下windows.onload与$(document).ready之间的区别。">
+<meta property="og:updated_time" content="2016-08-26T08:21:22.467Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="input的一个demo  (select)">
-<meta name="twitter:description" content="这是一个 select 的input的样式">
-<meta name="twitter:image" content="http://7xwuj8.com1.z0.glb.clouddn.com/zoselectstyle.png">
+<meta name="twitter:title" content="jquery加载页面的方法(页面加载完成就执行)">
+<meta name="twitter:description" content="jquery加载页面的方法(页面加载完成就执行),建议大家看下windows.onload与$(document).ready之间的区别。">
 
     
     <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
@@ -77,14 +75,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/28/inputStyle/" title="input的一个demo  (select)" itemprop="url">input的一个demo  (select)</a>
+      <a href="/2016/08/26/windowonload/" title="jquery加载页面的方法(页面加载完成就执行)" itemprop="url">jquery加载页面的方法(页面加载完成就执行)</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
 		
   <p class="article-time">
-    <time datetime="2016-07-28T10:53:31.000Z" itemprop="datePublished"> 发表于 2016-07-28</time>
+    <time datetime="2016-08-26T09:01:42.000Z" itemprop="datePublished"> 发表于 2016-08-26</time>
     
   </p>
 </header>
@@ -97,12 +95,16 @@
 		
 		</div>
 		
-		<p><strong>这是一个 select 的input的样式</strong><br><a id="more"></a></p>
-<blockquote>
-<p>.article-search&gt;span select<br>{<br>background: #CAE1EE;<br>width: 80px;<br>padding: 0 6px;<br>font-size: 13px;<br>border: 1px solid #ccc;<br>height: 25px;<br>-webkit-appearance: none;<br>border: none;<br>outline:none;<br>}</p>
-</blockquote>
-<p><em>——-效果</em></p>
-<p><img src="http://7xwuj8.com1.z0.glb.clouddn.com/zoselectstyle.png" alt="这是一个demo"></p>
+		<p>jquery加载页面的方法(页面加载完成就执行),<br>建议大家看下windows.onload与$(document).ready之间的区别。<br><a id="more"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(function()&#123; </div><div class="line">　　$(&quot;#a&quot;).click(function()&#123; </div><div class="line">　　　　//adding your code here </div><div class="line">　　&#125;); </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(document).ready(function()&#123; </div><div class="line">　　$(&quot;#a&quot;).click(function()&#123; </div><div class="line">　　　　//adding your code here　　 </div><div class="line">　　&#125;); </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">window.onload = function()&#123; </div><div class="line">　　$(&quot;#a&quot;).click(function()&#123; </div><div class="line">　　　　//adding your code here </div><div class="line">　　&#125;); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">html代码为&lt;input type=&quot;button&quot; id=&quot;a&quot;&gt;点击&lt;/input&gt;，且页面需要引用jquery的js文件</div></pre></td></tr></table></figure>
+<p>一般的加载页面时调用js方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">window.onload = function() &#123; </div><div class="line">$(&quot;table tr:nth-child(even)&quot;).addClass(&quot;even&quot;); //这个是jquery代码 </div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>这段代码会在整个页面的document全部加载完成以后执行。不幸的这种方式不仅要求页面的DOM tree全部加载完成，而且要求所有的外部图片和资源全部加载完成。更不幸的是，如果外部资源，例如图片需要很长时间来加载，那么这个js效果就会让用户感觉失效了。 </p>
+<p>但是用jquery的方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(document).ready(function() &#123; </div><div class="line"></div><div class="line">// 任何需要执行的js特效 </div><div class="line">$(&quot;table tr:nth-child(even)&quot;).addClass(&quot;even&quot;); </div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>就仅仅只需要加载所有的DOM结构，在浏览器把所有的HTML放入DOM tree之前就执行js效果。包括在加载外部图片和资源之前。 </p>
+<p>还有一种简写的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(function() &#123; </div><div class="line"></div><div class="line">// 任何需要执行的js特效 </div><div class="line">$(&quot;table tr:nth-child(even)&quot;).addClass(&quot;even&quot;); </div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -116,7 +118,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/web/">web</a><a href="/tags/css/">css</a>
+  <span></span> <a href="/tags/web/">web</a>
   </div>
 
 </div>
@@ -125,7 +127,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://zoulp.github.io/2016/07/28/inputStyle/" data-title="input的一个demo  (select) | Lpeng Zou" data-tsina="null" class="share clearfix">
+	  <div data-url="http://zoulp.github.io/2016/08/26/windowonload/" data-title="jquery加载页面的方法(页面加载完成就执行) | Lpeng Zou" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,19 +140,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/07/30/mysqlnote1/" title="mysql的使用操作">
-  <strong>上一篇：</strong><br/>
-  <span>
-  mysql的使用操作</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/07/23/usevim/"  title="vim的简单操作">
+<a href="/2016/08/14/jsnode/"  title="js.jquery节点和事件的操作">
  <strong>下一篇：</strong><br/> 
- <span>vim的简单操作
+ <span>js.jquery节点和事件的操作
 </span>
 </a>
 </div>
