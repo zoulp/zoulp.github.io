@@ -4,25 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>input的一个demo  (select) | Lpeng Zou</title>
+    <title>jquery 找节点 | Lpeng Zou</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Lpeng Zou">
     
 
     
-    <meta name="description" content="这是一个 select 的input的样式">
+    <meta name="description" content="节点操作终于有时间 整理下 js.jquery 节点和事件的操作了本人很懒,所以需要用懒人的办法解决事情,因此就有了这篇文章.在这里对 找节点,操作节点做了下整理.你可以很快的 找到它操作它本章节 只负责找到节点">
 <meta property="og:type" content="article">
-<meta property="og:title" content="input的一个demo  (select)">
-<meta property="og:url" content="http://zoulp.github.io/2016/07/28/inputStyle/index.html">
+<meta property="og:title" content="jquery 找节点">
+<meta property="og:url" content="http://zoulp.github.io/2016/08/26/jqcode/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
-<meta property="og:description" content="这是一个 select 的input的样式">
-<meta property="og:image" content="http://7xwuj8.com1.z0.glb.clouddn.com/zoselectstyle.png">
-<meta property="og:updated_time" content="2016-07-30T10:50:53.500Z">
+<meta property="og:description" content="节点操作终于有时间 整理下 js.jquery 节点和事件的操作了本人很懒,所以需要用懒人的办法解决事情,因此就有了这篇文章.在这里对 找节点,操作节点做了下整理.你可以很快的 找到它操作它本章节 只负责找到节点">
+<meta property="og:updated_time" content="2016-08-26T09:21:06.279Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="input的一个demo  (select)">
-<meta name="twitter:description" content="这是一个 select 的input的样式">
-<meta name="twitter:image" content="http://7xwuj8.com1.z0.glb.clouddn.com/zoselectstyle.png">
+<meta name="twitter:title" content="jquery 找节点">
+<meta name="twitter:description" content="节点操作终于有时间 整理下 js.jquery 节点和事件的操作了本人很懒,所以需要用懒人的办法解决事情,因此就有了这篇文章.在这里对 找节点,操作节点做了下整理.你可以很快的 找到它操作它本章节 只负责找到节点">
 
     
     <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
@@ -77,14 +75,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/28/inputStyle/" title="input的一个demo  (select)" itemprop="url">input的一个demo  (select)</a>
+      <a href="/2016/08/26/jqcode/" title="jquery 找节点" itemprop="url">jquery 找节点</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
 		
   <p class="article-time">
-    <time datetime="2016-07-28T10:53:31.000Z" itemprop="datePublished"> 发表于 2016-07-28</time>
+    <time datetime="2016-08-26T08:00:02.000Z" itemprop="datePublished"> 发表于 2016-08-26</time>
     
   </p>
 </header>
@@ -93,16 +91,18 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#jquery-找节点"><span class="toc-number">1.</span> <span class="toc-text">jquery  找节点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Jquery节点获取"><span class="toc-number">1.1.</span> <span class="toc-text">Jquery节点获取</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p><strong>这是一个 select 的input的样式</strong><br><a id="more"></a></p>
-<blockquote>
-<p>.article-search&gt;span select<br>{<br>background: #CAE1EE;<br>width: 80px;<br>padding: 0 6px;<br>font-size: 13px;<br>border: 1px solid #ccc;<br>height: 25px;<br>-webkit-appearance: none;<br>border: none;<br>outline:none;<br>}</p>
-</blockquote>
-<p><em>——-效果</em></p>
-<p><img src="http://7xwuj8.com1.z0.glb.clouddn.com/zoselectstyle.png" alt="这是一个demo"></p>
+		<p><strong>节点操作</strong><br><em>终于有时间 整理下 js.jquery 节点和事件的操作了</em><br>本人很懒,所以需要用懒人的办法解决事情,因此就有了这篇文章.<br>在这里对 找节点,操作节点做了下整理.<br>你可以很快的 找到它操作它<br>本章节 只负责找到节点</p>
+<a id="more"></a>
+<h1 id="jquery-找节点"><a href="#jquery-找节点" class="headerlink" title="jquery  找节点"></a>jquery  找节点</h1><h2 id="Jquery节点获取"><a href="#Jquery节点获取" class="headerlink" title="Jquery节点获取"></a>Jquery节点获取</h2><p>博客分类： JQuery</p>
+<p>1、多条件选择器<br>$(p,div,input.abc) 选择所有p,div以及classname=”abc”的input对象<br>2、层次选择器<br>Java代码  收藏代码<br>$(“ol li”) 选择ol对象下所有的li对象（包括子对象以及子对象的子对象）<br>$(“ol &gt; li”) 选择ol下直接的li对象、即子对象的子对象不会被选择  </p>
+<p>3、属性过滤器<br>Java代码  收藏代码<br>$(“div[id]”) 选择有ID属性的DIV元素<br>$(“div[name=test]”)  选择name为test的div元素(效果可以做到与原生的getElementsByName效果)<br>$(“div[name!=test]”)  选择name不为test的div元素  </p>
+<p>4、表单对象选择器<br>Java代码  收藏代码<br>$(“#form1:enabled”) 选择id为form1的表单内所有启用的<br>$(“#form1:disabled”) 选择id为form1的表单内所有禁用的<br>$(“input:checked”) 选择所有选中的元素（还可以是radio,checkbox）<br>$(“select:selected”) 选择所有选中的元色素  </p>
+<p>5、<br>Java代码  收藏代码<br>next 获取同级节点的下一个节点 ,可使用过滤器、下同<br>nextAll 获取之后的所有同级元素<br>siblings 获取所有同级元素  </p>
+<p>6、过滤器<br>Java代码  收藏代码<br>:first 选取第一个元素    $(“span:first”) 选择第一个span元素<br>:last 选取最后一个元素   同first<br>:not 选择不满足选择器条件的元素  $(“input:not(.css)”) 选择class属性不是css的input元素<br>:even<br>:odd<br>选取索引是奇数、偶数的元素<br>$(“input:even”) 选择索引是奇数的input元素<br>:eq 、 :gt 、 :lt<br>选取索引等于（eq）大于（gt）小于（lt）的元素<br>$(“input:gt(2)”) 选择索引大于2的input元素  </p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -116,7 +116,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/web/">web</a><a href="/tags/css/">css</a>
+  <span></span> <a href="/tags/web/">web</a>
   </div>
 
 </div>
@@ -125,7 +125,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://zoulp.github.io/2016/07/28/inputStyle/" data-title="input的一个demo  (select) | Lpeng Zou" data-tsina="null" class="share clearfix">
+	  <div data-url="http://zoulp.github.io/2016/08/26/jqcode/" data-title="jquery 找节点 | Lpeng Zou" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -139,18 +139,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/07/30/mysqlnote1/" title="mysql的使用操作">
+ <a href="/2016/08/26/redisbyphp/" title="php 对于redis 的操作">
   <strong>上一篇：</strong><br/>
   <span>
-  mysql的使用操作</span>
+  php 对于redis 的操作</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/07/23/usevim/"  title="vim的简单操作">
+<a href="/2016/08/14/jsnode/"  title="js找节点">
  <strong>下一篇：</strong><br/> 
- <span>vim的简单操作
+ <span>js找节点
 </span>
 </a>
 </div>
@@ -165,7 +165,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#jquery-找节点"><span class="toc-number">1.</span> <span class="toc-text">jquery  找节点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Jquery节点获取"><span class="toc-number">1.1.</span> <span class="toc-text">Jquery节点获取</span></a></li></ol></li></ol>
  
   </div>
 

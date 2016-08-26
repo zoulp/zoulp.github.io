@@ -1,0 +1,620 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>php 对于redis 的操作 | Lpeng Zou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Lpeng Zou">
+    
+
+    
+    <meta name="description" content="最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php 对于redis 的操作">
+<meta property="og:url" content="http://zoulp.github.io/2016/08/26/redisbyphp/index.html">
+<meta property="og:site_name" content="Lpeng Zou">
+<meta property="og:description" content="最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
+<meta property="og:updated_time" content="2016-08-07T14:53:53.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php 对于redis 的操作">
+<meta name="twitter:description" content="最近公司在做项目的时候用到redis在这里对于php操作redis 做了下整理">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Lpeng Zou" title="Lpeng Zou"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Lpeng Zou">Lpeng Zou</a></h1>
+				<h2 class="blog-motto">kevin_zo@sina</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/about">about</a></li>
+					
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/26/redisbyphp/" title="php 对于redis 的操作" itemprop="url">php 对于redis 的操作</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-26T08:51:05.907Z" itemprop="datePublished"> 发表于 2016-08-26</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#connect-连接redis"><span class="toc-number">1.</span> <span class="toc-text">connect  连接redis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#String-字符串"><span class="toc-number">2.</span> <span class="toc-text">String 字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#List-列表"><span class="toc-number">3.</span> <span class="toc-text">List  列表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Set-集合"><span class="toc-number">4.</span> <span class="toc-text">Set  集合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hash-哈希"><span class="toc-number">5.</span> <span class="toc-text">Hash 哈希</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sort-Set有序集合"><span class="toc-number">6.</span> <span class="toc-text">Sort Set有序集合</span></a></li></ol>
+		
+		</div>
+		
+		<p><em>最近公司在做项目的时候用到redis</em><br><em>在这里对于php操作redis 做了下整理 </em></p>
+<a id="more"></a>
+<p> redis的操作很多的，以前看到一个比较全的博客，但是现在找不到了。查个东西搜半天，下面整理一下php处理redis的例子，个人觉得常用一些例子。下面的例子都是基于php-redis这个扩展的。</p>
+<h1 id="connect-连接redis"><a href="#connect-连接redis" class="headerlink" title="connect  连接redis"></a><em>connect</em>  连接redis</h1><p>描述：实例连接到一个Redis.<br>参数：host: string，port: int<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>示例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$result = $redis-&gt;connect(‘127.0.0.1’, 6379);<br>var_dump($result); //结果：bool(true)<br>?&gt;  </p>
+<h1 id="String-字符串"><a href="#String-字符串" class="headerlink" title="String 字符串"></a><em>String</em> 字符串</h1><p>常用命令：<br>除了get、set、incr、decr mget等操作外，Redis还提供了下面一些操作：<br><strong> set </strong><br>描述：设置key和value的值<br>参数：Key Value<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>示例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$result = $redis-&gt;set(‘test’,”11111111111”);<br>var_dump($result);    //结果：bool(true)<br>?&gt;  </p>
+<p><strong>get</strong></p>
+<p>描述：获取有关指定键的值<br>参数：key<br>返回值：string或BOOL 如果键不存在，则返回 FALSE。否则，返回指定键对应的value值。<br>范例：<br>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$result = $redis-&gt;get(‘test’);<br>var_dump($result);   //结果：string(11) “11111111111”<br>?&gt;  </p>
+<p><strong>delete</strong></p>
+<p>描述：删除指定的键<br>参数：一个键，或不确定数目的参数，每一个关键的数组：key1 key2 key3 … keyN<br>返回值：删除的项数<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test’,”1111111111111”);<br>echo $redis-&gt;get(‘test’);   //结果：1111111111111<br>$redis-&gt;delete(‘test’);<br>var_dump($redis-&gt;get(‘test’));  //结果：bool(false)<br>?&gt;  </p>
+<p><strong>setnx</strong><br>描述：如果在数据库中不存在该键，设置关键值参数<br>参数：key value<br>返回值：BOOL 成功返回：TRUE;失败返回：FALSE<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test’,”1111111111111”);<br>$redis-&gt;setnx(‘test’,”22222222”);<br>echo $redis-&gt;get(‘test’);  //结果：1111111111111<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;setnx(‘test’,”22222222”);<br>echo $redis-&gt;get(‘test’);  //结果：22222222<br>?&gt;  </p>
+<p><strong>exists</strong><br>描述：验证指定的键是否存在<br>参数key<br>返回值：Bool 成功返回：TRUE;失败返回：FALSE<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test’,”1111111111111”);<br>var_dump($redis-&gt;exists(‘test’));  //结果：bool(true)<br>?&gt;  </p>
+<p><strong>incr</strong><br>描述：数字递增存储键值键.<br>参数：key value：将被添加到键的值<br>返回值：INT the new value<br>实例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test’,”123”);<br>var_dump($redis-&gt;incr(“test”));  //结果：int(124)<br>var_dump($redis-&gt;incr(“test”));  //结果：int(125)<br>?&gt;</p>
+<p><strong>decr</strong><br>描述：数字递减存储键值。<br>参数：key value：将被添加到键的值<br>返回值：INT the new value<br>实例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test’,”123”);<br>var_dump($redis-&gt;decr(“test”));  //结果：int(122)<br>var_dump($redis-&gt;decr(“test”));  //结果：int(121)<br>?&gt;</p>
+<p><strong>getMultiple</strong><br>描述：取得所有指定键的值。如果一个或多个键不存在，该数组中该键的值为假<br>参数：其中包含键值的列表数组<br>返回值：返回包含所有键的值的数组<br>实例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;set(‘test1’,”1”);<br>$redis-&gt;set(‘test2’,”2”);<br>$result = $redis-&gt;getMultiple(array(‘test1’,’test2’));<br>print_r($result);   //结果：Array ( [0] =&gt; 1 [1] =&gt; 2 )<br>?&gt;</p>
+<h1 id="List-列表"><a href="#List-列表" class="headerlink" title="List  列表"></a><em>List</em>  列表</h1><p>常用命令：<br>    lpush,rpush,lpop,rpop,lrange,BLPOP(阻塞版)等。</p>
+<p><strong>lpush</strong><br>描述：由列表头部添加字符串值。如果不存在该键则创建该列表。如果该键存在，而且不是一个列表，返回FALSE。<br>参数：key,value<br>返回值：成功返回数组长度，失败false<br>实例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>var_dump($redis-&gt;lpush(“test”,”111”));   //结果：int(1)<br>var_dump($redis-&gt;lpush(“test”,”222”));   //结果：int(2)<br>?&gt;</p>
+<p><strong>rpush</strong><br>描述：由列表尾部添加字符串值。如果不存在该键则创建该列表。如果该键存在，而且不是一个列表，返回FALSE。<br>参数：key,value<br>返回值：成功返回数组长度，失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>var_dump($redis-&gt;lpush(“test”,”111”));   //结果：int(1)<br>var_dump($redis-&gt;lpush(“test”,”222”));   //结果：int(2)<br>var_dump($redis-&gt;rpush(“test”,”333”));   //结果：int(3)<br>var_dump($redis-&gt;rpush(“test”,”444”));   //结果：int(4)<br>?&gt;</p>
+<p><strong>lpop</strong><br>描述：返回和移除列表的第一个元素<br>参数：key<br>返回值：成功返回第一个元素的值 ,失败返回false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(“test”,”111”);<br>$redis-&gt;lpush(“test”,”222”);<br>$redis-&gt;rpush(“test”,”333”);<br>$redis-&gt;rpush(“test”,”444”);<br>var_dump($redis-&gt;lpop(“test”));  //结果：string(3) “222”<br>?&gt;</p>
+<p><strong>lsize,llen</strong><br>描述：返回的列表的长度。如果列表不存在或为空，该命令返回0。如果该键不是列表，该命令返回FALSE。<br>参数：Key<br>返回值：成功返回数组长度，失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(“test”,”111”);<br>$redis-&gt;lpush(“test”,”222”);<br>$redis-&gt;rpush(“test”,”333”);<br>$redis-&gt;rpush(“test”,”444”);<br>var_dump($redis-&gt;lsize(“test”));  //结果：int(4)<br>?&gt;</p>
+<p><strong>lget</strong><br>描述：返回指定键存储在列表中指定的元素。 0第一个元素，1第二个… -1最后一个元素，-2的倒数第二…错误的索引或键不指向列表则返回FALSE。<br>参数：key index<br>返回值：成功返回指定元素的值，失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(“test”,”111”);<br>$redis-&gt;lpush(“test”,”222”);<br>$redis-&gt;rpush(“test”,”333”);<br>$redis-&gt;rpush(“test”,”444”);<br>var_dump($redis-&gt;lget(“test”,3));  //结果：string(3) “444”<br>?&gt;</p>
+<p><strong>lset</strong><br>描述：为列表指定的索引赋新的值,若不存在该索引返回false.<br>参数：key index value<br>返回值：成功返回true,失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(“test”,”111”);<br>$redis-&gt;lpush(“test”,”222”);<br>var_dump($redis-&gt;lget(“test”,1));  //结果：string(3) “111”<br>var_dump($redis-&gt;lset(“test”,1,”333”));  //结果：bool(true)<br>var_dump($redis-&gt;lget(“test”,1));  //结果：string(3) “333”<br>?&gt;</p>
+<p><strong>lgetrange</strong><br>描述：<br>返回在该区域中的指定键列表中开始到结束存储的指定元素，lGetRange(key, start, end)。0第一个元素，1第二个元素… -1最后一个元素，-2的倒数第二…<br>参数：key start end<br>返回值：成功返回查找的值，失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(“test”,”111”);<br>$redis-&gt;lpush(“test”,”222”);<br>print_r($redis-&gt;lgetrange(“test”,0,-1));  //结果：Array ( [0] =&gt; 222 [1] =&gt; 111 )<br>?&gt;</p>
+<p><strong>lremove</strong><br>描述：从列表中从头部开始移除count个匹配的值。如果count为零，所有匹配的元素都被删除。如果count是负数，<br>内容从尾部开始删除。<br>参数：key count value<br>返回值：成功返回删除的个数，失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;lpush(‘test’,’a’);<br>$redis-&gt;lpush(‘test’,’b’);<br>$redis-&gt;lpush(‘test’,’c’);<br>$redis-&gt;rpush(‘test’,’a’);<br>print_r($redis-&gt;lgetrange(‘test’, 0, -1)); //结果：Array ( [0] =&gt; c [1] =&gt; b [2] =&gt; a [3] =&gt; a )<br>var_dump($redis-&gt;lremove(‘test’,’a’,2));   //结果：int(2)<br>print_r($redis-&gt;lgetrange(‘test’, 0, -1)); //结果：Array ( [0] =&gt; c [1] =&gt; b )<br>?&gt;</p>
+<h1 id="Set-集合"><a href="#Set-集合" class="headerlink" title="Set  集合"></a><em>Set</em>  集合</h1><p>常用命令：<br>    sadd,srem,spop,sdiff ,smembers,sunion 等。</p>
+<p><strong>sadd</strong><br>描述：为一个Key添加一个值。如果这个值已经在这个Key中，则返回FALSE。<br>参数：key value<br>返回值：成功返回true,失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>var_dump($redis-&gt;sadd(‘test’,’111’));   //结果：bool(true)<br>var_dump($redis-&gt;sadd(‘test’,’333’));   //结果：bool(true)<br>print_r($redis-&gt;sort(‘test’)); //结果：Array ( [0] =&gt; 111 [1] =&gt; 333 )<br>?&gt;</p>
+<p><strong>sremove</strong><br>描述：删除Key中指定的value值<br>参数：key member<br>返回值：true or false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(‘test’,’111’);<br>$redis-&gt;sadd(‘test’,’333’);<br>$redis-&gt;sremove(‘test’,’111’);<br>print_r($redis-&gt;sort(‘test’));    //结果：Array ( [0] =&gt; 333 )<br>?&gt;</p>
+<p><strong>smove</strong><br>描述：将Key1中的value移动到Key2中<br>参数：srcKey dstKey member<br>返回值：true or false<br>范例</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;delete(‘test1’);<br>$redis-&gt;sadd(‘test’,’111’);<br>$redis-&gt;sadd(‘test’,’333’);<br>$redis-&gt;sadd(‘test1’,’222’);<br>$redis-&gt;sadd(‘test1’,’444’);<br>$redis-&gt;smove(‘test’,”test1”,’111’);<br>print_r($redis-&gt;sort(‘test1’));    //结果：Array ( [0] =&gt; 111 [1] =&gt; 222 [2] =&gt; 444 )<br>?&gt;</p>
+<p><strong>scontains</strong><br>描述：检查集合中是否存在指定的值。<br>参数：key value<br>返回值：true or false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(‘test’,’111’);<br>$redis-&gt;sadd(‘test’,’112’);<br>$redis-&gt;sadd(‘test’,’113’);<br>var_dump($redis-&gt;scontains(‘test’, ‘111’)); //结果：bool(true)<br>?&gt;</p>
+<p><strong>ssize</strong><br>描述：返回集合中存储值的数量<br>参数：key<br>返回值：成功返回数组个数，失败0<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(‘test’,’111’);<br>$redis-&gt;sadd(‘test’,’112’);<br>echo $redis-&gt;ssize(‘test’);   //结果：2<br>?&gt;</p>
+<p><strong>spop</strong><br>描述：随机移除并返回key中的一个值<br>参数：key<br>返回值：成功返回删除的值，失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>var_dump($redis-&gt;spop(“test”));  //结果：string(3) “333”<br>?&gt;</p>
+<p><strong>sinter</strong><br>描述：返回一个所有指定键的交集。如果只指定一个键，那么这个命令生成这个集合的成员。如果不存在某个键，则返回FALSE。<br>参数：key1, key2, keyN<br>返回值：成功返回数组交集，失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>var_dump($redis-&gt;sinter(“test”,”test1”));  //结果：array(1) { [0]=&gt; string(3) “111” }<br>?&gt;</p>
+<p><strong>sinterstore</strong><br>描述：执行sInter命令并把结果储存到新建的变量中。<br>参数：<br>Key: dstkey, the key to store the diff into.<br>Keys: key1, key2… keyN. key1..keyN are intersected as in sInter.<br>返回值：成功返回，交集的个数，失败false<br>范例:</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>var_dump($redis-&gt;sinterstore(‘new’,”test”,”test1”));  //结果：int(1)<br>var_dump($redis-&gt;smembers(‘new’));  //结果:array(1) { [0]=&gt; string(3) “111” }<br>?&gt;</p>
+<p><strong>sunion</strong><br>描述：<br>返回一个所有指定键的并集<br>参数：<br>Keys: key1, key2, … , keyN<br>返回值：成功返回合并后的集，失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>print_r($redis-&gt;sunion(“test”,”test1”));  //结果：Array ( [0] =&gt; 111 [1] =&gt; 222 [2] =&gt; 333 [3] =&gt; 444 )<br>?&gt;</p>
+<p><strong>sunionstore</strong><br>描述：执行sunion命令并把结果储存到新建的变量中。<br>参数：<br>Key: dstkey, the key to store the diff into.<br>Keys: key1, key2… keyN. key1..keyN are intersected as in sInter.<br>返回值：成功返回，交集的个数，失败false<br>范例:</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>var_dump($redis-&gt;sinterstore(‘new’,”test”,”test1”));  //结果：int(4)<br>print_r($redis-&gt;smembers(‘new’));  //结果:Array ( [0] =&gt; 111 [1] =&gt; 222 [2] =&gt; 333 [3] =&gt; 444 )<br>?&gt;</p>
+<p><strong>sdiff</strong><br>描述：返回第一个集合中存在并在其他所有集合中不存在的结果<br>参数：Keys: key1, key2, … , keyN: Any number of keys corresponding to sets in redis.<br>返回值：成功返回数组，失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>print_r($redis-&gt;sdiff(“test”,”test1”));  //结果：Array ( [0] =&gt; 222 [1] =&gt; 333 )<br>?&gt;</p>
+<p><strong>sdiffstore</strong><br>描述：执行sdiff命令并把结果储存到新建的变量中。<br>参数：<br>Key: dstkey, the key to store the diff into.<br>Keys: key1, key2, … , keyN: Any number of keys corresponding to sets in redis<br>返回值：成功返回数字，失败false<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>$redis-&gt;sadd(“test”,”333”);<br>$redis-&gt;sadd(“test1”,”111”);<br>$redis-&gt;sadd(“test1”,”444”);<br>var_dump($redis-&gt;sdiffstore(‘new’,”test”,”test1”));  //结果：int(2)<br>print_r($redis-&gt;smembers(‘new’));  //结果:Array ( [0] =&gt; 222 [1] =&gt; 333 )<br>?&gt;</p>
+<p><strong>smembers, sgetmembers</strong><br>描述：<br>返回集合的内容<br>参数：Key: key<br>返回值：An array of elements, the contents of the set.<br>范例：</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘127.0.0.1’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;sadd(“test”,”111”);<br>$redis-&gt;sadd(“test”,”222”);<br>print_r($redis-&gt;smembers(‘test’));  //结果:Array ( [0] =&gt; 111 [1] =&gt; 222 )<br>?&gt;</p>
+<h1 id="Hash-哈希"><a href="#Hash-哈希" class="headerlink" title="Hash 哈希"></a><em>Hash</em> 哈希</h1><p>常用命令：<br>hget,hset,hgetall 等</p>
+<p><strong>hset</strong><br>描述：将哈希表key中的域field的值设为value。如果key不存在，一个新的哈希表被创建并进行HSET操作。如果域field已经存在于哈希表中，旧值将被覆盖。<br>参数：key field value<br>返回值：如果field是哈希表中的一个新建域，并且值设置成功，返回1。如果哈希表中域field已经存在且旧值已被新值覆盖，返回0。<br><strong>hsetnx</strong><br>描述：将哈希表key中的域field的值设置为value，当且仅当域field不存在。若域field已经存在，该操作无效。如果key不存在，一个新哈希表被创建并执行HSETNX命令。<br>参数：key field value<br>返回值：设置成功，返回1。如果给定域已经存在且没有操作被执行，返回0。<br><strong>hget</strong><br>描述：返回哈希表key中给定域field的值。<br>参数：key field<br>返回值：给定域的值。当给定域不存在或是给定key不存在时，返回nil。<br><strong>hmset</strong><br>描述：同时将多个field - value(域-值)对设置到哈希表key中。此命令会覆盖哈希表中已存在的域。如果key不存在，一个空哈希表被创建并执行HMSET操作。<br>参数：key field value [field value …]<br>返回值：如果命令执行成功，返回OK。当key不是哈希表(hash)类型时，返回一个错误。<br><strong>hmget</strong><br>描述:返回哈希表key中，一个或多个给定域的值。如果给定的域不存在于哈希表，那么返回一个nil值。因为不存在的key被当作一个空哈希表来处理，所以对一个不存在的key进行HMGET操作将返回一个只带有nil值的表。<br>参数：key field [field …]<br>返回值：一个包含多个给定域的关联值的表，表值的排列顺序和给定域参数的请求顺序一样。<br><strong>hgetall</strong><br>描述:返回哈希表key中，所有的域和值。在返回值里，紧跟每个域名(field name)之后是域的值(value)，所以返回值的长度是哈希表大小的两倍。<br>参数：key<br>返回值:以列表形式返回哈希表的域和域的值。 若key不存在，返回空列表。<br><strong>hdel</strong><br>描述:删除哈希表key中的一个或多个指定域，不存在的域将被忽略。<br>参数：key field [field …]<br>返回值:被成功移除的域的数量，不包括被忽略的域。<br><strong>hlen</strong><br>描述:返回哈希表key中域的数量。<br>参数：key<br>返回值：哈希表中域的数量。当key不存在时，返回0。<br><strong>hexists</strong><br>描述:查看哈希表key中，给定域field是否存在。<br>参数：key field<br>返回值：如果哈希表含有给定域，返回1。如果哈希表不含有给定域，或key不存在，返回0。<br><strong>hincrby</strong><br>描述:为哈希表key中的域field的值加上增量increment。增量也可以为负数，相当于对给定域进行减法操作。<br>参数：key field increment<br>返回值：执行HINCRBY命令之后，哈希表key中域field的值。<br><strong>hkeys</strong><br>描述:返回哈希表key中的所有域。<br>参数：key<br>返回值：一个包含哈希表中所有域的表。当key不存在时，返回一个空表。<br><strong>hvals</strong><br>描述:返回哈希表key中的所有值。<br>参数：key<br>返回值：一个包含哈希表中所有值的表。当key不存在时，返回一个空表。</p>
+<p>hest ,hsetnx ,hget ,hmset ,hmget ,hgetall ,hdel ,hlen ,hexists ,hincrby ,hkeys ,hvals<br>以上12个方法的代码例子：关于哈希</p>
+<p>代码如下:</p>
+<p>&lt;?php<br>$redis = new redis();<br>$redis-&gt;connect(‘192.168.1.108’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;hset(‘test’, ‘key1’, ‘hello’);<br>echo $redis-&gt;hget(‘test’, ‘key1’);     //结果：hello  </p>
+<p>echo “<br>“;<br>$redis-&gt;hSetNx(‘test’, ‘key1’, ‘world’);<br>echo $redis-&gt;hget(‘test’, ‘key1’);   //结果：hello  </p>
+<p>$redis-&gt;delete(‘test’);<br>$redis-&gt;hSetNx(‘test’, ‘key1’, ‘world’);<br>echo “<br>“;<br>echo $redis-&gt;hget(‘test’, ‘key1’);   //结果：world  </p>
+<p>echo $redis-&gt;hlen(‘test’);   //结果：1<br>var_dump($redis-&gt;hdel(‘test’,’key1’));  //结果：bool(true)   </p>
+<p>$redis-&gt;delete(‘test’);<br>$redis-&gt;hSet(‘test’, ‘a’, ‘x’);<br>$redis-&gt;hSet(‘test’, ‘b’, ‘y’);<br>$redis-&gt;hSet(‘test’, ‘c’, ‘z’);<br>print_r($redis-&gt;hkeys(‘test’));  //结果：Array ( [0] =&gt; a [1] =&gt; b [2] =&gt; c )   </p>
+<p>print_r($redis-&gt;hvals(‘test’));  //结果：Array ( [0] =&gt; x [1] =&gt; y [2] =&gt; z )   </p>
+<p>print_r($redis-&gt;hgetall(‘test’));  //结果：Array ( [a] =&gt; x [b] =&gt; y [c] =&gt; z )   </p>
+<p>var_dump($redis-&gt;hExists(‘test’, ‘a’));  //结果：bool(true)   </p>
+<p>$redis-&gt;delete(‘test’);<br>echo $redis-&gt;hIncrBy(‘test’, ‘a’, 3);    //结果：3<br>echo $redis-&gt;hIncrBy(‘test’, ‘a’, 1);    //结果：4  </p>
+<p>$redis-&gt;delete(‘test’);<br>var_dump($redis-&gt;hmset(‘test’, array(‘name’ =&gt;’tank’, ‘sex’=&gt;”man”))); //结果：bool(true)<br>print_r($redis-&gt;hmget(‘test’, array(‘name’, ‘sex’)));  //结果：Array ( [name] =&gt; tank [sex] =&gt; man )<br>?&gt;  </p>
+<h1 id="Sort-Set有序集合"><a href="#Sort-Set有序集合" class="headerlink" title="Sort Set有序集合"></a><em>Sort Set</em>有序集合</h1><p>  常用命令：<br>    zadd,zrange,zrem,zcard等 </p>
+<p><strong>zadd</strong><br>描述：<br>增加一个或多个元素，如果该元素已经存在，更新它的socre值<br>虽然有序集合有序，但它也是集合，不能重复元素，添加重复元素只会<br>更新原有元素的score值<br>参数：<br>key<br>score : double<br>value: string<br>返回值：1 or 0<br><strong>zrange</strong><br>描述：取得特定范围内的排序元素,0代表第一个元素,1代表第二个以此类推。-1代表最后一个,-2代表倒数第二个…<br>参数：<br>key<br>start: long<br>end: long<br>withscores: bool = false<br>返回值：数组<br><strong>zdelete, zrem</strong><br>描述：从有序集合中删除指定的成员。<br>参数：<br>key<br>member<br>返回值：1 or 0<br><strong>zrevrange</strong><br>描述：返回key对应的有序集合中指定区间的所有元素。这些元素按照score从高到低的顺序进行排列。对于具有相同的score的元素而言，将会按照递减的字典顺序进行排列。该命令与ZRANGE类似，只是该命令中元素的排列顺序与前者不同。<br>参数：<br>key<br>start: long<br>end: long<br>withscores: bool = false<br>返回值：数组<br><strong>zrangebyscore, zrevrangebyscore</strong><br>描述：返回key对应的有序集合中score介于min和max之间的所有元素（包哈score等于min或者max的元素）。元素按照score从低到高的顺序排列。如果元素具有相同的score，那么会按照字典顺序排列。<br>可选的选项LIMIT可以用来获取一定范围内的匹配元素。如果偏移值较大，有序集合需要在获得将要返回的元素之前进行遍历，因此会增加O(N)的时间复杂度。可选的选项WITHSCORES可以使得在返回元素的同时返回元素的score，该选项自从Redis 2.0版本后可用。<br>参数：<br>key<br>start: string<br>end: string<br>options: array<br>返回值：数组<br><strong>zcount</strong><br>描述：返回key对应的有序集合中介于min和max间的元素的个数。<br>参数：<br>key<br>start: string<br>end: string<br>返回值：数组长度<br><strong>zremrangebyscore, zreleterangebyscore</strong><br>描述：移除key对应的有序集合中scroe位于min和max（包含端点）之间的所哟元素。从2.1.6版本后开始，区间端点min和max可以被排除在外，这和ZRANGEBYSCORE的语法一样。<br>参数：<br>key<br>start: double or “+inf” or “-inf” string<br>end: double or “+inf” or “-inf” string<br>返回值：删除元素个数<br><strong>zremrangebyrank, zdeleterangebyrank</strong><br>描述：移除key对应的有序集合中rank值介于start和stop之间的所有元素。start和stop均是从0开始的，并且两者均可以是负值。当索引值为负值时，表明偏移值从有序集合中score值最高的元素开始。例如：-1表示具有最高score的元素，而-2表示具有次高score的元素，以此类推。<br>参数：<br>key<br>start: LONG<br>end: LONG<br>返回值：删除元素个数<br><strong>zsize, zcard</strong><br>描述：返回存储在key对应的有序集合中的元素的个数。<br>参数：key<br>返回值：元素个数<br><strong>zscore</strong><br>描述：返回key对应的有序集合中member的score值。如果member在有序集合中不存在，那么将会返回null。<br>参数：key member<br><strong>zrank, zrevrank</strong><br>描述：返回key对应的有序集合中member元素的索引值，元素按照score从低到高进行排列。rank值（或index）是从0开始的，这意味着具有最低score值的元素的rank值为0。使用ZREVRANK可以获得从高到低排列的元素的rank（或index）。<br>参数：key member<br>返回值：数字<br><strong>zincrby</strong><br>将key对应的有序集合中member元素的scroe加上increment。如果指定的member不存在，那么将会添加该元素，并且其score的初始值为increment。如果key不存在，那么将会创建一个新的有序列表，其中包含member这一唯一的元素。如果key对应的值不是有序列表，那么将会发生错误。指定的score的值应该是能够转换为数字值的字符串，并且接收双精度浮点数。同时，你也可用提供一个负值，这样将减少score的值。<br>参数：key value member<br>返回值：字符型数据<br><strong>zunion</strong><br>描述：keys对应的numkeys个有序集合计算合集，并将结果存储在destination中<br>参数：keyOutput arrayZSetKeys arrayWeights aggregateFunction<br>返回值：并集数组<br><strong>zinter</strong><br>描述：keys对应的numkeys个有序集合计算交集，并将结果存储在destination中<br>参数：keyOutput arrayZSetKeys arrayWeights aggregateFunction<br>返回值：交集数组</p>
+<p><em>关于集合的代码例子：</em></p>
+<p>代码如下:</p>
+<p>&lt;?php </p>
+<p>$redis = new redis();<br>$redis-&gt;connect(‘192.168.1.108’, 6379);<br>$redis-&gt;delete(‘test’);<br>$redis-&gt;zadd(‘test’, 1, ‘val1’);<br>$redis-&gt;zadd(‘test’, 0, ‘val2’);<br>$redis-&gt;zadd(‘test’, 3, ‘val3’);  </p>
+<p>print_r($redis-&gt;zrange(‘test’, 0, -1)); //结果：Array ( [0] =&gt; val2 [1] =&gt; val1 [2] =&gt; val3 )  </p>
+<p>$redis-&gt;zdelete(‘test’, ‘val2’);<br>print_r($redis-&gt;zrange(‘test’, 0, -1)); //结果：Array ( [0] =&gt; val1 [1] =&gt; val3 )   </p>
+<p>$redis-&gt;zadd(‘test’,4, ‘val0’);<br>print_r($redis-&gt;zrevrange(‘test’, 0, -1));  //结果：Array ( [0] =&gt; val0 [1] =&gt; val3 [2] =&gt; val1 )<br>print_r($redis-&gt;zrevrange(‘test’, 0, -1,true));  //结果：Array ( [val0] =&gt; 4 [val3] =&gt; 3 [val1] =&gt; 1 )   </p>
+<p>echo “<br>“;<br>$redis-&gt;zadd(‘key’, 0, ‘val0’);<br>$redis-&gt;zadd(‘key’, 2, ‘val2’);<br>$redis-&gt;zadd(‘key’, 10, ‘val10’);  </p>
+<p>print_r($redis-&gt;zrangebyscore(‘key’, 0, 3, array(‘limit’ =&gt; array(1, 1),’withscores’ =&gt; TRUE))); //结果：Array ( [val2] =&gt; 2 )<br>print_r($redis-&gt;zrangebyscore(‘key’, 0, 3, array(‘limit’ =&gt; array(1, 1)))); //结果：Array ( [0] =&gt; val2 )   </p>
+<p>echo $redis-&gt;zcount(‘key’, 0, 3); //结果：2  </p>
+<p>$redis-&gt;zremrangebyscore(‘key’, 0, 3);<br>print_r($redis-&gt;zrange(‘key’, 0, -1));  //结果：Array ( [0] =&gt; val10 )   </p>
+<p>echo $redis-&gt;zsize(‘key’);   //结果：1  </p>
+<p>$redis-&gt;zadd(‘key’, 2.5, ‘aaaa’);<br>echo $redis-&gt;zscore(‘key’, ‘aaaa’);   //结果：2.5  </p>
+<p>echo $redis-&gt;zrank(‘key’, ‘aaaa’);   //结果：0<br>echo $redis-&gt;zrevrank(‘key’, ‘aaaa’);    //结果：1  </p>
+<p>$redis-&gt;delete(‘key’);  </p>
+<p>echo $redis-&gt;zincrby(‘key’, 2, ‘aaaa’);  //结果：2<br>echo $redis-&gt;zincrby(‘key’, 1, ‘aaaa’);  //结果：3  </p>
+<p>$redis-&gt;delete(‘key’);<br>$redis-&gt;delete(‘test’);  </p>
+<p>$redis-&gt;zadd(‘key’, 0, ‘val0’);<br>$redis-&gt;zadd(‘key’, 1, ‘val1’);<br>$redis-&gt;zadd(‘key’, 4, ‘val2’);<br>$redis-&gt;zadd(‘test’, 2, ‘val2’);<br>$redis-&gt;zadd(‘test’, 3, ‘val3’);<br>$redis-&gt;zunion(‘k01’, array(‘key’, ‘test’));<br>print_r($redis-&gt;zrange(‘k01’,0, -1)); //结果：Array ( [0] =&gt; val0 [1] =&gt; val1 [2] =&gt; val3 [3] =&gt; val2 )  </p>
+<p>$redis-&gt;zunion(‘k03’, array(‘key’, ‘test’), array(5, 1));<br>print_r($redis-&gt;zrange(‘k03’,0, -1)); //结果：Array ( [0] =&gt; val0 [1] =&gt; val3 [2] =&gt; val1 [3] =&gt; val2 )   </p>
+<p>$redis-&gt;zinter(‘k02’, array(‘key’, ‘test’));<br>print_r($redis-&gt;zrange(‘k02’,0, -1)); //结果：Array ( [0] =&gt; val2 )<br>?&gt;  </p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/redis/">redis</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/redis/">redis</a><a href="/tags/php/">php</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://zoulp.github.io/2016/08/26/redisbyphp/" data-title="php 对于redis 的操作 | Lpeng Zou" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/08/26/windowonload/" title="jquery加载页面的方法(页面加载完成就执行)">
+  <strong>上一篇：</strong><br/>
+  <span>
+  jquery加载页面的方法(页面加载完成就执行)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/08/26/jqcode/"  title="jquery 找节点">
+ <strong>下一篇：</strong><br/> 
+ <span>jquery 找节点
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#connect-连接redis"><span class="toc-number">1.</span> <span class="toc-text">connect  连接redis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#String-字符串"><span class="toc-number">2.</span> <span class="toc-text">String 字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#List-列表"><span class="toc-number">3.</span> <span class="toc-text">List  列表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Set-集合"><span class="toc-number">4.</span> <span class="toc-text">Set  集合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hash-哈希"><span class="toc-number">5.</span> <span class="toc-text">Hash 哈希</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sort-Set有序集合"><span class="toc-number">6.</span> <span class="toc-text">Sort Set有序集合</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/other/" title="other">other<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/web/" title="web">web<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/web/" title="web">web<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/other/" title="other">other<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://zoulp.github.io" target="_blank" title="Lpeng Zou&#39;s Blog">Lpeng Zou&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 回头看看自己的路.我已竭尽全力 <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/http://weibo.com/p/1005055982977300" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Lpeng Zou">Lpeng Zou</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
