@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>vim的简单操作 | Lpeng Zou</title>
+    <title>如何操作 hexo | Lpeng Zou</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Lpeng Zou">
     
 
     
-    <meta name="description" content="在这里编辑了一些关于 vim 基本操作的信息目前不涉及详细介绍(待时间充裕再做详细处理…)">
+    <meta name="description" content="好久没有 更新自己的文章了 突然发现忘得很彻底所以需要整理一下 就如同怎样查字典">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim的简单操作">
-<meta property="og:url" content="http://zoulp.github.io/2016/07/23/usevim/index.html">
+<meta property="og:title" content="如何操作 hexo">
+<meta property="og:url" content="http://zoulp.github.io/2016/10/14/dohexo/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
-<meta property="og:description" content="在这里编辑了一些关于 vim 基本操作的信息目前不涉及详细介绍(待时间充裕再做详细处理…)">
-<meta property="og:updated_time" content="2016-07-30T11:52:51.028Z">
+<meta property="og:description" content="好久没有 更新自己的文章了 突然发现忘得很彻底所以需要整理一下 就如同怎样查字典">
+<meta property="og:updated_time" content="2016-10-14T13:09:03.805Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vim的简单操作">
-<meta name="twitter:description" content="在这里编辑了一些关于 vim 基本操作的信息目前不涉及详细介绍(待时间充裕再做详细处理…)">
+<meta name="twitter:title" content="如何操作 hexo">
+<meta name="twitter:description" content="好久没有 更新自己的文章了 突然发现忘得很彻底所以需要整理一下 就如同怎样查字典">
 
     
     <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
@@ -75,14 +75,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/23/usevim/" title="vim的简单操作" itemprop="url">vim的简单操作</a>
+      <a href="/2016/10/14/dohexo/" title="如何操作 hexo" itemprop="url">如何操作 hexo</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
 		
   <p class="article-time">
-    <time datetime="2016-07-23T10:53:31.000Z" itemprop="datePublished"> 发表于 2016-07-23</time>
+    <time datetime="2016-10-14T12:28:45.000Z" itemprop="datePublished"> 发表于 2016-10-14</time>
     
   </p>
 </header>
@@ -91,101 +91,17 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#新建一个md-的文件"><span class="toc-number">1.</span> <span class="toc-text">新建一个md 的文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#写文章"><span class="toc-number">2.</span> <span class="toc-text">写文章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#写文章-1"><span class="toc-number">3.</span> <span class="toc-text">写文章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#提交"><span class="toc-number">4.</span> <span class="toc-text">提交</span></a></li></ol>
 		
 		</div>
 		
-		<p><strong>在这里</strong><br><em>编辑了一些关于 vim 基本操作的信息</em><br><em>目前不涉及详细介绍(待时间充裕再做详细处理…)</em></p>
+		<p><em>好久没有 更新自己的文章了 突然发现忘得很彻底</em><br><em>所以需要整理一下 就如同怎样查字典 </em></p>
 <a id="more"></a>
-<p><strong>Vim命令集合</strong></p>
-<p><em>命令历史</em></p>
-<p>以:和/开头的命令都有历史纪录，可以首先键入:或/然后按上下箭头来选择某个历史命令。</p>
-<p><em>启动vim</em></p>
-<p>在命令行窗口中输入以下命令即可</p>
-<p>vim 直接启动vim</p>
-<p>vim filename 打开vim并创建名为filename的文件</p>
-<p><em>文件命令</em></p>
-<p>打开单个文件<br>vim file<br>同时打开多个文件<br>vim file1 file2 file3 …<br>在vim窗口中打开一个新文件<br>:open file<br>在新窗口中打开文件<br>:split file<br>切换到下一个文件<br>:bn<br>切换到上一个文件<br>:bp<br>查看当前打开的文件列表，当前正在编辑的文件会用[]括起来。</p>
-<p>:args<br>打开远程文件，比如ftp或者share folder<br>:e ftp://192.168.10.76/abc.txt<br>:e \qadrive\test\1.txt</p>
-<p><strong>vim模式</strong></p>
-<p>正常模式（按Esc或Ctrl+[进入） 左下角显示文件名或为空<br>插入模式（按i键进入） 左下角显示–INSERT–<br>可视模式（不知道如何进入） 左下角显示–VISUAL–</p>
-<p>导航命令<br>% 括号匹配<br>插入命令<br>i 在当前位置生前插入<br>I 在当前行首插入<br>a 在当前位置后插入<br>A 在当前行尾插入<br>o 在当前行之后插入一行<br>O 在当前行之前插入一行</p>
-<p><strong>查找命令</strong></p>
-<p>/text　　查找text，按n健查找下一个，按N健查找前一个。<br>?text　　查找text，反向查找，按n健查找下一个，按N健查找前一个。<br>vim中有一些特殊字符在查找时需要转义　　.<em>[]^%/?~$<br>:set ignorecase　　忽略大小写的查找<br>:set noignorecase　　不忽略大小写的查找<br>查找很长的词，如果一个词很长，键入麻烦，可以将光标移动到该词上，按</em>或#键即可以该单词进行搜索，相当于/搜索。而#命令相当于?搜索。<br>:set hlsearch　　高亮搜索结果，所有结果都高亮显示，而不是只显示一个匹配。<br>:set nohlsearch　　关闭高亮搜索显示<br>:nohlsearch　　关闭当前的高亮显示，如果再次搜索或者按下n或N键，则会再次高亮。<br>:set incsearch　　逐步搜索模式，对当前键入的字符进行搜索而不必等待键入完成。<br>:set wrapscan　　重新搜索，在搜索到文件头或尾时，返回继续搜索，默认开启。</p>
-<p><strong>替换命令</strong><br>ra 将当前字符替换为a，当期字符即光标所在字符。<br>s/old/new/ 用old替换new，替换当前行的第一个匹配<br>s/old/new/g 用old替换new，替换当前行的所有匹配<br>%s/old/new/ 用old替换new，替换所有行的第一个匹配<br>%s/old/new/g 用old替换new，替换整个文件的所有匹配<br>:10,20 s/^/    /g 在第10行知第20行每行前面加四个空格，用于缩进。<br>ddp 交换光标所在行和其下紧邻的一行。</p>
-<p><em>移动命令</em></p>
-<p>h 左移一个字符<br>l 右移一个字符，这个命令很少用，一般用w代替。<br>k 上移一个字符<br>j 下移一个字符<br>以上四个命令可以配合数字使用，比如20j就是向下移动20行，5h就是向左移动5个字符，<br>在Vim中，很多命令都可以配合数字使用，比如删除10个字符10x，<br>在当前位置后插入3个！，3a！<esc>，这里的Esc是必须的，否则命令不生效。</esc></p>
-<p>w 向前移动一个单词（光标停在单词首部），如果已到行尾，则转至下一行行首。此命令快，可以代替l命令。</p>
-<p>b 向后移动一个单词 2b 向后移动2个单词</p>
-<p>e，同w，只不过是光标停在单词尾部</p>
-<p>ge，同b，光标停在单词尾部。</p>
-<p>^ 移动到本行第一个非空白字符上。</p>
-<p>0（数字0）移动到本行第一个字符上，</p>
-<p><home> 移动到本行第一个字符。同0健。</home></p>
-<p>$ 移动到行尾 3$ 移动到下面3行的行尾</p>
-<p>gg 移动到文件头。 = [[</p>
-<p>G（shift + g） 移动到文件尾。 = ]]</p>
-<p>f（find）命令也可以用于移动，fx将找到光标后第一个为x的字符，3fd将找到第三个为d的字符。</p>
-<p>F 同f，反向查找。</p>
-<p>跳到指定行，冒号+行号，回车，比如跳到240行就是 :240回车。另一个方法是行号+G，比如230G跳到230行。</p>
-<p>Ctrl + e 向下滚动一行</p>
-<p>Ctrl + y 向上滚动一行</p>
-<p>Ctrl + d 向下滚动半屏</p>
-<p>Ctrl + u 向上滚动半屏</p>
-<p>Ctrl + f 向下滚动一屏</p>
-<p>Ctrl + b 向上滚动一屏</p>
-<p>撤销和重做</p>
-<p>u 撤销（Undo）<br>U 撤销对整行的操作<br>Ctrl + r 重做（Redo），即撤销的撤销。</p>
-<p>删除命令</p>
-<p>x 删除当前字符</p>
-<p>3x 删除当前光标开始向后三个字符</p>
-<p>X 删除当前字符的前一个字符。X=dh</p>
-<p>dl 删除当前字符， dl=x</p>
-<p>dh 删除前一个字符</p>
-<p>dd 删除当前行</p>
-<p>dj 删除上一行</p>
-<p>dk 删除下一行</p>
-<p>10d 删除当前行开始的10行。</p>
-<p>D 删除当前字符至行尾。D=d$</p>
-<p>d$ 删除当前字符之后的所有字符（本行）</p>
-<p>kdgg 删除当前行之前所有行（不包括当前行）</p>
-<p>jdG（jd shift + g）   删除当前行之后所有行（不包括当前行）</p>
-<p>:1,10d 删除1-10行</p>
-<p>:11,$d 删除11行及以后所有的行</p>
-<p>:1,$d 删除所有行</p>
-<p>J(shift + j)　　删除两行之间的空行，实际上是合并两行。</p>
-<p>拷贝和粘贴</p>
-<p>yy 拷贝当前行</p>
-<p>nyy 拷贝当前后开始的n行，比如2yy拷贝当前行及其下一行。</p>
-<p>p  在当前光标后粘贴,如果之前使用了yy命令来复制一行，那么就在当前行的下一行粘贴。</p>
-<p>shift+p 在当前行前粘贴</p>
-<p>:1,10 co 20 将1-10行插入到第20行之后。</p>
-<p>:1,$ co $ 将整个文件复制一份并添加到文件尾部。</p>
-<p>正常模式下按v（逐字）或V（逐行）进入可视模式，然后用jklh命令移动即可选择某些行或字符，再按y即可复制</p>
-<p>ddp交换当前行和其下一行</p>
-<p>xp交换当前字符和其后一个字符</p>
-<p>剪切命令</p>
-<p>正常模式下按v（逐字）或V（逐行）进入可视模式，然后用jklh命令移动即可选择某些行或字符，再按d即可剪切</p>
-<p>ndd 剪切当前行之后的n行。利用p命令可以对剪切的内容进行粘贴</p>
-<p>:1,10d 将1-10行剪切。利用p命令可将剪切后的内容进行粘贴。</p>
-<p>:1, 10 m 20 将第1-10行移动到第20行之后。</p>
-<p>退出命令</p>
-<p>:wq 保存并退出</p>
-<p>ZZ 保存并退出</p>
-<p>:q! 强制退出并忽略所有更改</p>
-<p>:e! 放弃所有修改，并打开原来文件。</p>
-<p>窗口命令</p>
-<p>:split或new 打开一个新窗口，光标停在顶层的窗口上</p>
-<p>:split file或:new file 用新窗口打开文件</p>
-<p>split打开的窗口都是横向的，使用vsplit可以纵向打开窗口。</p>
-<p>Ctrl+ww 移动到下一个窗口</p>
-<p>Ctrl+wj 移动到下方的窗口</p>
-<p>Ctrl+wk 移动到上方的窗口</p>
-<p>关闭窗口</p>
-<p>:close 最后一个窗口不能使用此命令，可以防止意外退出vim。</p>
-<p>:q 如果是最后一个被关闭的窗口，那么将退出vim。</p>
-<p>ZZ 保存并退出。</p>
-<p>关闭所有窗口，只保留当前窗口</p>
+<h1 id="新建一个md-的文件"><a href="#新建一个md-的文件" class="headerlink" title="新建一个md 的文件"></a>新建一个md 的文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">cd 到项目目录 比如</div><div class="line">                                        $ cd Blogs</div><div class="line">然后 新建 比如 demo </div><div class="line">                                        $ hexo new &apos;demo&apos;</div><div class="line">当demo.md 出现 就是新建成功</div><div class="line">                                        INFO  Created: /Blogs/source/_posts/demo.md</div><div class="line">当也可以自己写一个</div><div class="line">                                        vim /Blogs/source/_posts/demo.md</div></pre></td></tr></table></figure>
+<h1 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">如果是 hexo new 命令的 会有 title等信息</div><div class="line">如果是 vim 出来的 则需要自己写</div><div class="line"></div><div class="line">具体的 可以搜下 markdown 语法</div><div class="line">或者</div><div class="line">[markdown--入门指南](http://www.jianshu.com/p/1e402922ee32/)</div></pre></td></tr></table></figure>
+<h1 id="写文章-1"><a href="#写文章-1" class="headerlink" title="写文章"></a>写文章</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">如果是 hexo new 命令的 会有 title等信息</div><div class="line">如果是 vim 出来的 则需要自己写</div><div class="line"></div><div class="line">具体的 可以搜下 markdown 语法</div><div class="line">或者</div><div class="line">[markdown--入门指南](http://www.jianshu.com/p/1e402922ee32/)</div></pre></td></tr></table></figure>
+<h1 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">部署 hexo g</div><div class="line"></div><div class="line">提交 hexo d</div><div class="line"></div><div class="line">你的主题，和名字就修改成功了</div></pre></td></tr></table></figure>
+<p>完活.</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -199,7 +115,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/other/">other</a><a href="/tags/vim/">vim</a>
+  <span></span> <a href="/tags/other/">other</a>
   </div>
 
 </div>
@@ -208,7 +124,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://zoulp.github.io/2016/07/23/usevim/" data-title="vim的简单操作 | Lpeng Zou" data-tsina="null" class="share clearfix">
+	  <div data-url="http://zoulp.github.io/2016/10/14/dohexo/" data-title="如何操作 hexo | Lpeng Zou" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -221,14 +137,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/07/28/inputStyle/" title="input的一个demo  (select)">
-  <strong>上一篇：</strong><br/>
-  <span>
-  input的一个demo  (select)</span>
+
+<div class="next">
+<a href="/2016/08/26/windowonload/"  title="jquery加载页面的方法(页面加载完成就执行)">
+ <strong>下一篇：</strong><br/> 
+ <span>jquery加载页面的方法(页面加载完成就执行)
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -240,7 +156,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#新建一个md-的文件"><span class="toc-number">1.</span> <span class="toc-text">新建一个md 的文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#写文章"><span class="toc-number">2.</span> <span class="toc-text">写文章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#写文章-1"><span class="toc-number">3.</span> <span class="toc-text">写文章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#提交"><span class="toc-number">4.</span> <span class="toc-text">提交</span></a></li></ol>
  
   </div>
 
