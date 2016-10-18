@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/10/18/mysqlindex/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
-<meta property="og:updated_time" content="2016-10-18T07:48:58.718Z">
+<meta property="og:updated_time" content="2016-10-18T07:55:54.002Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql索引的一些介绍">
 <meta name="twitter:description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
@@ -91,14 +91,15 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本文从如何建立mysql索引以及介绍mysql的索引类型-再讲mysql索引的利与弊-以及建立索引时需要注意的地方"><span class="toc-number">1.</span> <span class="toc-text">本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h2 id="本文从如何建立mysql索引以及介绍mysql的索引类型-再讲mysql索引的利与弊-以及建立索引时需要注意的地方"><a href="#本文从如何建立mysql索引以及介绍mysql的索引类型-再讲mysql索引的利与弊-以及建立索引时需要注意的地方" class="headerlink" title="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方"></a>本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方</h2><a id="more"></a>
-<p>mysql 的 索引分为 ## 主键索引 为索引 普通索引 和组合索引 ##<br>单列索引:一个索引只包含一个列,一个列表可以有多个单列索引.<br>本文使用的案列的表<br><code>CREATE TABLE</code>award<code>(</code>id<code>int(11) NOT NULL AUTO_INCREMENT COMMENT &#39;用户id&#39;,</code>aty_id<code>varchar(100) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;活动场景id&#39;,</code>nickname<code>varchar(12) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;用户昵称&#39;,</code>is_awarded<code>tinyint(1) NOT NULL DEFAULT 0 COMMENT &#39;用户是否领奖&#39;,</code>award_time<code>int(11) NOT NULL DEFAULT 0 COMMENT &#39;领奖时间&#39;,</code>account<code>varchar(12) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;帐号&#39;,</code>password<code>char(32) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;密码&#39;,</code>message<code>varchar(255) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;获奖信息&#39;,</code>created_time<code>int(11) NOT NULL DEFAULT 0 COMMENT &#39;创建时间&#39;,</code>updated_time<code>int(11) NOT NULL DEFAULT 0 COMMENT &#39;更新时间&#39;,
-   PRIMARY KEY (</code>id<code>)
- ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT=&#39;获奖信息表&#39;;</code></p>
+		<p><strong> 本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方 </strong><br><a id="more"></a><br>mysql 的 索引分为 主键索引 为索引 普通索引 和组合索引 </p>
+<ul>
+<li><strong>单列索引: </strong> 一个索引只包含一个列,一个列表可以有多个单列索引.</li>
+<li><strong>组合索引: </strong> 一个组合索引包含两个或两个以上的列<br>本文使用的案列的表<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE `award` (</div><div class="line">   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &apos;用户id&apos;,</div><div class="line">   `aty_id` varchar(100) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;活动场景id&apos;,</div><div class="line">   `nickname` varchar(12) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;用户昵称&apos;,</div><div class="line">   `is_awarded` tinyint(1) NOT NULL DEFAULT 0 COMMENT &apos;用户是否领奖&apos;,</div><div class="line">   `award_time` int(11) NOT NULL DEFAULT 0 COMMENT &apos;领奖时间&apos;,</div><div class="line">   `account` varchar(12) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;帐号&apos;,</div><div class="line">   `password` char(32) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;密码&apos;,</div><div class="line">   `message` varchar(255) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;获奖信息&apos;,</div><div class="line">   `created_time` int(11) NOT NULL DEFAULT 0 COMMENT &apos;创建时间&apos;,</div><div class="line">   `updated_time` int(11) NOT NULL DEFAULT 0 COMMENT &apos;更新时间&apos;,</div><div class="line">   PRIMARY KEY (`id`)</div><div class="line"> ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT=&apos;获奖信息表&apos;;</div></pre></td></tr></table></figure></li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -153,7 +154,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本文从如何建立mysql索引以及介绍mysql的索引类型-再讲mysql索引的利与弊-以及建立索引时需要注意的地方"><span class="toc-number">1.</span> <span class="toc-text">本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方</span></a></li></ol>
+ 
  
   </div>
 
