@@ -4,25 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>input的一个demo  (select) | Lpeng Zou</title>
+    <title>mysql索引的一些介绍 | Lpeng Zou</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Lpeng Zou">
     
 
     
-    <meta name="description" content="这是一个 select 的input的样式">
+    <meta name="description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
 <meta property="og:type" content="article">
-<meta property="og:title" content="input的一个demo  (select)">
-<meta property="og:url" content="http://zoulp.github.io/2016/07/28/inputStyle/index.html">
+<meta property="og:title" content="mysql索引的一些介绍">
+<meta property="og:url" content="http://zoulp.github.io/2016/10/18/mysqlindex/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
-<meta property="og:description" content="这是一个 select 的input的样式">
-<meta property="og:image" content="http://7xwuj8.com1.z0.glb.clouddn.com/zoselectstyle.png">
-<meta property="og:updated_time" content="2016-07-30T10:50:53.500Z">
+<meta property="og:description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
+<meta property="og:updated_time" content="2016-10-18T07:48:58.718Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="input的一个demo  (select)">
-<meta name="twitter:description" content="这是一个 select 的input的样式">
-<meta name="twitter:image" content="http://7xwuj8.com1.z0.glb.clouddn.com/zoselectstyle.png">
+<meta name="twitter:title" content="mysql索引的一些介绍">
+<meta name="twitter:description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
 
     
     <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
@@ -77,14 +75,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/07/28/inputStyle/" title="input的一个demo  (select)" itemprop="url">input的一个demo  (select)</a>
+      <a href="/2016/10/18/mysqlindex/" title="mysql索引的一些介绍" itemprop="url">mysql索引的一些介绍</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
 		
   <p class="article-time">
-    <time datetime="2016-07-28T10:53:31.000Z" itemprop="datePublished"> 发表于 2016-07-28</time>
+    <time datetime="2016-10-18T07:12:52.000Z" itemprop="datePublished"> 发表于 2016-10-18</time>
     
   </p>
 </header>
@@ -93,16 +91,14 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本文从如何建立mysql索引以及介绍mysql的索引类型-再讲mysql索引的利与弊-以及建立索引时需要注意的地方"><span class="toc-number">1.</span> <span class="toc-text">本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方</span></a></li></ol>
 		
 		</div>
 		
-		<p><strong>这是一个 select 的input的样式</strong><br><a id="more"></a></p>
-<blockquote>
-<p>.article-search&gt;span select<br>{<br>background: #CAE1EE;<br>width: 80px;<br>padding: 0 6px;<br>font-size: 13px;<br>border: 1px solid #ccc;<br>height: 25px;<br>-webkit-appearance: none;<br>border: none;<br>outline:none;<br>}</p>
-</blockquote>
-<p><em>——-效果</em></p>
-<p><img src="http://7xwuj8.com1.z0.glb.clouddn.com/zoselectstyle.png" alt="这是一个demo"></p>
+		<h2 id="本文从如何建立mysql索引以及介绍mysql的索引类型-再讲mysql索引的利与弊-以及建立索引时需要注意的地方"><a href="#本文从如何建立mysql索引以及介绍mysql的索引类型-再讲mysql索引的利与弊-以及建立索引时需要注意的地方" class="headerlink" title="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方"></a>本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方</h2><a id="more"></a>
+<p>mysql 的 索引分为 ## 主键索引 为索引 普通索引 和组合索引 ##<br>单列索引:一个索引只包含一个列,一个列表可以有多个单列索引.<br>本文使用的案列的表<br><code>CREATE TABLE</code>award<code>(</code>id<code>int(11) NOT NULL AUTO_INCREMENT COMMENT &#39;用户id&#39;,</code>aty_id<code>varchar(100) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;活动场景id&#39;,</code>nickname<code>varchar(12) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;用户昵称&#39;,</code>is_awarded<code>tinyint(1) NOT NULL DEFAULT 0 COMMENT &#39;用户是否领奖&#39;,</code>award_time<code>int(11) NOT NULL DEFAULT 0 COMMENT &#39;领奖时间&#39;,</code>account<code>varchar(12) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;帐号&#39;,</code>password<code>char(32) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;密码&#39;,</code>message<code>varchar(255) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;获奖信息&#39;,</code>created_time<code>int(11) NOT NULL DEFAULT 0 COMMENT &#39;创建时间&#39;,</code>updated_time<code>int(11) NOT NULL DEFAULT 0 COMMENT &#39;更新时间&#39;,
+   PRIMARY KEY (</code>id<code>)
+ ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT=&#39;获奖信息表&#39;;</code></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -110,13 +106,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/web/">web</a>
+  <a class="article-category-link" href="/categories/mysql/">mysql</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/web/">web</a><a href="/tags/css/">css</a>
+  <span></span> <a href="/tags/mysql/">mysql</a>
   </div>
 
 </div>
@@ -125,7 +121,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://zoulp.github.io/2016/07/28/inputStyle/" data-title="input的一个demo  (select) | Lpeng Zou" data-tsina="null" class="share clearfix">
+	  <div data-url="http://zoulp.github.io/2016/10/18/mysqlindex/" data-title="mysql索引的一些介绍 | Lpeng Zou" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,19 +134,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/07/30/mysqlnote1/" title="mysql的使用操作">
-  <strong>上一篇：</strong><br/>
-  <span>
-  mysql的使用操作</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/07/23/usevim/"  title="vim的简单操作">
+<a href="/2016/10/14/dohexo/"  title="如何操作 hexo">
  <strong>下一篇：</strong><br/> 
- <span>vim的简单操作
+ <span>如何操作 hexo
 </span>
 </a>
 </div>
@@ -165,7 +153,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本文从如何建立mysql索引以及介绍mysql的索引类型-再讲mysql索引的利与弊-以及建立索引时需要注意的地方"><span class="toc-number">1.</span> <span class="toc-text">本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方</span></a></li></ol>
  
   </div>
 
