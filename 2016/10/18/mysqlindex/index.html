@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/10/18/mysqlindex/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
-<meta property="og:updated_time" content="2016-10-19T02:42:35.534Z">
+<meta property="og:updated_time" content="2016-10-19T02:47:21.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql索引的一些介绍">
 <meta name="twitter:description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
@@ -103,16 +103,16 @@
 </li>
 </ul>
 <h2 id="一-索引的创建"><a href="#一-索引的创建" class="headerlink" title="(一)索引的创建"></a>(一)索引的创建</h2><p>1.单列索引</p>
-<p>1-1)    普通索引,这个是最基本的索引,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">其sql格式是 CREATE INDEX IndexName ON `TableName`(`字段名`(length)) 或者 ALTER TABLE TableName ADD INDEX IndexName(`字段名`(length))</div></pre></td></tr></table></figure></p>
+<p>1-1)    普通索引,这个是最基本的索引,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">其sql格式是</div><div class="line">CREATE INDEX IndexName ON `TableName`(`字段名`(length));</div><div class="line"> 或者 </div><div class="line"> ALTER TABLE TableName ADD INDEX IndexName(`字段名`(length));</div></pre></td></tr></table></figure></p>
 <p>第一种方式 :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE INDEX account_Index ON `award`(`account`);</div></pre></td></tr></table></figure></p>
 <p>第二种方式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE award ADD INDEX account_Index(`account`)</div></pre></td></tr></table></figure></p>
 <p>如果是CHAR,VARCHAR,类型,length可以小于字段的实际长度,如果是BLOB和TEXT类型就必须指定长度,</p>
-<p>1-2)    唯一索引,与普通索引类似,但是不同的是唯一索引要求所有的类的值是唯一的,这一点和主键索引一样.但是他允许有空值,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">其sql格式是 CREATE UNIQUE INDEX IndexName ON `TableName`(`字段名`(length)); 或者 ALTER TABLE TableName ADD UNIQUE (column_list)  </div><div class="line"></div><div class="line">CREATE UNIQUE INDEX account_UNIQUE_Index ON `award`(`account`);</div></pre></td></tr></table></figure></p>
+<p>1-2)    唯一索引,与普通索引类似,但是不同的是唯一索引要求所有的类的值是唯一的,这一点和主键索引一样.但是他允许有空值,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">其sql格式是 </div><div class="line">CREATE UNIQUE INDEX IndexName ON `TableName`(`字段名`(length)); </div><div class="line">或者 </div><div class="line">ALTER TABLE TableName ADD UNIQUE (column_list);</div><div class="line"></div><div class="line">CREATE UNIQUE INDEX account_UNIQUE_Index ON `award`(`account`);</div></pre></td></tr></table></figure></p>
 <p>1-3)    主键索引,不允许有空值,(在B+TREE中的InnoDB引擎中,主键索引起到了至关重要的地位)</p>
-<p>主键索引建立的规则是 int优于varchar,一般在建表的时候创建,最好是与表的其他字段不相关的列或者是业务不相关的列.一般会设为 int 而且是 AUTO_INCREMENT自增类型的</p>
+<p>主键索引建立的规则是:<br>   int优于varchar,一般在建表的时候创建,最好是与表的其他字段不相关的列或者是业务不相关的列.<br>   一般会设为 int 而且是 AUTO_INCREMENT自增类型的</p>
 <p>2.组合索引</p>
-<p>一个表中含有多个单列索引不代表是组合索引,通俗一点讲 组合索引是:包含多个字段但是只有索引名称<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">其sql格式是 CREATE INDEX IndexName On `TableName`(`字段名`(length),`字段名`(length),...);</div><div class="line"></div><div class="line"> CREATE INDEX nickname_account_createdTime_Index ON `award`(`nickname`, `account`, `created_time`);</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">如果你建立了 组合索引(nickname_account_createdTime_Index) 那么他实际包含的是3个索引 (nickname) (nickname,account)(nickname,account,created_time)</div></pre></td></tr></table></figure>
+<p>一个表中含有多个单列索引不代表是组合索引,通俗一点讲 组合索引是:包含多个字段但是只有索引名称<br>其sql格式是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE INDEX IndexName On `TableName`(`字段名`(length),`字段名`(length),...);</div><div class="line"></div><div class="line">CREATE INDEX nickname_account_createdTime_Index ON `award`(`nickname`, `account`, `created_time`);</div></pre></td></tr></table></figure></p>
+<p>如果你建立了 组合索引(nickname_account_createdTime_Index)<br>那么他实际包含的是3个索引 (nickname) (nickname,account)(nickname,account,created_time)</p>
 <p>在使用查询的时候遵循mysql组合索引的”最左前缀”,下面我们来分析一下 什么是最左前缀:及索引where时的条件要按照建立索引的时候字段的排序方式</p>
 <p>1、不按索引最左列开始查询（多列索引） 例如index(‘c1’, ‘c2’, ‘c3’) where ‘c2’ = ‘aaa’ 不使用索引,where <code>c2</code> = <code>aaa</code> and <code>c3</code>=<code>sss</code> 不能使用索引</p>
 <p>2、查询中某个列有范围查询，则其右边的所有列都无法使用查询（多列查询）</p>
