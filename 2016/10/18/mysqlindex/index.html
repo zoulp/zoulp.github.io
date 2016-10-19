@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/10/18/mysqlindex/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
-<meta property="og:updated_time" content="2016-10-19T01:51:11.174Z">
+<meta property="og:updated_time" content="2016-10-19T02:32:36.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql索引的一些介绍">
 <meta name="twitter:description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
@@ -102,19 +102,16 @@
 </li>
 </ul>
 <h2 id="一-索引的创建"><a href="#一-索引的创建" class="headerlink" title="(一)索引的创建"></a>(一)索引的创建</h2><p>1.单列索引</p>
-<p>1-1)    普通索引,这个是最基本的索引,</p>
-<p>其sql格式是 CREATE INDEX IndexName ON <code>TableName</code>(<code>字段名</code>(length)) 或者 ALTER TABLE TableName ADD INDEX IndexName(<code>字段名</code>(length))</p>
+<p>1-1)    普通索引,这个是最基本的索引,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">其sql格式是 CREATE INDEX IndexName ON `TableName`(`字段名`(length)) 或者 ALTER TABLE TableName ADD INDEX IndexName(`字段名`(length))</div></pre></td></tr></table></figure></p>
 <p>第一种方式 :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE INDEX account_Index ON `award`(`account`);</div></pre></td></tr></table></figure></p>
 <p>第二种方式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE award ADD INDEX account_Index(`account`)</div></pre></td></tr></table></figure></p>
 <p>如果是CHAR,VARCHAR,类型,length可以小于字段的实际长度,如果是BLOB和TEXT类型就必须指定长度,</p>
-<p>1-2)    唯一索引,与普通索引类似,但是不同的是唯一索引要求所有的类的值是唯一的,这一点和主键索引一样.但是他允许有空值,</p>
-<p>其sql格式是 CREATE UNIQUE INDEX IndexName ON <code>TableName</code>(<code>字段名</code>(length)); 或者 ALTER TABLE TableName ADD UNIQUE (column_list)  </p>
-<p>CREATE UNIQUE INDEX account_UNIQUE_Index ON <code>award</code>(<code>account</code>);<br>1-3)    主键索引,不允许有空值,(在B+TREE中的InnoDB引擎中,主键索引起到了至关重要的地位)</p>
+<p>1-2)    唯一索引,与普通索引类似,但是不同的是唯一索引要求所有的类的值是唯一的,这一点和主键索引一样.但是他允许有空值,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">其sql格式是 CREATE UNIQUE INDEX IndexName ON `TableName`(`字段名`(length)); 或者 ALTER TABLE TableName ADD UNIQUE (column_list)  </div><div class="line"></div><div class="line">CREATE UNIQUE INDEX account_UNIQUE_Index ON `award`(`account`);</div></pre></td></tr></table></figure></p>
+<p>1-3)    主键索引,不允许有空值,(在B+TREE中的InnoDB引擎中,主键索引起到了至关重要的地位)</p>
 <p>主键索引建立的规则是 int优于varchar,一般在建表的时候创建,最好是与表的其他字段不相关的列或者是业务不相关的列.一般会设为 int 而且是 AUTO_INCREMENT自增类型的</p>
 <p>2.组合索引</p>
-<p>一个表中含有多个单列索引不代表是组合索引,通俗一点讲 组合索引是:包含多个字段但是只有索引名称</p>
-<p>其sql格式是 CREATE INDEX IndexName On <code>TableName</code>(<code>字段名</code>(length),<code>字段名</code>(length),…);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE INDEX nickname_account_createdTime_Index ON `award`(`nickname`, `account`, `created_time`);</div></pre></td></tr></table></figure></p>
-<p>如果你建立了 组合索引(nickname_account_createdTime_Index) 那么他实际包含的是3个索引 (nickname) (nickname,account)(nickname,account,created_time)</p>
+<p>一个表中含有多个单列索引不代表是组合索引,通俗一点讲 组合索引是:包含多个字段但是只有索引名称<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">其sql格式是 CREATE INDEX IndexName On `TableName`(`字段名`(length),`字段名`(length),...);</div><div class="line"></div><div class="line"> CREATE INDEX nickname_account_createdTime_Index ON `award`(`nickname`, `account`, `created_time`);</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">如果你建立了 组合索引(nickname_account_createdTime_Index) 那么他实际包含的是3个索引 (nickname) (nickname,account)(nickname,account,created_time)</div></pre></td></tr></table></figure>
 <p>在使用查询的时候遵循mysql组合索引的”最左前缀”,下面我们来分析一下 什么是最左前缀:及索引where时的条件要按照建立索引的时候字段的排序方式</p>
 <p>1、不按索引最左列开始查询（多列索引） 例如index(‘c1’, ‘c2’, ‘c3’) where ‘c2’ = ‘aaa’ 不使用索引,where <code>c2</code> = <code>aaa</code> and <code>c3</code>=<code>sss</code> 不能使用索引</p>
 <p>2、查询中某个列有范围查询，则其右边的所有列都无法使用查询（多列查询）</p>
@@ -129,7 +126,7 @@
 <p>.这个时候全文索引就祈祷了作用了</p>
 <p>ALTER TABLE tablename ADD FULLTEXT(column1, column2)<br>有了全文索引，就可以用SELECT查询命令去检索那些包含着一个或多个给定单词的数据记录了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ELECT * FROM tablename</div><div class="line">WHERE MATCH(column1, column2) AGAINST(‘xxx′, ‘sss′, ‘ddd′)</div></pre></td></tr></table></figure></p>
 <p>这条命令将把column1和column2字段里有xxx、sss和ddd的数据记录全部查询出来。</p>
-<h2 id="二-索引的删除"><a href="#二-索引的删除" class="headerlink" title="(二)索引的删除"></a>(二)索引的删除</h2><p>删除索引的mysql格式 :DORP INDEX IndexName ON <code>TableName</code></p>
+<h2 id="二-索引的删除"><a href="#二-索引的删除" class="headerlink" title="(二)索引的删除"></a>(二)索引的删除</h2><p>删除索引的mysql格式 :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DORP INDEX IndexName ON `TableName`</div></pre></td></tr></table></figure></p>
 <h2 id="三-使用索引的优点"><a href="#三-使用索引的优点" class="headerlink" title="(三)使用索引的优点"></a>(三)使用索引的优点</h2><p>1.可以通过建立唯一索引或者主键索引,保证数据库表中每一行数据的唯一性.<br>2.建立索引可以大大提高检索的数据,以及减少表的检索行数<br>3.在表连接的连接条件 可以加速表与表直接的相连<br>4.在分组和排序字句进行数据检索,可以减少查询时间中 分组 和 排序时所消耗的时间(数据库的记录会重新排序)<br>5.建立索引,在查询中使用索引 可以提高性能</p>
 <h2 id="四-使用索引的缺点"><a href="#四-使用索引的缺点" class="headerlink" title="(四)使用索引的缺点"></a>(四)使用索引的缺点</h2><p>1.在创建索引和维护索引 会耗费时间,随着数据量的增加而增加<br>2.索引文件会占用物理空间,除了数据表需要占用物理空间之外,每一个索引还会占用一定的物理空间<br>3.当对表的数据进行 INSERT,UPDATE,DELETE 的时候,索引也要动态的维护,这样就会降低数据的维护速度,(建立索引会占用磁盘空间的索引文件。一般情况这个问题不太严重，但如果你在一个大表上创建了多种组合索引，索引文件的会膨胀很快)。</p>
 <h2 id="五-使用索引需要注意的地方"><a href="#五-使用索引需要注意的地方" class="headerlink" title="(五)使用索引需要注意的地方"></a>(五)使用索引需要注意的地方</h2><p>在建立索引的时候应该考虑索引应该建立在数据库表中的某些列上面 哪一些索引需要建立,哪一些所以是多余的.<br>一般来说,<br>1.在经常需要搜索的列上,可以加快索引的速度<br>2.主键列上可以确保列的唯一性<br>3.在表与表的而连接条件上加上索引,可以加快连接查询的速度<br>4.在经常需要排序(order by),分组(group by)和的distinct 列上加索引 可以加快排序查询的时间,  (单独order by 用不了索引，索引考虑加where 或加limit)<br>5.在一些where 之后的 &lt; &lt;= &gt; &gt;= BETWEEN IN 以及某个情况下的like 建立字段的索引(B-TREE)</p>
