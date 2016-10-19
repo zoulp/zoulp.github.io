@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/10/18/mysqlindex/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
-<meta property="og:updated_time" content="2016-10-18T07:55:54.002Z">
+<meta property="og:updated_time" content="2016-10-19T01:48:04.566Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql索引的一些介绍">
 <meta name="twitter:description" content="本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方">
@@ -91,15 +91,54 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-索引的创建"><span class="toc-number">1.</span> <span class="toc-text">(一)索引的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-索引的删除"><span class="toc-number">2.</span> <span class="toc-text">(二)索引的删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-使用索引的优点"><span class="toc-number">3.</span> <span class="toc-text">(三)使用索引的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-使用索引的缺点"><span class="toc-number">4.</span> <span class="toc-text">(四)使用索引的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五-使用索引需要注意的地方"><span class="toc-number">5.</span> <span class="toc-text">(五)使用索引需要注意的地方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六-什么情况下不创建索引"><span class="toc-number">6.</span> <span class="toc-text">(六)什么情况下不创建索引</span></a></li></ol>
 		
 		</div>
 		
 		<p><strong> 本文从如何建立mysql索引以及介绍mysql的索引类型,再讲mysql索引的利与弊,以及建立索引时需要注意的地方 </strong><br><a id="more"></a><br>mysql 的 索引分为 主键索引 为索引 普通索引 和组合索引 </p>
 <ul>
 <li><strong>单列索引: </strong> 一个索引只包含一个列,一个列表可以有多个单列索引.</li>
-<li><strong>组合索引: </strong> 一个组合索引包含两个或两个以上的列<br>本文使用的案列的表<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE `award` (</div><div class="line">   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &apos;用户id&apos;,</div><div class="line">   `aty_id` varchar(100) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;活动场景id&apos;,</div><div class="line">   `nickname` varchar(12) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;用户昵称&apos;,</div><div class="line">   `is_awarded` tinyint(1) NOT NULL DEFAULT 0 COMMENT &apos;用户是否领奖&apos;,</div><div class="line">   `award_time` int(11) NOT NULL DEFAULT 0 COMMENT &apos;领奖时间&apos;,</div><div class="line">   `account` varchar(12) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;帐号&apos;,</div><div class="line">   `password` char(32) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;密码&apos;,</div><div class="line">   `message` varchar(255) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;获奖信息&apos;,</div><div class="line">   `created_time` int(11) NOT NULL DEFAULT 0 COMMENT &apos;创建时间&apos;,</div><div class="line">   `updated_time` int(11) NOT NULL DEFAULT 0 COMMENT &apos;更新时间&apos;,</div><div class="line">   PRIMARY KEY (`id`)</div><div class="line"> ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT=&apos;获奖信息表&apos;;</div></pre></td></tr></table></figure></li>
+<li><strong>组合索引: </strong> 一个组合索引包含两个或两个以上的列<br>本文使用的案列的表<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE `award` (</div><div class="line">   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &apos;用户id&apos;,</div><div class="line">   `aty_id` varchar(100) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;活动场景id&apos;,</div><div class="line">   `nickname` varchar(12) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;用户昵称&apos;,</div><div class="line">   `is_awarded` tinyint(1) NOT NULL DEFAULT 0 COMMENT &apos;用户是否领奖&apos;,</div><div class="line">   `award_time` int(11) NOT NULL DEFAULT 0 COMMENT &apos;领奖时间&apos;,</div><div class="line">   `account` varchar(12) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;帐号&apos;,</div><div class="line">   `password` char(32) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;密码&apos;,</div><div class="line">   `message` varchar(255) NOT NULL DEFAULT &apos;&apos; COMMENT &apos;获奖信息&apos;,</div><div class="line">   `created_time` int(11) NOT NULL DEFAULT 0 COMMENT &apos;创建时间&apos;,</div><div class="line">   `updated_time` int(11) NOT NULL DEFAULT 0 COMMENT &apos;更新时间&apos;,</div><div class="line">   PRIMARY KEY (`id`)</div><div class="line"> ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT=&apos;获奖信息表&apos;;</div></pre></td></tr></table></figure>
+</li>
 </ul>
+<h2 id="一-索引的创建"><a href="#一-索引的创建" class="headerlink" title="(一)索引的创建"></a>(一)索引的创建</h2><p>1.单列索引</p>
+<p>1-1)    普通索引,这个是最基本的索引,</p>
+<p>其sql格式是 CREATE INDEX IndexName ON <code>TableName</code>(<code>字段名</code>(length)) 或者 ALTER TABLE TableName ADD INDEX IndexName(<code>字段名</code>(length))</p>
+<p>第一种方式 :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE INDEX account_Index ON `award`(`account`);</div></pre></td></tr></table></figure></p>
+<p>第二种方式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE award ADD INDEX account_Index(`account`)</div></pre></td></tr></table></figure></p>
+<p>如果是CHAR,VARCHAR,类型,length可以小于字段的实际长度,如果是BLOB和TEXT类型就必须指定长度,</p>
+<p>1-2)    唯一索引,与普通索引类似,但是不同的是唯一索引要求所有的类的值是唯一的,这一点和主键索引一样.但是他允许有空值,</p>
+<p>其sql格式是 CREATE UNIQUE INDEX IndexName ON <code>TableName</code>(<code>字段名</code>(length)); 或者 ALTER TABLE TableName ADD UNIQUE (column_list)  </p>
+<p>CREATE UNIQUE INDEX account_UNIQUE_Index ON <code>award</code>(<code>account</code>);<br>1-3)    主键索引,不允许有空值,(在B+TREE中的InnoDB引擎中,主键索引起到了至关重要的地位)</p>
+<p>主键索引建立的规则是 int优于varchar,一般在建表的时候创建,最好是与表的其他字段不相关的列或者是业务不相关的列.一般会设为 int 而且是 AUTO_INCREMENT自增类型的</p>
+<p>2.组合索引</p>
+<p>一个表中含有多个单列索引不代表是组合索引,通俗一点讲 组合索引是:包含多个字段但是只有索引名称</p>
+<p>其sql格式是 CREATE INDEX IndexName On <code>TableName</code>(<code>字段名</code>(length),<code>字段名</code>(length),…);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE INDEX nickname_account_createdTime_Index ON `award`(`nickname`, `account`, `created_time`);</div></pre></td></tr></table></figure></p>
+<p>如果你建立了 组合索引(nickname_account_createdTime_Index) 那么他实际包含的是3个索引 (nickname) (nickname,account)(nickname,account,created_time)</p>
+<p>在使用查询的时候遵循mysql组合索引的”最左前缀”,下面我们来分析一下 什么是最左前缀:及索引where时的条件要按照建立索引的时候字段的排序方式</p>
+<p>1、不按索引最左列开始查询（多列索引） 例如index(‘c1’, ‘c2’, ‘c3’) where ‘c2’ = ‘aaa’ 不使用索引,where <code>c2</code> = <code>aaa</code> and <code>c3</code>=<code>sss</code> 不能使用索引</p>
+<p>2、查询中某个列有范围查询，则其右边的所有列都无法使用查询（多列查询）</p>
+<p>Where c1= ‘xxx’ and c2 like = ‘aa%’ and c3=’sss’ 改查询只会使用索引中的前两列,因为like是范围查询</p>
+<p>3、不能跳过某个字段来进行查询,这样利用不到索引,比如我的sql 是 </p>
+<p>explain select * from <code>award</code> where nickname &gt; ‘rSUQFzpkDz3R’ and account = ‘DYxJoqZq2rd7’ and created_time = 1449567822; 那么这时候他使用不到其组合索引.</p>
+<p>因为我的索引是 (nickname, account, created_time),如果第一个字段出现 范围符号的查找,那么将不会用到索引,如果我是第二个或者第三个字段使用范围符号的查找,那么他会利用索引,利用的索引是(nickname),</p>
+<p>因为上面说了建立组合索引(nickname, account, created_time), 会出现三个索引</p>
+<p>(3)全文索引</p>
+<p>文本字段上(text)如果建立的是普通索引,那么只有对文本的字段内容前面的字符进行索引,其字符大小根据索引建立索引时申明的大小来规定.</p>
+<p>如果文本中出现多个一样的字符,而且需要查找的话,那么其条件只能是 where column lick ‘%xxxx%’ 这样做会让索引失效</p>
+<p>.这个时候全文索引就祈祷了作用了</p>
+<p>ALTER TABLE tablename ADD FULLTEXT(column1, column2)<br>有了全文索引，就可以用SELECT查询命令去检索那些包含着一个或多个给定单词的数据记录了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ELECT * FROM tablename</div><div class="line">WHERE MATCH(column1, column2) AGAINST(‘xxx′, ‘sss′, ‘ddd′)</div></pre></td></tr></table></figure></p>
+<p>这条命令将把column1和column2字段里有xxx、sss和ddd的数据记录全部查询出来。</p>
+<h2 id="二-索引的删除"><a href="#二-索引的删除" class="headerlink" title="(二)索引的删除"></a>(二)索引的删除</h2><p>删除索引的mysql格式 :DORP INDEX IndexName ON <code>TableName</code></p>
+<h2 id="三-使用索引的优点"><a href="#三-使用索引的优点" class="headerlink" title="(三)使用索引的优点"></a>(三)使用索引的优点</h2><p>1.可以通过建立唯一索引或者主键索引,保证数据库表中每一行数据的唯一性.<br>2.建立索引可以大大提高检索的数据,以及减少表的检索行数<br>3.在表连接的连接条件 可以加速表与表直接的相连<br>4.在分组和排序字句进行数据检索,可以减少查询时间中 分组 和 排序时所消耗的时间(数据库的记录会重新排序)<br>5.建立索引,在查询中使用索引 可以提高性能</p>
+<h2 id="四-使用索引的缺点"><a href="#四-使用索引的缺点" class="headerlink" title="(四)使用索引的缺点"></a>(四)使用索引的缺点</h2><p>1.在创建索引和维护索引 会耗费时间,随着数据量的增加而增加<br>2.索引文件会占用物理空间,除了数据表需要占用物理空间之外,每一个索引还会占用一定的物理空间<br>3.当对表的数据进行 INSERT,UPDATE,DELETE 的时候,索引也要动态的维护,这样就会降低数据的维护速度,(建立索引会占用磁盘空间的索引文件。一般情况这个问题不太严重，但如果你在一个大表上创建了多种组合索引，索引文件的会膨胀很快)。</p>
+<h2 id="五-使用索引需要注意的地方"><a href="#五-使用索引需要注意的地方" class="headerlink" title="(五)使用索引需要注意的地方"></a>(五)使用索引需要注意的地方</h2><p>在建立索引的时候应该考虑索引应该建立在数据库表中的某些列上面 哪一些索引需要建立,哪一些所以是多余的.<br>一般来说,<br>1.在经常需要搜索的列上,可以加快索引的速度<br>2.主键列上可以确保列的唯一性<br>3.在表与表的而连接条件上加上索引,可以加快连接查询的速度<br>4.在经常需要排序(order by),分组(group by)和的distinct 列上加索引 可以加快排序查询的时间,  (单独order by 用不了索引，索引考虑加where 或加limit)<br>5.在一些where 之后的 &lt; &lt;= &gt; &gt;= BETWEEN IN 以及某个情况下的like 建立字段的索引(B-TREE)</p>
+<p>6.like语句的 如果你对nickname字段建立了一个索引.当查询的时候的语句是 nickname lick ‘%ABC%’ 那么这个索引讲不会起到作用.而nickname lick ‘ABC%’ 那么将可以用到索引</p>
+<p>7.索引不会包含NULL列,如果列中包含NULL值都将不会被包含在索引中,复合索引中如果有一列含有NULL值那么这个组合索引都将失效,一般需要给默认值0或者 ‘ ‘字符串</p>
+<p>8.使用短索引,如果你的一个字段是Char(32)或者int(32),在创建索引的时候指定前缀长度 比如前10个字符 (前提是多数值是唯一的..)那么短索引可以提高查询速度,并且可以减少磁盘的空间,也可以减少I/0操作.</p>
+<p>9.不要在列上进行运算,这样会使得mysql索引失效,也会进行全表扫描</p>
+<p>10.选择越小的数据类型越好,因为通常越小的数据类型通常在磁盘,内存,cpu,缓存中 占用的空间很少,处理起来更快</p>
+<h2 id="六-什么情况下不创建索引"><a href="#六-什么情况下不创建索引" class="headerlink" title="(六)什么情况下不创建索引"></a>(六)什么情况下不创建索引</h2><p>1.查询中很少使用到的列 不应该创建索引,如果建立了索引然而还会降低mysql的性能和增大了空间需求.<br>2.很少数据的列也不应该建立索引,比如 一个性别字段 0或者1,在查询中,结果集的数据占了表中数据行的比例比较大,mysql需要扫描的行数很多,增加索引,并不能提高效率<br>3.定义为text和image和bit数据类型的列不应该增加索引,<br>4.当表的修改(UPDATE,INSERT,DELETE)操作远远大于检索(SELECT)操作时不应该创建索引,这两个操作是互斥的关系</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -154,7 +193,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-索引的创建"><span class="toc-number">1.</span> <span class="toc-text">(一)索引的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-索引的删除"><span class="toc-number">2.</span> <span class="toc-text">(二)索引的删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-使用索引的优点"><span class="toc-number">3.</span> <span class="toc-text">(三)使用索引的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-使用索引的缺点"><span class="toc-number">4.</span> <span class="toc-text">(四)使用索引的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五-使用索引需要注意的地方"><span class="toc-number">5.</span> <span class="toc-text">(五)使用索引需要注意的地方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六-什么情况下不创建索引"><span class="toc-number">6.</span> <span class="toc-text">(六)什么情况下不创建索引</span></a></li></ol>
  
   </div>
 
@@ -212,15 +251,15 @@
 			
 		
 			
+				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/php/" title="php">php<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
 			
 		
 		</ul>
