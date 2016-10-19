@@ -1,0 +1,529 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>关于 PHP 中 Session 的几个问题 | Lpeng Zou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Lpeng Zou">
+    
+
+    
+    <meta name="description" content="对于php程序员来说,这篇文章会相对容易理解session 一些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于 PHP 中 Session 的几个问题">
+<meta property="og:url" content="http://zoulp.github.io/2016/10/19/php-session/index.html">
+<meta property="og:site_name" content="Lpeng Zou">
+<meta property="og:description" content="对于php程序员来说,这篇文章会相对容易理解session 一些">
+<meta property="og:updated_time" content="2016-10-19T03:17:31.070Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于 PHP 中 Session 的几个问题">
+<meta name="twitter:description" content="对于php程序员来说,这篇文章会相对容易理解session 一些">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Lpeng Zou" title="Lpeng Zou"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Lpeng Zou">Lpeng Zou</a></h1>
+				<h2 class="blog-motto">kevin_zo@sina</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/about">about</a></li>
+					
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/19/php-session/" title="关于 PHP 中 Session 的几个问题" itemprop="url">关于 PHP 中 Session 的几个问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-19T03:05:13.000Z" itemprop="datePublished"> 发表于 2016-10-19</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-Session"><span class="toc-number">1.</span> <span class="toc-text">什么是 Session</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Session-和-Cookie-有什么关系"><span class="toc-number">2.</span> <span class="toc-text">Session 和 Cookie 有什么关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么不推荐使用-PHP-自带的-files-型-Session-处理器"><span class="toc-number">3.</span> <span class="toc-text">为什么不推荐使用 PHP 自带的 files 型 Session 处理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Session-数据是什么时候被删除的"><span class="toc-number">4.</span> <span class="toc-text">Session 数据是什么时候被删除的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么重启浏览器后-Session-数据就取不到了"><span class="toc-number">5.</span> <span class="toc-text">为什么重启浏览器后 Session 数据就取不到了</span></a></li></ol>
+		
+		</div>
+		
+		<p><em>对于php程序员来说,这篇文章会相对容易理解session 一些</em></p>
+<a id="more"></a>
+<ul>
+<li><strong> 文章出处 </strong><br><a href="https://segmentfault.com/a/1190000003012552" target="_blank" rel="external">关于 PHP 中 Session 的几个问题</a></li>
+</ul>
+<h2 id="什么是-Session"><a href="#什么是-Session" class="headerlink" title="什么是 Session"></a>什么是 Session</h2><p>在 web 应用开发中，Session 被称为会话。主要被用于保存某个访问者的数据。<br>由于 HTTP 无状态的特点，服务端是不会记住客户端的，对服务端来说，每一个请求都是全新的。<br>既然如此，那么服务端怎么知道是哪个访问者在请求它呢？又如何将不同的数据对应上正确的访问者？答案是，给访问者一个唯一获取 Session 中数据的身份标示。</p>
+<p>打个比方：当我们去超市购物时，被保安告之我们是不能带物品进去的，必须将物品寄放在超市的储物箱中。我们把物品交给了他，他怎么知道这些物品谁是谁的，于是他给了我们不同的钥匙。当我们要取走我们的物品时，用唯一的钥匙打开对应的箱子即可。</p>
+<p>就如同上面的比方一样，可以将 Session 理解为存放我们数据的“箱子”，当然，这些“箱子”都在服务端那。服务器给访问者唯一的“钥匙”，这个“钥匙”被称作 session_id。访问者凭借自己的 session_id，就能获取到自己存在服务器端的数据。</p>
+<p>session_id 通过两种方式传给访问者（客户端）：URL 或 cookie。详情参见：传送会话ID</p>
+<h2 id="Session-和-Cookie-有什么关系"><a href="#Session-和-Cookie-有什么关系" class="headerlink" title="Session 和 Cookie 有什么关系"></a>Session 和 Cookie 有什么关系</h2><p>Cookie 也是由于 HTTP 无状态的特点而产生的技术。也被用于保存访问者的身份标示和一些数据。每次客户端发起 HTTP 请求时，会将 Cookie 数据加到 HTTP header 中，提交给服务端。这样服务端就可以根据 Cookie 的内容知道访问者的信息了。 可以说，Session 和 Cookie 做着相似的事情，只是 Session 是将数据保存在服务端，通过客户端提交来的 session_id 来获取对应的数据；而 Cookie 是将数据保存在客户端，每次发起请求时将数据提交给服务端的。</p>
+<p>上面提到，session_id 可以通过 URL 或 cookie 来传递，由于 URL 的方式比 cookie 的方式更加不安全且使用不方便，所以一般是采用 cookie 来传递 session_id。<br>服务端生成 session_id，通过 HTTP 报文发送给客户端（比如浏览器），客户端收到后按指示创建保存着 session_id 的 cookie。cookie 是以 key/value 形式保存的，看上去大概就这个样子的：PHPSESSID=e4tqo2ajfbqqia9prm8t83b1f2。在 PHP 中，保存 session_id 的 cookie 名称默认叫作 PHPSESSID，这个名称可以通过 php.ini 中 session.name 来修改，也可以通过函数 session_name() 来修改。</p>
+<h2 id="为什么不推荐使用-PHP-自带的-files-型-Session-处理器"><a href="#为什么不推荐使用-PHP-自带的-files-型-Session-处理器" class="headerlink" title="为什么不推荐使用 PHP 自带的 files 型 Session 处理器"></a>为什么不推荐使用 PHP 自带的 files 型 Session 处理器</h2><p>在 PHP 中，默认的 Session 处理器是 files，处理器可以用户自己实现（参见：自定义会话管理器）。我知道的成熟的 Session 处理器还有很多：Redis、Memcached、MongoDB……<br>为什么不推荐使用 PHP 自带的 files 类型处理器，PHP 官方手册中给出过这样一段 Note：</p>
+<p>无论是通过调用函数 session_start() 手动开启会话， 还是使用配置项 session.auto_start 自动开启会话， 对于基于文件的会话数据保存（PHP 的默认行为）而言， 在会话开始的时候都会给会话数据文件加锁， 直到 PHP 脚本执行完毕或者显式调用 session_write_close() 来保存会话数据。 在此期间，其他脚本不可以访问同一个会话数据文件。<br>上述引用参见：Session 的基本用法</p>
+<blockquote>
+<p>为了证明这段话，我们创建一下 2 个文件：<br>文件：session1.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">session_start();</div><div class="line"></div><div class="line">sleep(5);</div><div class="line"></div><div class="line">var_dump($_SESSION);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>文件：session2.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">session_start();</div><div class="line"></div><div class="line">var_dump($_SESSION);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>在同一个浏览器中，先访问 <a href="http://127.0.0.1/session1.php，然后在当前浏览器新的标签页立刻访问" target="_blank" rel="external">http://127.0.0.1/session1.php，然后在当前浏览器新的标签页立刻访问</a> <a href="http://127.0.0.1/session2.php。实验发现，session1.php" target="_blank" rel="external">http://127.0.0.1/session2.php。实验发现，session1.php</a> 等了 5 秒钟才有输出，而 session2.php 也等到了将近 5 秒才有输出。而单独访问 session2.php 是秒开的。在一个浏览器中访问 session1.php，然后立刻在另外一个浏览器中访问 session2.php。结果是 session1.php 等待 5 秒钟有输出，而 session2.php 是秒开的。</p>
+<p>分析一下造成这个现象的原因：上面例子中，默认使用 Cookie 来传递 session_id，而且 Cookie 的作用域是相同。这样，在同一个浏览器中访问这 2 个地址，提交给服务器的 session_id 就是相同的（这样才能标记访问者，这是我们期望的效果）。当访问 session1.php 时，PHP 根据提交的 session_id，在服务器保存 Session 文件的路径（默认为 /tmp，通过 php.ini 中的 session.save_path 或者函数 session_save_path() 来修改）中找到了对应的 Session 文件，并对其加锁。如果不显式调用 session_write_close()，那么直到当前 PHP 脚本执行完毕才会释放文件锁。如果在脚本中有比较耗时的操作（比如例子中的 sleep(5)），那么另一个持有相同 session_id 的请求由于文件被锁，所以只能被迫等待，于是就发生了请求阻塞的情况。</p>
+<p>既然如此，在使用完 Session 后，立刻显示调用 session_write_close() 是不是就解决问题了哩？比如上面例子中，在 sleep(5) 前面调用 session_write_close()。<br>确实，这样 session2.php 就不会被 session1.php 所阻塞。但是，显示调用了 session_write_close() 就意味着将数据写到文件中并结束当前会话。那么，在后面代码中要使用 Session 时，必须重新调用 session_start()。</p>
+<p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">session_start();</div><div class="line">$_SESSION[&apos;name&apos;] = &apos;Jing&apos;;</div><div class="line">var_dump($_SESSION);</div><div class="line">session_write_close();</div><div class="line"></div><div class="line">sleep(5);</div><div class="line"></div><div class="line">session_start();</div><div class="line">$_SESSION[&apos;name&apos;] = &apos;Mr.Jing&apos;;</div><div class="line">var_dump($_SESSION);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>官方给出的方案：</p>
+<p>对于大量使用 Ajax 或者并发请求的网站而言，这可能是一个严重的问题。 解决这个问题最简单的做法是如果修改了会话中的变量， 那么应该尽快调用 session_write_close() 来保存会话数据并释放文件锁。 还有一种选择就是使用支持并发操作的会话保存管理器来替代文件会话保存管理器。<br>我推荐的方式是使用 Redis 作为 Session 的处理器。</p>
+<p>拓展阅读：</p>
+<p><a href="http://www.infoq.com/cn/news/2015/01/memcached-store-session" target="_blank" rel="external">为什么不能用 memcached 存储 Session</a></p>
+<p><a href="https://github.com/phpredis/phpredis#php-session-handler" target="_blank" rel="external">如何使用 Redis 作为 PHP Session handler</a></p>
+<h2 id="Session-数据是什么时候被删除的"><a href="#Session-数据是什么时候被删除的" class="headerlink" title="Session 数据是什么时候被删除的"></a>Session 数据是什么时候被删除的</h2><p>这是一道经常被面试官问起的问题。</p>
+<p>先看看官方手册中的说明：</p>
+<p>session.gc_maxlifetime 指定过了多少秒之后数据就会被视为”垃圾”并被清除。 垃圾搜集可能会在 session 启动的时候开始（ 取决于 session.gc_probability 和 session.gc_divisor）。 session.gc_probability 与 session.gc_divisor 合起来用来管理 gc（garbage collection 垃圾回收）进程启动的概率。此概率用 gc_probability/gc_divisor 计算得来。例如 1/100 意味着在每个请求中有 1% 的概率启动 gc 进程。session.gc_probability 默认为 1，session.gc_divisor 默认为 100。<br>继续用我上面那个不太恰当的比方吧：如果我们把物品放在超市的储物箱中而不取走，过了很久（比如一个月），那么保安就要清理这些储物箱中的物品了。当然并不是超过期限了保安就一定会来清理，也许他懒，又或者他压根就没有想起来这件事情。</p>
+<p>再看看两段手册的引用：</p>
+<p>如果使用默认的基于文件的会话处理器，则文件系统必须保持跟踪访问时间（atime）。Windows FAT 文件系统不行，因此如果必须使用 FAT 文件系统或者其他不能跟踪 atime 的文件系统，那就不得不想别的办法来处理会话数据的垃圾回收。自 PHP 4.2.3 起用 mtime（修改时间）来代替了 atime。因此对于不能跟踪 atime 的文件系统也没问题了。<br>GC 的运行时机并不是精准的，带有一定的或然性，所以这个设置项并不能确保旧的会话数据被删除。某些会话存储处理模块不使用此设置项。<br>对于这种删除机制，我是存疑的。</p>
+<p>比如 gc_probability/gc_divisor 设置得比较大，或者网站的请求量比较大，那么 GC 进程启动就会比较频繁。<br>还有，GC 进程启动后都需要遍历 Session 文件列表，对比文件的修改时间和服务端的当前时间，判断文件是否过期而决定是否删除文件。<br>这也是我觉得不应该使用 PHP 自带的 files 型 Session 处理器的原因。而 Redis 或 Memcached 天生就支持 key/value 过期机制的，用于作为会话处理器很合适。或者自己实现一个基于文件的处理器，当根据 session_id 获取对应的单个 Session 文件时判断文件是否过期。</p>
+<h2 id="为什么重启浏览器后-Session-数据就取不到了"><a href="#为什么重启浏览器后-Session-数据就取不到了" class="headerlink" title="为什么重启浏览器后 Session 数据就取不到了"></a>为什么重启浏览器后 Session 数据就取不到了</h2><p>session.cookie_lifetime 以秒数指定了发送到浏览器的 cookie 的生命周期。值为 0 表示”直到关闭浏览器”。默认为 0。<br>其实，并不是 Session 数据被删除（也有可能是，概率比较小，参见上一节）。只是关闭浏览器时，保存 session_id 的 Cookie 没有了。也就是你弄丢了打开超市储物箱的钥匙（session_id）。</p>
+<p>同理，浏览器 Cookie 被手动清除或者其他软件清除也会造成这个结果。</p>
+<p>为什么浏览器开着，我很久没有操作就被登出了<br>这个是称为“防呆”，为了保护用户账户安全的。</p>
+<p>这个小节放进来，是因为这个功能的实现可能和 Session 的删除机制有关（之所以说是可能，是因为这个功能不一定要借住 Session 实现，用 Cookie 也同样可以实现）。 说简单一点，就是长时间没有操作，服务端的 Session 文件过期被删除了。</p>
+<p>一个有意思的事情<br>在我试验的过程中，发现了小有意思的事情：我把 GC 启动的概率设置为 100%。如果只有一个访问者请求，该访问者即使过了很久（超过了过期时间）后才发起第二次请求，那么 Session 数据也还是存在的（’session.save_path’ 目录下面的 Session 文件存在）。是的，明明就超过了过期时间，却没有被 GC 删除。这时，我用另外一个浏览器访问时（相对于另一个访问者），这次请求生成了新的 Session 文件，而上一个浏览器请求生成的那个 Session 文件终于没有了（之前那个 Session 文件在 ‘session.save_path’ 目录下面的消失了）。</p>
+<p>还有，发现 Session 文件被删除后，再次请求，还是会生成和之前文件名相同的 Session 文件（因为浏览器并没有关闭，再次请求发送的 session_id 是相同的，所以重新生成的 Session 文件的文件名还是一样的）。但是，我不理解的是：这个重新出现的文件的创建时间竟然是第一次的那个创建时间，难道它是从回收站中回来的？（确实，我做这个试验时是在 window 下进行的）</p>
+<p>我猜测的原因是这样：当启动会话后，PHP 根据 session_id 找到并打开了对应的 Session 文件，然后才启动 GC 进程。GC 进程就只检查除了当前这个 Session 文件外的其他文件，发现过期的就干掉。所有，即使当前这个 Session 文件已经过期了，GC 也没有删除它。</p>
+<p>我认为这个不合理的。</p>
+<p>由于发生这种情况影响也不大（毕竟线上请求很多，当前请求的过期文件被其他请求唤起的 GC 干掉的可能性是比较大的） + 我没有信心去看 PHP 源代码 + 我并不在线上使用 PHP 自带的 files 型 Session 处理器。所以，这个问题我就没有深入研究了。请谅解。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">// 过期时间设置为 30 秒</div><div class="line">ini_set(&apos;session.gc_maxlifetime&apos;, &apos;30&apos;);</div><div class="line"></div><div class="line">// GC 启动概率设置为 100%</div><div class="line">ini_set(&apos;session.gc_probability&apos;, &apos;100&apos;);</div><div class="line">ini_set(&apos;session.gc_divisor&apos;, &apos;100&apos;);</div><div class="line"></div><div class="line">session_start();</div><div class="line">$_SESSION[&apos;name&apos;] = &apos;Jing&apos;;</div><div class="line"></div><div class="line">var_dump($_SESSION);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/php/">php</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/php/">php</a><a href="/tags/session/">session</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://zoulp.github.io/2016/10/19/php-session/" data-title="关于 PHP 中 Session 的几个问题 | Lpeng Zou" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/10/18/mysqlindex/"  title="mysql索引的一些介绍">
+ <strong>下一篇：</strong><br/> 
+ <span>mysql索引的一些介绍
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-Session"><span class="toc-number">1.</span> <span class="toc-text">什么是 Session</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Session-和-Cookie-有什么关系"><span class="toc-number">2.</span> <span class="toc-text">Session 和 Cookie 有什么关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么不推荐使用-PHP-自带的-files-型-Session-处理器"><span class="toc-number">3.</span> <span class="toc-text">为什么不推荐使用 PHP 自带的 files 型 Session 处理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Session-数据是什么时候被删除的"><span class="toc-number">4.</span> <span class="toc-text">Session 数据是什么时候被删除的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么重启浏览器后-Session-数据就取不到了"><span class="toc-number">5.</span> <span class="toc-text">为什么重启浏览器后 Session 数据就取不到了</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/mysql/" title="mysql">mysql<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/other/" title="other">other<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/web/" title="web">web<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/web/" title="web">web<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/other/" title="other">other<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/session/" title="session">session<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://zoulp.github.io" target="_blank" title="Lpeng Zou&#39;s Blog">Lpeng Zou&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 回头看看自己的路.我已竭尽全力 <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/http://weibo.com/p/1005055982977300" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Lpeng Zou">Lpeng Zou</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
