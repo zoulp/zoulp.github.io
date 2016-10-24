@@ -1,0 +1,559 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>js正则用法详解 | Lpeng Zou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Lpeng Zou">
+    
+
+    
+    <meta name="description" content="在这里可以看到一些常用的js下正则表达式的用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js正则用法详解">
+<meta property="og:url" content="http://zoulp.github.io/2016/10/24/jsReg/index.html">
+<meta property="og:site_name" content="Lpeng Zou">
+<meta property="og:description" content="在这里可以看到一些常用的js下正则表达式的用法">
+<meta property="og:updated_time" content="2016-10-24T09:26:31.994Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js正则用法详解">
+<meta name="twitter:description" content="在这里可以看到一些常用的js下正则表达式的用法">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Lpeng Zou" title="Lpeng Zou"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Lpeng Zou">Lpeng Zou</a></h1>
+				<h2 class="blog-motto">kevin_zo@sina</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/about">about</a></li>
+					
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/24/jsReg/" title="js正则用法详解" itemprop="url">js正则用法详解</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-24T06:57:33.000Z" itemprop="datePublished"> 发表于 2016-10-24</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#js-常用正则表达式"><span class="toc-number">1.</span> <span class="toc-text">js 常用正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附加"><span class="toc-number">2.</span> <span class="toc-text">附加</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下表是元字符及其在正则表达式上下文中的行为的一个完整列表"><span class="toc-number">3.</span> <span class="toc-text">下表是元字符及其在正则表达式上下文中的行为的一个完整列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-number">4.</span> <span class="toc-text">实例</span></a></li></ol>
+		
+		</div>
+		
+		<p><strong>在这里可以看到一些常用的js下正则表达式的用法</strong></p>
+<a id="more"></a>
+<h2 id="js-常用正则表达式"><a href="#js-常用正则表达式" class="headerlink" title="js 常用正则表达式"></a>js 常用正则表达式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&quot;^/d+$&quot;　　//非负整数（正整数 + 0） </div><div class="line">&quot;^[0-9]*[1-9][0-9]*$&quot;　　//正整数 </div><div class="line">&quot;^((-/d+)|(0+))$&quot;　　//非正整数（负整数 + 0） </div><div class="line">&quot;^-[0-9]*[1-9][0-9]*$&quot;　　//负整数 </div><div class="line">&quot;^-?/d+$&quot;　　　　//整数 </div><div class="line">&quot;^/d+(/./d+)?$&quot;　　//非负浮点数（正浮点数 + 0） </div><div class="line">&quot;^(([0-9]+/.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*/.[0-9]+)|([0-9]*[1-9][0-9]*))$&quot;　　//正浮点数 </div><div class="line">&quot;^((-/d+(/./d+)?)|(0+(/.0+)?))$&quot;　　//非正浮点数（负浮点数 + 0） </div><div class="line">&quot;^(-(([0-9]+/.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*/.[0-9]+)|([0-9]*[1-9][0-9]*)))$&quot;　　//负浮点数 </div><div class="line">&quot;^(-?/d+)(/./d+)?$&quot;　　//浮点数 </div><div class="line">&quot;^[A-Za-z]+$&quot;　　//由26个英文字母组成的字符串 </div><div class="line">&quot;^[A-Z]+$&quot;　　//由26个英文字母的大写组成的字符串 </div><div class="line">&quot;^[a-z]+$&quot;　　//由26个英文字母的小写组成的字符串 </div><div class="line">&quot;^[A-Za-z0-9]+$&quot;　　//由数字和26个英文字母组成的字符串 </div><div class="line">&quot;^/w+$&quot;　　//由数字、26个英文字母或者下划线组成的字符串 </div><div class="line">&quot;^[/w-]+(/.[/w-]+)*@[/w-]+(/.[/w-]+)+$&quot;　　　　//email地址 </div><div class="line">&quot;^[a-zA-z]+://(/w+(-/w+)*)(/.(/w+(-/w+)*))*(/?/S*)?$&quot;　　//url</div><div class="line">/^(d&#123;2&#125;|d&#123;4&#125;)-((0([1-9]&#123;1&#125;))|(1[1|2]))-(([0-2]([1-9]&#123;1&#125;))|(3[0|1]))$/   //  年-月-日</div><div class="line">/^((0([1-9]&#123;1&#125;))|(1[1|2]))/(([0-2]([1-9]&#123;1&#125;))|(3[0|1]))/(d&#123;2&#125;|d&#123;4&#125;)$/   // 月/日/年</div><div class="line">&quot;^([w-.]+)@(([[0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;.)|(([w-]+.)+))([a-zA-Z]&#123;2,4&#125;|[0-9]&#123;1,3&#125;)(]?)$&quot;   //Emil</div><div class="line">&quot;(d+-)?(d&#123;4&#125;-?d&#123;7&#125;|d&#123;3&#125;-?d&#123;8&#125;|^d&#123;7,8&#125;)(-d+)?&quot;     //电话号码</div><div class="line">&quot;^(d&#123;1,2&#125;|1dd|2[0-4]d|25[0-5]).(d&#123;1,2&#125;|1dd|2[0-4]d|25[0-5]).(d&#123;1,2&#125;|1dd|2[0-4]d|25[0-5]).(d&#123;1,2&#125;|1dd|2[0-4]d|25[0-5])$&quot;   //IP地址</div></pre></td></tr></table></figure>
+<h2 id="附加"><a href="#附加" class="headerlink" title="附加"></a>附加</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">匹配中文字符的正则表达式： [/u4e00-/u9fa5]</div><div class="line">匹配双字节字符(包括汉字在内)：[^/x00-/xff]</div><div class="line">匹配空行的正则表达式：/n[/s| ]*/r</div><div class="line">匹配HTML标记的正则表达式：/&lt;(.*)&gt;.*&lt;///1&gt;|&lt;(.*) //&gt;/</div><div class="line">匹配首尾空格的正则表达式：(^/s*)|(/s*$)</div><div class="line">匹配Email地址的正则表达式：/w+([-+.]/w+)*@/w+([-.]/w+)*/./w+([-.]/w+)*</div><div class="line">匹配网址URL的正则表达式：^[a-zA-z]+://(//w+(-//w+)*)(//.(//w+(-//w+)*))*(//?//S*)?$</div><div class="line">匹配帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：^[a-zA-Z][a-zA-Z0-9_]&#123;4,15&#125;$</div><div class="line">匹配国内电话号码：(0/d&#123;2&#125;-|0/d&#123;3&#125;-)?(/d&#123;8&#125;|/d&#123;7&#125;)?</div><div class="line">匹配腾讯QQ号：^[1-9]*[1-9][0-9]*$</div><div class="line">匹配Email地址的正则表达式：w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*</div><div class="line">匹配网址URL的正则表达式：http://([w-]+.)+[w-]+(/[w- ./?%&amp;=]*)?</div></pre></td></tr></table></figure>
+<h2 id="下表是元字符及其在正则表达式上下文中的行为的一个完整列表"><a href="#下表是元字符及其在正则表达式上下文中的行为的一个完整列表" class="headerlink" title="下表是元字符及其在正则表达式上下文中的行为的一个完整列表"></a>下表是元字符及其在正则表达式上下文中的行为的一个完整列表</h2><p> / 将下一个字符标记为一个特殊字符、或一个原义字符、或一个后向引用、或一个八进制转义符。</p>
+<p>^ 匹配输入字符串的开始位置。如果设置了 RegExp 对象的Multiline 属性，^ 也匹配 ’/n’ 或 ’/r’ 之后的位置。</p>
+<p>$ 匹配输入字符串的结束位置。如果设置了 RegExp 对象的Multiline 属性，$ 也匹配 ’/n’ 或 ’/r’ 之前的位置。</p>
+<ul>
+<li>匹配前面的子表达式零次或多次。</li>
+</ul>
+<ul>
+<li>匹配前面的子表达式一次或多次。+ 等价于 {1,}。</li>
+</ul>
+<p>? 匹配前面的子表达式零次或一次。? 等价于 {0,1}。</p>
+<p>{n} n 是一个非负整数，匹配确定的n 次。</p>
+<p>{n,} n 是一个非负整数，至少匹配n 次。</p>
+<p>{n,m} m 和 n 均为非负整数，其中n &lt;= m。最少匹配 n 次且最多匹配 m 次。在逗号和两个数之间不能有空格。</p>
+<p>? 当该字符紧跟在任何一个其他限制符 (*, +, ?, {n}, {n,}, {n,m}) 后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。</p>
+<p>. 匹配除 “/n” 之外的任何单个字符。要匹配包括 ’/n’ 在内的任何字符，请使用象 ’[./n]’ 的模式。<br>(pattern) 匹配pattern 并获取这一匹配。</p>
+<p>(?:pattern) 匹配pattern 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。</p>
+<p>(?=pattern) 正向预查，在任何匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。</p>
+<p>(?!pattern) 负向预查，与(?=pattern)作用相反</p>
+<p>x|y 匹配 x 或 y。</p>
+<p>[xyz] 字符集合。</p>
+<p>[^xyz] 负值字符集合。</p>
+<p>[a-z] 字符范围，匹配指定范围内的任意字符。</p>
+<p>[^a-z] 负值字符范围，匹配任何不在指定范围内的任意字符。</p>
+<p>/b 匹配一个单词边界，也就是指单词和空格间的位置。</p>
+<p>/B 匹配非单词边界。</p>
+<p>/cx 匹配由x指明的控制字符。</p>
+<p>/d 匹配一个数字字符。等价于 [0-9]。</p>
+<p>/D 匹配一个非数字字符。等价于 [^0-9]。</p>
+<p>/f 匹配一个换页符。等价于 /x0c 和 /cL。</p>
+<p>/n 匹配一个换行符。等价于 /x0a 和 /cJ。</p>
+<p>/r 匹配一个回车符。等价于 /x0d 和 /cM。</p>
+<p>/s 匹配任何空白字符，包括空格、制表符、换页符等等。等价于[ /f/n/r/t/v]。</p>
+<p>/S 匹配任何非空白字符。等价于 [^ /f/n/r/t/v]。</p>
+<p>/t 匹配一个制表符。等价于 /x09 和 /cI。</p>
+<p>/v 匹配一个垂直制表符。等价于 /x0b 和 /cK。</p>
+<p>/w 匹配包括下划线的任何单词字符。等价于’[A-Za-z0-9_]’。</p>
+<p>/W 匹配任何非单词字符。等价于 ’[^A-Za-z0-9_]’。</p>
+<p>/xn 匹配 n，其中 n 为十六进制转义值。十六进制转义值必须为确定的两个数字长。</p>
+<p>/num 匹配 num，其中num是一个正整数。对所获取的匹配的引用。</p>
+<p>/n 标识一个八进制转义值或一个后向引用。如果 /n 之前至少 n 个获取的子表达式，则 n 为后向引用。否则，如果 n 为八进制数字 (0-7)，则 n 为一个八进制转义值。</p>
+<p>/nm 标识一个八进制转义值或一个后向引用。如果 /nm 之前至少有is preceded by at least nm 个获取得子表达式，则 nm 为后向引用。如果 /nm 之前至少有 n 个获取，则 n 为一个后跟文字 m 的后向引用。如果前面的条件都不满足，若 n 和 m 均为八进制数字 (0-7)，则 /nm 将匹配八进制转义值 nm。</p>
+<p>/nml 如果 n 为八进制数字 (0-3)，且 m 和 l 均为八进制数字 (0-7)，则匹配八进制转义值 nml。</p>
+<p>/un 匹配 n，其中 n 是一个用四个十六进制数字表示的Unicode字符。</p>
+<p>匹配中文字符的正则表达式： [u4e00-u9fa5]</p>
+<p>匹配双字节字符(包括汉字在内)：[^x00-xff]</p>
+<p>应用：计算字符串的长度（一个双字节字符长度计2，ASCII字符计1）</p>
+<p>String.prototype.len=function(){return this.replace([^x00-xff]/g,”aa”).length;}</p>
+<p>匹配空行的正则表达式：n[s| ]*r</p>
+<p>匹配HTML标记的正则表达式：/&lt;(.<em>)&gt;.</em>|&lt;(.*) /&gt;/</p>
+<p>匹配首尾空格的正则表达式：(^s<em>)|(s</em>$)</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>应用：JavaScript中没有像vbscript那样的trim函数，我们就可以利用这个表达式来实现，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">String.prototype.trim = function()</div><div class="line">&#123;</div><div class="line">    return this.replace(/(^s*)|(s*$)/g, &quot;&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>利用正则表达式分解和转换IP地址：<br>下面是利用正则表达式匹配IP地址，并将IP地址转换成对应数值的Javascript程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function IP2V(ip)</div><div class="line">&#123;</div><div class="line">    re=/(d+).(d+).(d+).(d+)/g //匹配IP地址的正则表达式</div><div class="line">    if(re.test(ip))</div><div class="line">    &#123;</div><div class="line">        return RegExp.$1*Math.pow(255,3))+RegExp.$2*Math.pow(255,2))+RegExp.$3*255+RegExp.$4*1</div><div class="line">    &#125;</div><div class="line">    else</div><div class="line">    &#123;</div><div class="line">        throw new Error(&quot;Not a valid IP address!&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>不过上面的程序如果不用正则表达式，而直接用split函数来分解可能更简单，程序如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var ip=&quot;10.100.20.168&quot;</div><div class="line">ip=ip.split(&quot;.&quot;)</div><div class="line">alert(&quot;IP值是：&quot;+(ip[0]*255*255*255+ip[1]*255*255+ip[2]*255+ip[3]*1))</div></pre></td></tr></table></figure></p>
+<p>利用正则表达式去除字串中重复的字符的算法程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var s=&quot;abacabefgeeii&quot;</div><div class="line">var s1=s.replace(/(.).*1/g,&quot;$1&quot;)</div><div class="line">var re=new RegExp(&quot;[&quot;+s1+&quot;]&quot;,&quot;g&quot;)</div><div class="line">var s2=s.replace(re,&quot;&quot;) </div><div class="line">alert(s1+s2) //结果为：abcefgi</div></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>注释：</strong><br><em>此去重算法的思路是使用后向引用取出包括重复的字符，再以重复的字符建立第二个表达式，取到不重复的字符，两者串连。这个方法对于字符顺序有要求的字符串可能不适用</em></li>
+</ul>
+<p>得用正则表达式从URL地址中提取文件名的javascript程序，如下结果为page1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">s=&quot;http://www.9499.net/page1.htm&quot;</div><div class="line">s=s.replace(/(.*/)&#123;0,&#125;([^.]+).*/ig,&quot;$2&quot;)</div><div class="line">alert(s)</div></pre></td></tr></table></figure></p>
+<p>利用正则表达式限制网页表单里的文本框输入内容：</p>
+<p>用 正则表达式限制只能输入中文：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">onkeyup=&quot;value=value.replace(/[^u4E00-u9FA5]/g,&apos;&apos;)&quot;</div><div class="line">onbeforepaste=&quot;clipboardData.setData(&apos;text&apos;,clipboardData.getData(&apos;text&apos;).replace(/[^u4E00-u9FA5]/g,&apos;&apos;))&quot;</div></pre></td></tr></table></figure></p>
+<p>用 正则表达式限制只能输入全角字符：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">onkeyup=&quot;value=value.replace(/[^uFF00-uFFFF]/g,&apos;&apos;)&quot;</div><div class="line">onbeforepaste=&quot;clipboardData.setData(&apos;text&apos;,clipboardData.getData(&apos;text&apos;).replace(/[^uFF00-uFFFF]/g,&apos;&apos;))&quot;</div></pre></td></tr></table></figure></p>
+<p>用 正则表达式限制只能输入数字：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">onkeyup=&quot;value=value.replace(/[^d]/g,&apos;&apos;)</div><div class="line">&quot;onbeforepaste=&quot;clipboardData.setData(&apos;text&apos;,clipboardData.getData(&apos;text&apos;).replace(/[^d]/g,&apos;&apos;))&quot;</div></pre></td></tr></table></figure></p>
+<p>用 正则表达式限制只能输入数字和英文：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">onkeyup=&quot;value=value.replace(/[W]/g,&apos;&apos;)</div><div class="line">&quot;onbeforepaste=&quot;clipboardData.setData(&apos;text&apos;,clipboardData.getData(&apos;text&apos;).replace(/[^d]/g,&apos;&apos;))&quot;</div></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/web/">web</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/web/">web</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://zoulp.github.io/2016/10/24/jsReg/" data-title="js正则用法详解 | Lpeng Zou" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/10/20/httpNote/"  title="记一些关于http 的笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>记一些关于http 的笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#js-常用正则表达式"><span class="toc-number">1.</span> <span class="toc-text">js 常用正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附加"><span class="toc-number">2.</span> <span class="toc-text">附加</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下表是元字符及其在正则表达式上下文中的行为的一个完整列表"><span class="toc-number">3.</span> <span class="toc-text">下表是元字符及其在正则表达式上下文中的行为的一个完整列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-number">4.</span> <span class="toc-text">实例</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/mysql/" title="mysql">mysql<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/other/" title="other">other<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/php/" title="php">php<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/redis/" title="redis">redis<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/web/" title="web">web<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/web/" title="web">web<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/other/" title="other">other<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mysql/" title="mysql">mysql<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/php/" title="php">php<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/http/" title="http">http<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/session/" title="session">session<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/vim/" title="vim">vim<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://zoulp.github.io" target="_blank" title="Lpeng Zou&#39;s Blog">Lpeng Zou&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 回头看看自己的路.我已竭尽全力 <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/http://weibo.com/p/1005055982977300" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Lpeng Zou">Lpeng Zou</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
