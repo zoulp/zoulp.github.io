@@ -11,16 +11,16 @@
     
 
     
-    <meta name="description" content="在这里可以看到一些常用的js下正则表达式的用法">
+    <meta name="description" content="在这里可以看到一些常用的js下正则表达式的用法可能不知很全，在时间允许的情况下会再逐一补全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js正则用法详解">
 <meta property="og:url" content="http://zoulp.github.io/2016/10/24/jsReg/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
-<meta property="og:description" content="在这里可以看到一些常用的js下正则表达式的用法">
-<meta property="og:updated_time" content="2016-10-24T09:26:31.994Z">
+<meta property="og:description" content="在这里可以看到一些常用的js下正则表达式的用法可能不知很全，在时间允许的情况下会再逐一补全">
+<meta property="og:updated_time" content="2016-10-24T09:30:18.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js正则用法详解">
-<meta name="twitter:description" content="在这里可以看到一些常用的js下正则表达式的用法">
+<meta name="twitter:description" content="在这里可以看到一些常用的js下正则表达式的用法可能不知很全，在时间允许的情况下会再逐一补全">
 
     
     <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
@@ -95,8 +95,7 @@
 		
 		</div>
 		
-		<p><strong>在这里可以看到一些常用的js下正则表达式的用法</strong></p>
-<a id="more"></a>
+		<p><em>在这里可以看到一些常用的js下正则表达式的用法</em><br><em>可能不知很全，在时间允许的情况下会再逐一补全</em><br><a id="more"></a></p>
 <h2 id="js-常用正则表达式"><a href="#js-常用正则表达式" class="headerlink" title="js 常用正则表达式"></a>js 常用正则表达式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&quot;^/d+$&quot;　　//非负整数（正整数 + 0） </div><div class="line">&quot;^[0-9]*[1-9][0-9]*$&quot;　　//正整数 </div><div class="line">&quot;^((-/d+)|(0+))$&quot;　　//非正整数（负整数 + 0） </div><div class="line">&quot;^-[0-9]*[1-9][0-9]*$&quot;　　//负整数 </div><div class="line">&quot;^-?/d+$&quot;　　　　//整数 </div><div class="line">&quot;^/d+(/./d+)?$&quot;　　//非负浮点数（正浮点数 + 0） </div><div class="line">&quot;^(([0-9]+/.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*/.[0-9]+)|([0-9]*[1-9][0-9]*))$&quot;　　//正浮点数 </div><div class="line">&quot;^((-/d+(/./d+)?)|(0+(/.0+)?))$&quot;　　//非正浮点数（负浮点数 + 0） </div><div class="line">&quot;^(-(([0-9]+/.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*/.[0-9]+)|([0-9]*[1-9][0-9]*)))$&quot;　　//负浮点数 </div><div class="line">&quot;^(-?/d+)(/./d+)?$&quot;　　//浮点数 </div><div class="line">&quot;^[A-Za-z]+$&quot;　　//由26个英文字母组成的字符串 </div><div class="line">&quot;^[A-Z]+$&quot;　　//由26个英文字母的大写组成的字符串 </div><div class="line">&quot;^[a-z]+$&quot;　　//由26个英文字母的小写组成的字符串 </div><div class="line">&quot;^[A-Za-z0-9]+$&quot;　　//由数字和26个英文字母组成的字符串 </div><div class="line">&quot;^/w+$&quot;　　//由数字、26个英文字母或者下划线组成的字符串 </div><div class="line">&quot;^[/w-]+(/.[/w-]+)*@[/w-]+(/.[/w-]+)+$&quot;　　　　//email地址 </div><div class="line">&quot;^[a-zA-z]+://(/w+(-/w+)*)(/.(/w+(-/w+)*))*(/?/S*)?$&quot;　　//url</div><div class="line">/^(d&#123;2&#125;|d&#123;4&#125;)-((0([1-9]&#123;1&#125;))|(1[1|2]))-(([0-2]([1-9]&#123;1&#125;))|(3[0|1]))$/   //  年-月-日</div><div class="line">/^((0([1-9]&#123;1&#125;))|(1[1|2]))/(([0-2]([1-9]&#123;1&#125;))|(3[0|1]))/(d&#123;2&#125;|d&#123;4&#125;)$/   // 月/日/年</div><div class="line">&quot;^([w-.]+)@(([[0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;.)|(([w-]+.)+))([a-zA-Z]&#123;2,4&#125;|[0-9]&#123;1,3&#125;)(]?)$&quot;   //Emil</div><div class="line">&quot;(d+-)?(d&#123;4&#125;-?d&#123;7&#125;|d&#123;3&#125;-?d&#123;8&#125;|^d&#123;7,8&#125;)(-d+)?&quot;     //电话号码</div><div class="line">&quot;^(d&#123;1,2&#125;|1dd|2[0-4]d|25[0-5]).(d&#123;1,2&#125;|1dd|2[0-4]d|25[0-5]).(d&#123;1,2&#125;|1dd|2[0-4]d|25[0-5]).(d&#123;1,2&#125;|1dd|2[0-4]d|25[0-5])$&quot;   //IP地址</div></pre></td></tr></table></figure>
 <h2 id="附加"><a href="#附加" class="headerlink" title="附加"></a>附加</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">匹配中文字符的正则表达式： [/u4e00-/u9fa5]</div><div class="line">匹配双字节字符(包括汉字在内)：[^/x00-/xff]</div><div class="line">匹配空行的正则表达式：/n[/s| ]*/r</div><div class="line">匹配HTML标记的正则表达式：/&lt;(.*)&gt;.*&lt;///1&gt;|&lt;(.*) //&gt;/</div><div class="line">匹配首尾空格的正则表达式：(^/s*)|(/s*$)</div><div class="line">匹配Email地址的正则表达式：/w+([-+.]/w+)*@/w+([-.]/w+)*/./w+([-.]/w+)*</div><div class="line">匹配网址URL的正则表达式：^[a-zA-z]+://(//w+(-//w+)*)(//.(//w+(-//w+)*))*(//?//S*)?$</div><div class="line">匹配帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：^[a-zA-Z][a-zA-Z0-9_]&#123;4,15&#125;$</div><div class="line">匹配国内电话号码：(0/d&#123;2&#125;-|0/d&#123;3&#125;-)?(/d&#123;8&#125;|/d&#123;7&#125;)?</div><div class="line">匹配腾讯QQ号：^[1-9]*[1-9][0-9]*$</div><div class="line">匹配Email地址的正则表达式：w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*</div><div class="line">匹配网址URL的正则表达式：http://([w-]+.)+[w-]+(/[w- ./?%&amp;=]*)?</div></pre></td></tr></table></figure>
 <h2 id="下表是元字符及其在正则表达式上下文中的行为的一个完整列表"><a href="#下表是元字符及其在正则表达式上下文中的行为的一个完整列表" class="headerlink" title="下表是元字符及其在正则表达式上下文中的行为的一个完整列表"></a>下表是元字符及其在正则表达式上下文中的行为的一个完整列表</h2><p> / 将下一个字符标记为一个特殊字符、或一个原义字符、或一个后向引用、或一个八进制转义符。</p>
