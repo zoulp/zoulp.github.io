@@ -4,22 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Lpeng Zou</title>
+    <title>PHP之十六个魔术方法详解 | Lpeng Zou</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Lpeng Zou">
     
 
     
-    <meta name="description" content="this is my note!~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lpeng Zou">
-<meta property="og:url" content="http://zoulp.github.io/index.html">
+    <meta name="description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP之十六个魔术方法详解">
+<meta property="og:url" content="http://zoulp.github.io/2016/10/25/phpMagic/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
-<meta property="og:description" content="this is my note!~">
+<meta property="og:description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
+<meta property="og:updated_time" content="2016-10-25T09:42:04.340Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lpeng Zou">
-<meta name="twitter:description" content="this is my note!~">
+<meta name="twitter:title" content="PHP之十六个魔术方法详解">
+<meta name="twitter:description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
 
     
     <link rel="alternative" href="/atom.xml" title="Lpeng Zou" type="application/atom+xml">
@@ -68,12 +69,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2016/10/25/phpMagic/" title="PHP之十六个魔术方法详解" itemprop="url">PHP之十六个魔术方法详解</a>
@@ -87,9 +86,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <p><em>PHP之十六个魔术方法详解</em><br><em>这是摘抄的，不过很好懂</em><br><em>对于初级程序员来说可以读一下</em></p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p><em>PHP之十六个魔术方法详解</em><br><em>这是摘抄的，不过很好懂</em><br><em>对于初级程序员来说可以读一下</em></p>
 <!--more-- >
 [点击原文：PHP之十六个魔术方法详解](https://segmentfault.com/a/1190000007250604)
 - ** Magic methods **
@@ -414,14 +420,9 @@ public function __clone()
 <p>当php引擎第一次使用类A，但是找不到时，会自动调用 <strong>autoload 方法，并将类名“A”作为参数传入。所以，我们在 </strong>autoload() 中需要的做的就是根据类名，找到相应的文件，并包含进来，如果我们的方法也找不到，那么php引擎就会报错了。</p>
 <p>注意：</p>
 <p>这里可以只用require，因为一旦包含进来后，php引擎再遇到类A时，将不会调用__autoload，<br>而是直接使用内存中的类A，不会导致多次包含。</p>
--->
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+-->  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
@@ -439,577 +440,43 @@ public function __clone()
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://zoulp.github.io/2016/10/25/phpMagic/" data-title="PHP之十六个魔术方法详解 | Lpeng Zou" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/24/jsReg/" title="js正则用法详解" itemprop="url">js正则用法详解</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-24T06:57:33.000Z" itemprop="datePublished"> 发表于 2016-10-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><em>在这里可以看到一些常用的js下正则表达式的常见用法</em><br><em>可能不是很全，在时间允许的情况下会再逐一补全</em><br><em>平时用到正则的时候总是各种找</em><br><em>这次只需要看这篇文章就行</em><br><em>实例均为自己亲测</em><br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/10/24/jsReg/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/web/">web</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/web/">web</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/10/24/jsReg/"  title="js正则用法详解">
+ <strong>下一篇：</strong><br/> 
+ <span>js正则用法详解
+</span>
+</a>
 </div>
 
-</footer>
+</nav>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/20/httpNote/" title="记一些关于http 的笔记" itemprop="url">记一些关于http 的笔记</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-20T01:41:29.000Z" itemprop="datePublished"> 发表于 2016-10-20</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><em>今天开始 看看关于http 的相关知识 希望 能有点收获</em><br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/10/20/httpNote/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/web/">web</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/http/">http</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
 	
-</div>
 
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/19/php-session/" title="关于 PHP 中 Session 的几个问题" itemprop="url">关于 PHP 中 Session 的几个问题</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-19T03:05:13.000Z" itemprop="datePublished"> 发表于 2016-10-19</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><em>对于php程序员来说,这篇文章会相对容易理解session 一些</em></p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/10/19/php-session/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/php/">php</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/php/">php</a><a href="/tags/session/">session</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/18/mysqlindex/" title="mysql索引的一些介绍" itemprop="url">mysql索引的一些介绍</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-18T07:12:52.000Z" itemprop="datePublished"> 发表于 2016-10-18</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><em>本文从如何建立mysql索引以及介绍mysql的索引类型</em><br><em>再讲mysql索引的利与弊,以及建立索引时需要注意的地方</em><br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/10/18/mysqlindex/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/mysql/">mysql</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/mysql/">mysql</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/10/14/dohexo/" title="如何操作 hexo" itemprop="url">如何操作 hexo</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
-		
-  <p class="article-time">
-    <time datetime="2016-10-14T12:28:45.000Z" itemprop="datePublished"> 发表于 2016-10-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><em>好久没有 更新自己的文章了 突然发现忘得很彻底</em><br><em>所以需要整理一下 就如同怎样查字典 </em></p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/10/14/dohexo/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/other/">other</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/other/">other</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/08/26/windowonload/" title="jquery加载页面的方法(页面加载完成就执行)" itemprop="url">jquery加载页面的方法(页面加载完成就执行)</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
-		
-  <p class="article-time">
-    <time datetime="2016-08-26T09:01:42.000Z" itemprop="datePublished"> 发表于 2016-08-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>jquery加载页面的方法(页面加载完成就执行),<br>建议大家看下windows.onload与$(document).ready之间的区别。<br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/08/26/windowonload/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/web/">web</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/web/">web</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/08/26/redisbyphp/" title="php 对于redis 的操作" itemprop="url">php 对于redis 的操作</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
-		
-  <p class="article-time">
-    <time datetime="2016-08-26T08:51:05.907Z" itemprop="datePublished"> 发表于 2016-08-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><em>最近公司在做项目的时候用到redis</em><br><em>在这里对于php操作redis 做了下整理 </em></p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/08/26/redisbyphp/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/redis/">redis</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/php/">php</a><a href="/tags/redis/">redis</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/08/26/jqcode/" title="jquery 找节点" itemprop="url">jquery 找节点</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
-		
-  <p class="article-time">
-    <time datetime="2016-08-26T08:00:02.000Z" itemprop="datePublished"> 发表于 2016-08-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><strong>节点操作</strong><br><em>终于有时间 整理下 js.jquery 节点和事件的操作了</em><br>本人很懒,所以需要用懒人的办法解决事情,因此就有了这篇文章.<br>在这里对 找节点,操作节点做了下整理.<br>你可以很快的 找到它操作它<br>本章节 只负责找到节点</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/08/26/jqcode/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/web/">web</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/web/">web</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/08/14/jsnode/" title="js找节点" itemprop="url">js找节点</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Lpeng Zou" target="_blank" itemprop="author">Lpeng Zou</a>
-		
-  <p class="article-time">
-    <time datetime="2016-08-14T09:01:42.000Z" itemprop="datePublished"> 发表于 2016-08-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><strong>节点操作</strong><br><em>终于有时间 整理下 js.jquery 节点和事件的操作了</em><br>本人很懒,所以需要用懒人的办法解决事情,因此就有了这篇文章.<br>在这里对 找节点,操作节点做了下整理.<br>你可以很快的 找到它操作它</p>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2016/08/14/jsnode/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/web/">web</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/web/">web</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-
-  <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
-  </nav>
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -1194,12 +661,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -1270,4 +814,4 @@ var _hmt = _hmt || [];
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
