@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/10/25/phpMagic/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
-<meta property="og:updated_time" content="2016-10-25T09:42:04.340Z">
+<meta property="og:updated_time" content="2016-10-25T10:00:14.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP之十六个魔术方法详解">
 <meta name="twitter:description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
@@ -97,28 +97,29 @@
 		
 		<p><em>PHP之十六个魔术方法详解</em><br><em>这是摘抄的，不过很好懂</em><br><em>对于初级程序员来说可以读一下</em></p>
 <!--more-- >
+
 [点击原文：PHP之十六个魔术方法详解](https://segmentfault.com/a/1190000007250604)
 - ** Magic methods **
 PHP中把以两个下划线__开头的方法称为魔术方法(Magic methods)，
 这些方法在PHP中充当了举足轻重的作用。
  魔术方法包括：
 
-__construct()，类的构造函数
-__destruct()，类的析构函数
-__call()，在对象中调用一个不可访问方法时调用
-__callStatic()，用静态方式中调用一个不可访问方法时调用
-__get()，获得一个类的成员变量时调用
-__set()，设置一个类的成员变量时调用
-__isset()，当对不可访问属性调用isset()或empty()时调用
-__unset()，当对不可访问属性调用unset()时被调用。
-__sleep()，执行serialize()时，先会调用这个函数
-__wakeup()，执行unserialize()时，先会调用这个函数
-__toString()，类被当成字符串时的回应方法
-__invoke()，调用函数的方式调用一个对象时的回应方法
-__set_state()，调用var_export()导出类时，此静态方法会被调用。
-__clone()，当对象复制完成时调用
-__autoload()，尝试加载未定义的类
-__debugInfo()，打印所需调试信息
+> __construct()，类的构造函数
+> __destruct()，类的析构函数
+> __call()，在对象中调用一个不可访问方法时调用
+> __callStatic()，用静态方式中调用一个不可访问方法时调用
+> __get()，获得一个类的成员变量时调用
+> __set()，设置一个类的成员变量时调用
+> __isset()，当对不可访问属性调用isset()或empty()时调用
+> __unset()，当对不可访问属性调用unset()时被调用。
+> __sleep()，执行serialize()时，先会调用这个函数
+> __wakeup()，执行unserialize()时，先会调用这个函数
+> __toString()，类被当成字符串时的回应方法
+> __invoke()，调用函数的方式调用一个对象时的回应方法
+> __set_state()，调用var_export()导出类时，此静态方法会被调用。
+> __clone()，当对象复制完成时调用
+> __autoload()，尝试加载未定义的类
+> __debugInfo()，打印所需调试信息
 
 范例
 下面让我们以实例的形式向大家讲解下这几个魔术方法时如何使用的。
@@ -131,18 +132,12 @@ php中构造方法是对象创建完成后第一个被对象自动调用的方�
 通常构造方法被用来执行一些有用的初始化任务，如对成员属性在创建对象时赋予初始值。
 
 2、 构造方法的在类中的声明格式
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function __constrct([参数列表])&#123;</div><div class="line"></div><div class="line">    方法体 //通常用来对成员属性进行初始化赋值</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>3、 在类中声明构造方法需要注意的事项</p>
+<pre><code>*1)在同一个类中只能声明一个构造方法，原因是，PHP不支持构造函数重载。*
 
-function __constrct([参数列表]){
-
-    方法体 //通常用来对成员属性进行初始化赋值
-}
-3、 在类中声明构造方法需要注意的事项
-
-1、在同一个类中只能声明一个构造方法，原因是，PHP不支持构造函数重载。
-
-2、构造方法名称是以两个下画线开始的__construct()
-下面是它的例子：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">    class Person</div><div class="line">    &#123;                                                                      </div><div class="line">            public $name;        </div><div class="line">            public $age;        </div><div class="line">            public $sex;        </div><div class="line">                                                                 </div><div class="line">        /**</div><div class="line">         * 显示声明一个构造方法且带参数</div><div class="line">         */                                                                                       </div><div class="line">        public function __construct($name=&quot;&quot;, $sex=&quot;男&quot;, $age=22)</div><div class="line">        &#123;      </div><div class="line">            $this-&gt;name = $name;</div><div class="line">            $this-&gt;sex = $sex;</div><div class="line">            $this-&gt;age = $age;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        /**</div><div class="line">         * say 方法</div><div class="line">         */</div><div class="line">        public function say()</div><div class="line">        &#123; </div><div class="line">            echo &quot;我叫：&quot; . $this-&gt;name . &quot;，性别：&quot; . $this-&gt;sex . &quot;，年龄：&quot; . $this-&gt;age;</div><div class="line">        &#125;   </div><div class="line">                                                                                           </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+*2)构造方法名称是以两个下画线开始的__construct()*
+</code></pre><p>下面是它的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">    class Person</div><div class="line">    &#123;                                                                      </div><div class="line">            public $name;        </div><div class="line">            public $age;        </div><div class="line">            public $sex;        </div><div class="line">                                                                 </div><div class="line">        /**</div><div class="line">         * 显示声明一个构造方法且带参数</div><div class="line">         */                                                                                       </div><div class="line">        public function __construct($name=&quot;&quot;, $sex=&quot;男&quot;, $age=22)</div><div class="line">        &#123;      </div><div class="line">            $this-&gt;name = $name;</div><div class="line">            $this-&gt;sex = $sex;</div><div class="line">            $this-&gt;age = $age;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        /**</div><div class="line">         * say 方法</div><div class="line">         */</div><div class="line">        public function say()</div><div class="line">        &#123; </div><div class="line">            echo &quot;我叫：&quot; . $this-&gt;name . &quot;，性别：&quot; . $this-&gt;sex . &quot;，年龄：&quot; . $this-&gt;age;</div><div class="line">        &#125;   </div><div class="line">                                                                                           </div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">创建对象$Person1且不带任参数</div><div class="line">$Person1 = new Person();</div><div class="line">echo $Person1-&gt;say(); //输出:我叫：，性别：男，年龄：27</div><div class="line">创建对象$Person2且带参数“小明”</div><div class="line"></div><div class="line">$Person2 = new Person(&quot;小明&quot;);</div><div class="line">echo $Person2-&gt;say(); //输出：我叫：张三，性别：男，年龄：27</div><div class="line">创建对象$Person3且带三个参数</div><div class="line"></div><div class="line">$Person3 = new Person(&quot;李四&quot;,&quot;男&quot;,25);</div><div class="line">echo $Person3-&gt;say(); //输出：我叫：李四，性别：男，年龄：25</div></pre></td></tr></table></figure>
 <h2 id="destruct-，类的析构函数"><a href="#destruct-，类的析构函数" class="headerlink" title="__destruct()，类的析构函数"></a>__destruct()，类的析构函数</h2><p>通过上面的讲解，现在我们已经知道了什么叫构造方法。那么与构造方法对应的就是析构方法。</p>
 <p>析构方法允许在销毁一个类之前执行的一些操作或完成一些功能，比如说关闭文件、释放结果集等。</p>
