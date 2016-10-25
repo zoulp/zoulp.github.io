@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/10/25/phpMagic/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
-<meta property="og:updated_time" content="2016-10-25T10:00:14.269Z">
+<meta property="og:updated_time" content="2016-10-25T10:08:22.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP之十六个魔术方法详解">
 <meta name="twitter:description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
@@ -91,48 +91,30 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#construct-，类的构造函数"><span class="toc-number">1.</span> <span class="toc-text">__construct()，类的构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#destruct-，类的析构函数"><span class="toc-number">2.</span> <span class="toc-text">__destruct()，类的析构函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#call-，在对象中调用一个不可访问方法时调用。"><span class="toc-number">3.</span> <span class="toc-text">__call()，在对象中调用一个不可访问方法时调用。</span></a></li></ol>
 		
 		</div>
 		
-		<p><em>PHP之十六个魔术方法详解</em><br><em>这是摘抄的，不过很好懂</em><br><em>对于初级程序员来说可以读一下</em></p>
-<!--more-- >
-
-[点击原文：PHP之十六个魔术方法详解](https://segmentfault.com/a/1190000007250604)
-- ** Magic methods **
-PHP中把以两个下划线__开头的方法称为魔术方法(Magic methods)，
-这些方法在PHP中充当了举足轻重的作用。
- 魔术方法包括：
-
-> __construct()，类的构造函数
-> __destruct()，类的析构函数
-> __call()，在对象中调用一个不可访问方法时调用
-> __callStatic()，用静态方式中调用一个不可访问方法时调用
-> __get()，获得一个类的成员变量时调用
-> __set()，设置一个类的成员变量时调用
-> __isset()，当对不可访问属性调用isset()或empty()时调用
-> __unset()，当对不可访问属性调用unset()时被调用。
-> __sleep()，执行serialize()时，先会调用这个函数
-> __wakeup()，执行unserialize()时，先会调用这个函数
-> __toString()，类被当成字符串时的回应方法
-> __invoke()，调用函数的方式调用一个对象时的回应方法
-> __set_state()，调用var_export()导出类时，此静态方法会被调用。
-> __clone()，当对象复制完成时调用
-> __autoload()，尝试加载未定义的类
-> __debugInfo()，打印所需调试信息
-
-范例
-下面让我们以实例的形式向大家讲解下这几个魔术方法时如何使用的。
-
-##  __construct()，类的构造函数
-php中构造方法是对象创建完成后第一个被对象自动调用的方法。在每个类中都有一个构造方法，如果没有显示地声明它，那么类中都会默认存在一个没有参数且内容为空的构造方法。
-
-1、 构造方法的作用
-
-通常构造方法被用来执行一些有用的初始化任务，如对成员属性在创建对象时赋予初始值。
-
-2、 构造方法的在类中的声明格式
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function __constrct([参数列表])&#123;</div><div class="line"></div><div class="line">    方法体 //通常用来对成员属性进行初始化赋值</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+		<p><em>PHP之十六个魔术方法详解</em><br><em>这是摘抄的，不过很好懂</em><br><em>对于初级程序员来说可以读一下</em><br><a id="more"></a><br><a href="https://segmentfault.com/a/1190000007250604" target="_blank" rel="external">点击原文：PHP之十六个魔术方法详解</a></p>
+<ul>
+<li><strong> Magic methods </strong><br>PHP中把以两个下划线__开头的方法称为魔术方法(Magic methods)，<br>这些方法在PHP中充当了举足轻重的作用。<br>魔术方法包括：</li>
+</ul>
+<blockquote>
+<p><strong>construct()，类的构造函数
+</strong>destruct()，类的析构函数<br><strong>call()，在对象中调用一个不可访问方法时调用
+</strong>callStatic()，用静态方式中调用一个不可访问方法时调用<br><strong>get()，获得一个类的成员变量时调用
+</strong>set()，设置一个类的成员变量时调用<br><strong>isset()，当对不可访问属性调用isset()或empty()时调用
+</strong>unset()，当对不可访问属性调用unset()时被调用。<br><strong>sleep()，执行serialize()时，先会调用这个函数
+</strong>wakeup()，执行unserialize()时，先会调用这个函数<br><strong>toString()，类被当成字符串时的回应方法
+</strong>invoke()，调用函数的方式调用一个对象时的回应方法<br><strong>set_state()，调用var_export()导出类时，此静态方法会被调用。
+</strong>clone()，当对象复制完成时调用<br><strong>autoload()，尝试加载未定义的类
+</strong>debugInfo()，打印所需调试信息</p>
+</blockquote>
+<p>范例<br>下面让我们以实例的形式向大家讲解下这几个魔术方法时如何使用的。</p>
+<h2 id="construct-，类的构造函数"><a href="#construct-，类的构造函数" class="headerlink" title="__construct()，类的构造函数"></a>__construct()，类的构造函数</h2><p>php中构造方法是对象创建完成后第一个被对象自动调用的方法。在每个类中都有一个构造方法，如果没有显示地声明它，那么类中都会默认存在一个没有参数且内容为空的构造方法。</p>
+<p>1、 构造方法的作用</p>
+<p>通常构造方法被用来执行一些有用的初始化任务，如对成员属性在创建对象时赋予初始值。</p>
+<p>2、 构造方法的在类中的声明格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function __constrct([参数列表])&#123;</div><div class="line"></div><div class="line">    方法体 //通常用来对成员属性进行初始化赋值</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>3、 在类中声明构造方法需要注意的事项</p>
 <pre><code>*1)在同一个类中只能声明一个构造方法，原因是，PHP不支持构造函数重载。*
 
@@ -289,7 +271,7 @@ public function __sleep() {
     return array(&apos;name&apos;, &apos;age&apos;); // 这里必须返回一个数值，里边的元素表示返回的属性名称
 }
 </code></pre><p>}</p>
-<p>$person = new Person(‘小明’); // 初始赋值<br>echo serialize($person);<br>echo ‘<br/>‘;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">代码&gt; 运行结果：</div></pre></td></tr></table></figure></p>
+<p>$person = new Person(‘小明’); // 初始赋值<br>echo serialize($person);<br>echo ‘<br>‘;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">代码&gt; 运行结果：</div></pre></td></tr></table></figure></p>
 <p>当在类外部使用serialize()时会调用这里的__sleep()方法<br>O:6:”Person”:2:{s:4:”name”;s:8:”5bCP5piO”;s:3:”age”;i:25;}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">十、 __wakeup()，执行unserialize()时，先会调用这个函数</div><div class="line">如果说 __sleep() 是白的，那么 __wakeup() 就是黑的了。</div><div class="line"></div><div class="line">那么为什么呢？</div><div class="line"></div><div class="line">因为：</div><div class="line"></div><div class="line">与之相反，`unserialize()` 会检查是否存在一个 `__wakeup()` 方法。如果存在，则会先调用 `__wakeup` 方法，预先准备对象需要的资源。</div><div class="line">作用：</div><div class="line"></div><div class="line"></div><div class="line">__wakeup() 经常用在反序列化操作中，例如重新建立数据库连接，或执行其它初始化操作。</div><div class="line">还是看代码：</div></pre></td></tr></table></figure></p>
 <p>&lt;?php<br>class Person<br>{<br>    public $sex;<br>    public $name;<br>    public $age;</p>
 <pre><code>public function __construct($name=&quot;&quot;,  $age=25, $sex=&apos;男&apos;)
@@ -415,7 +397,7 @@ public function __clone()
 <p>当php引擎第一次使用类A，但是找不到时，会自动调用 <strong>autoload 方法，并将类名“A”作为参数传入。所以，我们在 </strong>autoload() 中需要的做的就是根据类名，找到相应的文件，并包含进来，如果我们的方法也找不到，那么php引擎就会报错了。</p>
 <p>注意：</p>
 <p>这里可以只用require，因为一旦包含进来后，php引擎再遇到类A时，将不会调用__autoload，<br>而是直接使用内存中的类A，不会导致多次包含。</p>
--->  
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -469,7 +451,7 @@ public function __clone()
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#construct-，类的构造函数"><span class="toc-number">1.</span> <span class="toc-text">__construct()，类的构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#destruct-，类的析构函数"><span class="toc-number">2.</span> <span class="toc-text">__destruct()，类的析构函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#call-，在对象中调用一个不可访问方法时调用。"><span class="toc-number">3.</span> <span class="toc-text">__call()，在对象中调用一个不可访问方法时调用。</span></a></li></ol>
  
   </div>
 
