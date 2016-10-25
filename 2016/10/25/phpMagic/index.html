@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/10/25/phpMagic/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
-<meta property="og:updated_time" content="2016-10-25T11:03:29.165Z">
+<meta property="og:updated_time" content="2016-10-25T11:07:41.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP之十六个魔术方法详解">
 <meta name="twitter:description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
@@ -216,20 +216,10 @@
 <p>你可以通过定义这个函数来启用类的自动加载。<br>在魔术函数 __autoload() 方法出现以前，如果你要在一个程序文件中实例化100个对象，那么你必须用include或者require包含进来100个类文件，或者你把这100个类定义在同一个类文件中 —— 相信这个文件一定会非常大，然后你就痛苦了。</p>
 <p>但是有了 __autoload() 方法，以后就不必为此大伤脑筋了，这个类会在你实例化对象之前自动加载制定的文件。</p>
 <p>还是通过例子来看看吧：</p>
-<p>先看看以往的方式：</p>
-<p>/** </p>
-<ul>
-<li>文件non_autoload.php<br>*/ </li>
-</ul>
-<p>require_once(‘project/class/A.php’);<br>require_once(‘project/class/B.php’);<br>require_once(‘project/class/C.php’);  </p>
-<p>if (条件A) {<br>    $a = new A();<br>    $b = new B();<br>    $c = new C();<br>    // … 业务逻辑<br>} else if (条件B) {<br>    $a = newA();<br>    $b = new B();<br>    // … 业务逻辑<br>}<br>看到了吗？不用100个，只是3个看起来就有点烦了。而且这样就会有一个问题：如果脚本执行“条件B”这个分支时，C.php这个文件其实没有必要包含。因为，任何一个被包含的文件，无论是否使用，均会被php引擎编译。如果不使用，却被编译，这样可以被视作一种资源浪费。更进一步，如果C.php包含了D.php，D.php包含了E.php。并且大部分情况都执行“条件B”分支，那么就会浪费一部分资源去编译C.php,D.php,E.php三个“无用”的文件。</p>
-<p>那么如果使用 __autoload() 方式呢？</p>
-<p>/** </p>
-<ul>
-<li>文件autoload_demo.php<br>*/<br>function  __autoload($className) {<br> $filePath = “project/class/{$className}.php”;<br> if (is_readable($filePath)) {  <pre><code>require($filePath);  
-</code></pre> }<br>}  </li>
-</ul>
-<p>if (条件A) {<br>    $a = new A();<br>    $b = new B();<br>    $c = new C();<br>    // … 业务逻辑<br>} else if (条件B) {<br>    $a = newA();<br>    $b = new B();<br>    // … 业务逻辑<br>}<br>ok,不论效率怎么用，最起码界面看起来舒服多了，没有太多冗余的代。</p>
+<p>先看看以往的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/** </div><div class="line"> * 文件non_autoload.php </div><div class="line"> */ </div><div class="line">   </div><div class="line">require_once(&apos;project/class/A.php&apos;);  </div><div class="line">require_once(&apos;project/class/B.php&apos;);  </div><div class="line">require_once(&apos;project/class/C.php&apos;);  </div><div class="line">   </div><div class="line">if (条件A) &#123;  </div><div class="line">    $a = new A();  </div><div class="line">    $b = new B();  </div><div class="line">    $c = new C();  </div><div class="line">    // … 业务逻辑  </div><div class="line">&#125; else if (条件B) &#123;  </div><div class="line">    $a = newA();  </div><div class="line">    $b = new B();  </div><div class="line">    // … 业务逻辑  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>看到了吗？不用100个，只是3个看起来就有点烦了。<br>而且这样就会有一个问题：如果脚本执行“条件B”这个分支时，C.php这个文件其实没有必要包含。<br>因为，任何一个被包含的文件，无论是否使用，均会被php引擎编译。<br>如果不使用，却被编译，这样可以被视作一种资源浪费。更进一步，如果C.php包含了D.php，D.php包含了E.php。<br>并且大部分情况都执行“条件B”分支，那么就会浪费一部分资源去编译C.php,D.php,E.php三个“无用”的文件。</p>
+<p>那么如果使用 __autoload() 方式呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">/** </div><div class="line"> * 文件autoload_demo.php </div><div class="line"> */ </div><div class="line">function  __autoload($className) &#123;  </div><div class="line">    $filePath = “project/class/&#123;$className&#125;.php”;  </div><div class="line">    if (is_readable($filePath)) &#123;  </div><div class="line">        require($filePath);  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line">   </div><div class="line">if (条件A) &#123;  </div><div class="line">    $a = new A();  </div><div class="line">    $b = new B();  </div><div class="line">    $c = new C();  </div><div class="line">    // … 业务逻辑  </div><div class="line">&#125; else if (条件B) &#123;  </div><div class="line">    $a = newA();  </div><div class="line">    $b = new B();  </div><div class="line">    // … 业务逻辑  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>ok,不论效率怎么用，最起码界面看起来舒服多了，没有太多冗余的代。</p>
 <p>再来看看这里的效率如何，我们分析下：</p>
 <p>当php引擎第一次使用类A，但是找不到时，会自动调用 <strong>autoload 方法，并将类名“A”作为参数传入。所以，我们在 </strong>autoload() 中需要的做的就是根据类名，找到相应的文件，并包含进来，如果我们的方法也找不到，那么php引擎就会报错了。</p>
 <p><em>注意：</em></p>
@@ -243,7 +233,6 @@
 <ul>
 <li><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>以上就是PHP中我了解到的魔术方法了，常用的包括 <strong>set() </strong>get() __autoload() 等应该熟悉，其他的了解也没有关系，毕竟知识不怕多嘛。</li>
 </ul>
-<p>好了，有兴趣的或者我这里没有说明白的，可以参考啊官方文档。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
