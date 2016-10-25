@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://zoulp.github.io/2016/10/25/phpMagic/index.html">
 <meta property="og:site_name" content="Lpeng Zou">
 <meta property="og:description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
-<meta property="og:updated_time" content="2016-10-25T10:37:43.229Z">
+<meta property="og:updated_time" content="2016-10-25T10:44:36.645Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP之十六个魔术方法详解">
 <meta name="twitter:description" content="PHP之十六个魔术方法详解这是摘抄的，不过很好懂对于初级程序员来说可以读一下">
@@ -100,15 +100,22 @@
 <li><strong> Magic methods </strong><br>PHP中把以两个下划线__开头的方法称为魔术方法(Magic methods)，<br>这些方法在PHP中充当了举足轻重的作用。<br>魔术方法包括：</li>
 </ul>
 <blockquote>
-<p><strong>construct()，类的构造函数
-</strong>destruct()，类的析构函数<br><strong>call()，在对象中调用一个不可访问方法时调用
-</strong>callStatic()，用静态方式中调用一个不可访问方法时调用<br><strong>get()，获得一个类的成员变量时调用
-</strong>set()，设置一个类的成员变量时调用<br><strong>isset()，当对不可访问属性调用isset()或empty()时调用
-</strong>unset()，当对不可访问属性调用unset()时被调用。<br><strong>sleep()，执行serialize()时，先会调用这个函数
-</strong>wakeup()，执行unserialize()时，先会调用这个函数<br><strong>toString()，类被当成字符串时的回应方法
-</strong>invoke()，调用函数的方式调用一个对象时的回应方法<br><strong>set_state()，调用var_export()导出类时，此静态方法会被调用。
-</strong>clone()，当对象复制完成时调用<br><strong>autoload()，尝试加载未定义的类
-</strong>debugInfo()，打印所需调试信息</p>
+<p> __construct()，类的构造函数</p>
+<p> __destruct()，类的析构函数</p>
+<p> __call()，在对象中调用一个不可访问方法时调用</p>
+<p> __callStatic()，用静态方式中调用一个不可访问方法时调用</p>
+<p>__get()，获得一个类的成员变量时调用</p>
+<p> __set()，设置一个类的成员变量时调用</p>
+<p> __isset()，当对不可访问属性调用isset()或empty()时调用</p>
+<p> __unset()，当对不可访问属性调用unset()时被调用。</p>
+<p> __sleep()，执行serialize()时，先会调用这个函数</p>
+<p> __wakeup()，执行unserialize()时，先会调用这个函数</p>
+<p> __toString()，类被当成字符串时的回应方法</p>
+<p> __invoke()，调用函数的方式调用一个对象时的回应方法</p>
+<p> __set_state()，调用var_export()导出类时，此静态方法会被调用。</p>
+<p> __clone()，当对象复制完成时调用</p>
+<p> __autoload()，尝试加载未定义的类</p>
+<p> __debugInfo()，打印所需调试信息</p>
 </blockquote>
 <p>范例<br>下面让我们以实例的形式向大家讲解下这几个魔术方法时如何使用的。</p>
 <h2 id="construct-，类的构造函数"><a href="#construct-，类的构造函数" class="headerlink" title="__construct()，类的构造函数"></a>__construct()，类的构造函数</h2><p>php中构造方法是对象创建完成后第一个被对象自动调用的方法。在每个类中都有一个构造方法，如果没有显示地声明它，那么类中都会默认存在一个没有参数且内容为空的构造方法。</p>
